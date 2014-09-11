@@ -32,21 +32,19 @@ import (
 	"net/url"
 )
 
-func New(apiBaseURL string) *GoMusicBrainz {
-
+func New() *GoMusicBrainz {
 	c := GoMusicBrainz{
-		APIBase: apiBaseURL,
+		WSRootURL: "http://musicbrainz.org/ws/2/",
 	}
-
 	return &c
 }
 
 type GoMusicBrainz struct {
-	APIBase string
 }
 
 func (c *GoMusicBrainz) getReqeust(params url.Values, endpoint string) {
 
+	WSRootURL string
 }
 
 func (c *GoMusicBrainz) SearchArtist(query string) ([]Artist, error) {
@@ -57,7 +55,7 @@ func (c *GoMusicBrainz) SearchArtist(query string) ([]Artist, error) {
 		"query": {query},
 	}
 
-	resp, err := http.Get(c.APIBase + endpoint + "?" + params.Encode())
+	resp, err := http.Get(c.WSRootURL + endpoint + "?" + params.Encode())
 	if err != nil {
 		log.Fatal(err)
 	}
