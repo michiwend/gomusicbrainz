@@ -25,17 +25,51 @@
 
 package gomusicbrainz
 
+import (
+	"encoding/xml"
+	"strings"
+	"time"
+)
+
+type BrainzTime struct {
+	time.Time
+}
+
+func (t *BrainzTime) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	var v string
+	var p time.Time
+	var err error
+	d.DecodeElement(&v, &start)
+
+	switch strings.Count(v, "-") {
+	case 0:
+		p, err = time.Parse("2006", v)
+	case 1:
+		p, err = time.Parse("2006-01", v)
+	case 2:
+		p, err = time.Parse("2006-01-02", v)
+	}
+
+	// TODO handle empty fields
+
+	if err != nil {
+		return err
+	}
+	*t = BrainzTime{p}
+	return nil
+}
+
 type Artist struct {
 	Id          string `xml:"id,attr"`
 	Type        string `xml:"type,attr"`
 	Name        string `xml:"name"`
 	SortName    string `xml:"sort-name"`
-	CountryCode string `xml:"country"`
+	CountryCode string `xml:"country"` //ISO_3166-1_alpha-2
 
 	Lifespan struct {
-		Ended bool `xml:"ended"`
-		//	Begin time.Time `xml:"begin"`
-		//	End   time.Time `xml:"end"`
+		Ended bool       `xml:"ended"`
+		Begin BrainzTime `xml:"begin"`
+		End   BrainzTime `xml:"end"`
 	} `xml:"life-span"`
 
 	Aliases []struct {
