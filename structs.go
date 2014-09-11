@@ -85,3 +85,41 @@ type artistSearchRequest struct {
 		Artists []Artist `xml:"artist"`
 	} `xml:"artist-list"`
 }
+
+type LabelInfo struct {
+	CatalogNumber string `xml:"catalog-number"`
+	// TODO implement Label type
+}
+
+type Medium struct {
+	format string `xml:"format"`
+	//DiscList TODO implement type
+	//TrackList TODO implement type
+}
+
+type Release struct {
+	Id     string `xml:"id,attr"`
+	Title  string `xml:"title"`
+	Status string `xml:"status"`
+	//TextRepresentation  TODO implement type
+	ArtistCredit struct {
+		NameCredit struct {
+			Artist Artist `xml:"artist"`
+		} `xml:"name-credit"`
+	} `xml:"artist-credit"`
+	// ReleaseGroup TODO implement type
+	Date        BrainzTime  `xml:"date"`
+	CountryCode string      `xml:"country"`
+	Barcode     string      `xml:"barcode"`
+	Asin        string      `xml:"asin"`
+	LabelInfos  []LabelInfo `xml:"label-info-list>label-info"`
+	Media       []Medium    `xml:"medium-list>medium"`
+}
+
+type releaseSearchRequest struct {
+	ReleaseList struct {
+		Count    int       `xml:"count,attr"`
+		Offset   int       `xml:"offset,attr"`
+		Releases []Release `xml:"release"`
+	} `xml:"release-list"`
+}

@@ -81,4 +81,23 @@ func (c *GoMusicBrainz) SearchArtist(searchterm string, limit int, offset int) (
 	return result.ArtistList.Artists, err
 }
 
+// Queries MusicBrainz' Search Server for Releases.
+// searchTerm follows the Apache Lucene syntax. If no fields were specified the
+// Search Server searches the release field only. For a list of all valid
+// search fields visit
+// https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release
+// limit defines how many entries will be returned by the server (allowed
+// range 1-100, defaults to 25). offset can be used for result pagination.
+func (c *GoMusicBrainz) SearchRelease(searchTerm string, limit int, offset int) ([]Release, error) {
+
+	result := releaseSearchRequest{}
+	endpoint := "release/"
+
+	err := c.getReqeust(&result, url.Values{
+		"query":  {searchTerm},
+		"limit":  {strconv.Itoa(limit)},
+		"offset": {strconv.Itoa(offset)},
+	}, endpoint)
+
+	return result.ReleaseList.Releases, err
 }
