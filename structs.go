@@ -78,7 +78,7 @@ type Artist struct {
 	} `xml:"alias-list"`
 }
 
-type ArtistSearchRequest struct {
+type artistSearchRequest struct {
 	ArtistList struct {
 		Count   int      `xml:"count,attr"`
 		Offset  int      `xml:"offset,attr"`

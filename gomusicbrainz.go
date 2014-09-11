@@ -33,20 +33,20 @@ import (
 	"strconv"
 )
 
-func New() *GoMusicBrainz {
+func NewWS2Client() *GoMusicBrainz {
 	c := GoMusicBrainz{
-		WSRootURL: "http://musicbrainz.org/ws/2/",
+		WS2RootURL: "https://musicbrainz.org/ws/2/",
 	}
 	return &c
 }
 
 type GoMusicBrainz struct {
-	WSRootURL string
+	WS2RootURL string
 }
 
 func (c *GoMusicBrainz) getReqeust(data interface{}, params url.Values, endpoint string) error {
 
-	resp, err := http.Get(c.WSRootURL + endpoint + "?" + params.Encode())
+	resp, err := http.Get(c.WS2RootURL + endpoint + "?" + params.Encode())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -69,15 +69,14 @@ func (c *GoMusicBrainz) getReqeust(data interface{}, params url.Values, endpoint
 // range 1-100, defaults to 25). 'offset' can be used for result pagination.
 func (c *GoMusicBrainz) SearchArtist(searchterm string, limit int, offset int) ([]Artist, error) {
 
-	result := ArtistSearchRequest{}
+	result := artistSearchRequest{}
 	endpoint := "artist/"
 
 	err := c.getReqeust(&result, url.Values{
-		"query":  {searchterm},
+		"query":  {searchTerm},
 		"limit":  {strconv.Itoa(limit)},
 		"offset": {strconv.Itoa(offset)},
 	}, endpoint)
-
 
 	return result.ArtistList.Artists, err
 }
