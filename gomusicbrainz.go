@@ -61,13 +61,13 @@ func (c *GoMusicBrainz) getReqeust(data interface{}, params url.Values, endpoint
 }
 
 // Queries MusicBrainz' Search Server for Artists.
-// If no fields are specified in 'searchterm', Search Server searches for the
-// artist, sortname and alias fields by default. 'searchterm' follows the
-// Apache Lucene syntax. For details visit
+// searchTerm follows the Apache Lucene syntax. If no fields were specified the
+// Search Server searches for searchTerm in any of the fields artist, sortname
+// and alias. For a list of all valid search fields visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Artist
-// 'limit' defines how many entries will be returned by the server (allowed
-// range 1-100, defaults to 25). 'offset' can be used for result pagination.
-func (c *GoMusicBrainz) SearchArtist(searchterm string, limit int, offset int) ([]Artist, error) {
+// limit defines how many entries will be returned by the server (allowed
+// range 1-100, defaults to 25). offset can be used for result pagination.
+func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) ([]Artist, error) {
 
 	result := artistSearchRequest{}
 	endpoint := "artist/"
