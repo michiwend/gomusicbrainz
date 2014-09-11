@@ -30,6 +30,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strconv"
 )
 
 func New() *GoMusicBrainz {
@@ -40,20 +41,10 @@ func New() *GoMusicBrainz {
 }
 
 type GoMusicBrainz struct {
-}
-
-func (c *GoMusicBrainz) getReqeust(params url.Values, endpoint string) {
-
 	WSRootURL string
 }
 
-func (c *GoMusicBrainz) SearchArtist(query string) ([]Artist, error) {
-
-	endpoint := "artist/"
-
-	params := url.Values{
-		"query": {query},
-	}
+func (c *GoMusicBrainz) getReqeust(data interface{}, params url.Values, endpoint string) error {
 
 	resp, err := http.Get(c.WSRootURL + endpoint + "?" + params.Encode())
 	if err != nil {
@@ -63,10 +54,24 @@ func (c *GoMusicBrainz) SearchArtist(query string) ([]Artist, error) {
 
 	decoder := xml.NewDecoder(resp.Body)
 
-	var result ArtistSearchRequest
-	if err = decoder.Decode(&result); err != nil {
-		return []Artist{}, err
+	if err = decoder.Decode(data); err != nil {
+		return err
 	}
+	return nil
+}
+func (c *GoMusicBrainz) SearchArtist(searchterm string, limit int, offset int) ([]Artist, error) {
 
-	return result.ArtistList.Artists, nil
+	result := ArtistSearchRequest{}
+	endpoint := "artist/"
+
+	err := c.getReqeust(&result, url.Values{
+		"query":  {searchterm},
+		"limit":  {strconv.Itoa(limit)},
+		"offset": {strconv.Itoa(offset)},
+	}, endpoint)
+
+
+	return result.ArtistList.Artists, err
+}
+
 }
