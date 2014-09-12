@@ -67,6 +67,8 @@ type Lifespan struct {
 	End   BrainzTime `xml:"end"`
 }
 
+// Alias is a common type for aliases/misspellings of artists, works, areas,
+// labels and places.
 type Alias struct {
 	Name     string `xml:",chardata"`
 	SortName string `xml:"sort-name,attr"`

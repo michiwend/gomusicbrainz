@@ -41,6 +41,7 @@ var (
 	client GoMusicBrainz
 )
 
+// Init multiplexer and httptest server
 func setup() {
 	mux = http.NewServeMux()
 	server = httptest.NewServer(mux)
@@ -49,6 +50,7 @@ func setup() {
 	client = GoMusicBrainz{WS2RootURL: host}
 }
 
+// The handleFunc simply passes response to the http client.
 func handleFunc(url string, response *string, t *testing.T) {
 	mux.HandleFunc(url, func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, *response)

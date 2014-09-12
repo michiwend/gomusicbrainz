@@ -36,6 +36,8 @@ import (
 	"strconv"
 )
 
+// NewWS2Client creates a new instance of GoMusicBrainz WS2 client with default
+// values.
 func NewWS2Client() *GoMusicBrainz {
 	c := GoMusicBrainz{}
 	c.WS2RootURL, _ = url.Parse("https://musicbrainz.org/ws/2")
