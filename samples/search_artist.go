@@ -22,6 +22,7 @@
  * 	Authors:
  * 		Michael Wendland <michael@michiwend.com>
  */
+
 package main
 
 import (
@@ -35,10 +36,10 @@ func main() {
 	// create a new WS2 client
 	client := gomusicbrainz.NewWS2Client()
 	// Search for some artist
-	artists, _ := client.SearchArtist("bonobo", -1, -1)
+	artists, _ := client.SearchArtist(`bonobo OR "Parov Stelar"`, -1, -1)
 
 	// Pretty print Name and Id of each returned artist.
 	for _, artist := range artists {
-		fmt.Printf("Name: %-20s ID: %s\n", artist.Name, artist.Id)
+		fmt.Printf("Name: %-25s ID: %s\n", artist.Name, artist.Id)
 	}
 }
