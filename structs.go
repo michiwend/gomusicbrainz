@@ -61,23 +61,25 @@ func (t *BrainzTime) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 	return nil
 }
 
+type Lifespan struct {
+	Ended bool       `xml:"ended"`
+	Begin BrainzTime `xml:"begin"`
+	End   BrainzTime `xml:"end"`
+}
+
+type Aliases []struct {
+	Name     string `xml:",chardata"`
+	SortName string `xml:"sort-name,attr"`
+}
+
 type Artist struct {
-	Id          string `xml:"id,attr"`
-	Type        string `xml:"type,attr"`
-	Name        string `xml:"name"`
-	SortName    string `xml:"sort-name"`
-	CountryCode string `xml:"country"` //ISO_3166-1_alpha-2
-
-	Lifespan struct {
-		Ended bool       `xml:"ended"`
-		Begin BrainzTime `xml:"begin"`
-		End   BrainzTime `xml:"end"`
-	} `xml:"life-span"`
-
-	Aliases []struct {
-		Name     string `xml:",chardata"`
-		SortName string `xml:"sort-name,attr"`
-	} `xml:"alias-list"`
+	Id          string   `xml:"id,attr"`
+	Type        string   `xml:"type,attr"`
+	Name        string   `xml:"name"`
+	SortName    string   `xml:"sort-name"`
+	CountryCode string   `xml:"country"` //ISO_3166-1_alpha-2
+	Lifespan    Lifespan `xml:"life-span"`
+	Aliases     Aliases  `xml:"alias-list>alias"`
 }
 
 type artistSearchRequest struct {
