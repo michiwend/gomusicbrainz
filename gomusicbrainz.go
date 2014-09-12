@@ -48,9 +48,20 @@ type GoMusicBrainz struct {
 
 func (c *GoMusicBrainz) getReqeust(data interface{}, params url.Values, endpoint string) error {
 
-	resp, err := http.Get(c.WS2RootURL.String() + endpoint + "?" + params.Encode())
+	client := &http.Client{}
+
+	req, err := http.NewRequest("GET", c.WS2RootURL.String()+endpoint+"?"+params.Encode(), nil)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalln(err)
+	}
+
+	// set user-agent as described on this page:
+	// https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
+	req.Header.Set("User-Agent", "GoMusicBrainz - a Golang WS2 client/0.0.1-beta ( https://github.com/michiwend/gomusicbrainz )")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatalln(err)
 	}
 	defer resp.Body.Close()
 
