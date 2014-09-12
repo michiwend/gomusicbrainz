@@ -1,28 +1,31 @@
 /*
- *	Copyright (c) 2014 Michael Wendland
+ * Copyright (c) 2014 Michael Wendland
  *
- *	Permission is hereby granted, free of charge, to any person obtaining a
- *	copy of this software and associated documentation files (the "Software"),
- *	to deal in the Software without restriction, including without limitation
- *	the rights to use, copy, modify, merge, publish, distribute, sublicense,
- *	and/or sell copies of the Software, and to permit persons to whom the
- *	Software is furnished to do so, subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
  *
- *	The above copyright notice and this permission notice shall be included in
- *	all copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- *	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- *	FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- *	IN THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
  *
- *	Authors:
- *		Michael Wendland <michael@michiwend.com>
+ * 	Authors:
+ * 		Michael Wendland <michael@michiwend.com>
  */
 
+/*
+Package gomusicbrainz implements a MusicBrainz WS2 client library.
+*/
 package gomusicbrainz
 
 import (
@@ -60,7 +63,7 @@ func (c *GoMusicBrainz) getReqeust(data interface{}, params url.Values, endpoint
 	return nil
 }
 
-// Queries MusicBrainz' Search Server for Artists.
+// SearchArtist queries MusicBrainz' Search Server for Artists.
 // searchTerm follows the Apache Lucene syntax. If no fields were specified the
 // Search Server searches for searchTerm in any of the fields artist, sortname
 // and alias. For a list of all valid search fields visit
@@ -81,7 +84,7 @@ func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) (
 	return result.ArtistList.Artists, err
 }
 
-// Queries MusicBrainz' Search Server for Releases.
+// SearchRelease queries MusicBrainz' Search Server for Releases.
 // searchTerm follows the Apache Lucene syntax. If no fields were specified the
 // Search Server searches the release field only. For a list of all valid
 // search fields visit
