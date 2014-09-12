@@ -80,7 +80,11 @@ func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) (
 		"offset": {strconv.Itoa(offset)},
 	}, endpoint)
 
-	return result.ArtistList.Artists, err
+	if err != nil {
+		return []Artist{}, err
+	}
+
+	return result.ArtistList.Artists, nil
 }
 
 // SearchRelease queries MusicBrainz' Search Server for Releases.
@@ -101,5 +105,9 @@ func (c *GoMusicBrainz) SearchRelease(searchTerm string, limit int, offset int) 
 		"offset": {strconv.Itoa(offset)},
 	}, endpoint)
 
-	return result.ReleaseList.Releases, err
+	if err != nil {
+		return []Release{}, err
+	}
+
+	return result.ReleaseList.Releases, nil
 }
