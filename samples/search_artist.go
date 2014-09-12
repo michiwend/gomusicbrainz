@@ -37,8 +37,8 @@ func main() {
 	// Search for some artist
 	artists, _ := client.SearchArtist("bonobo", -1, -1)
 
-	// print Name and Id of each returned artist
+	// Pretty print Name and Id of each returned artist.
 	for _, artist := range artists {
-		fmt.Printf("Name: %s, ID: %s\n", artist.Name, artist.Id)
+		fmt.Printf("Name: %-20s ID: %s\n", artist.Name, artist.Id)
 	}
 }
