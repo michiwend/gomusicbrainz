@@ -72,7 +72,7 @@ func (c *GoMusicBrainz) getReqeust(data interface{}, params url.Values, endpoint
 func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) ([]Artist, error) {
 
 	result := artistSearchRequest{}
-	endpoint := "artist/"
+	endpoint := "/artist"
 
 	err := c.getReqeust(&result, url.Values{
 		"query":  {searchTerm},
@@ -93,7 +93,7 @@ func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) (
 func (c *GoMusicBrainz) SearchRelease(searchTerm string, limit int, offset int) ([]Release, error) {
 
 	result := releaseSearchRequest{}
-	endpoint := "release/"
+	endpoint := "/release"
 
 	err := c.getReqeust(&result, url.Values{
 		"query":  {searchTerm},
