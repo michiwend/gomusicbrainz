@@ -109,7 +109,7 @@ func TestSearchArtist(t *testing.T) {
 				Begin: BrainzTime{time.Date(2007, 9, 21, 0, 0, 0, 0, time.UTC)},
 				End:   BrainzTime{time.Time{}},
 			},
-			Aliases: Aliases{
+			Aliases: []Alias{
 				{
 					Name:     "Mr. Gopher and Friends",
 					SortName: "0Mr. Gopher and Friends",

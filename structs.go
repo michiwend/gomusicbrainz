@@ -67,7 +67,7 @@ type Lifespan struct {
 	End   BrainzTime `xml:"end"`
 }
 
-type Aliases []struct {
+type Alias struct {
 	Name     string `xml:",chardata"`
 	SortName string `xml:"sort-name,attr"`
 }
@@ -79,7 +79,7 @@ type Artist struct {
 	SortName    string   `xml:"sort-name"`
 	CountryCode string   `xml:"country"` //ISO_3166-1_alpha-2
 	Lifespan    Lifespan `xml:"life-span"`
-	Aliases     Aliases  `xml:"alias-list>alias"`
+	Aliases     []Alias  `xml:"alias-list>alias"`
 }
 
 type artistSearchRequest struct {
