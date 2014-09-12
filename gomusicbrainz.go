@@ -37,19 +37,18 @@ import (
 )
 
 func NewWS2Client() *GoMusicBrainz {
-	c := GoMusicBrainz{
-		WS2RootURL: "https://musicbrainz.org/ws/2/",
-	}
+	c := GoMusicBrainz{}
+	c.WS2RootURL, _ = url.Parse("https://musicbrainz.org/ws/2")
 	return &c
 }
 
 type GoMusicBrainz struct {
-	WS2RootURL string
+	WS2RootURL *url.URL
 }
 
 func (c *GoMusicBrainz) getReqeust(data interface{}, params url.Values, endpoint string) error {
 
-	resp, err := http.Get(c.WS2RootURL + endpoint + "?" + params.Encode())
+	resp, err := http.Get(c.WS2RootURL.String() + endpoint + "?" + params.Encode())
 	if err != nil {
 		log.Fatal(err)
 	}
