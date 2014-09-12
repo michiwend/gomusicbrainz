@@ -90,34 +90,52 @@ type artistSearchRequest struct {
 	} `xml:"artist-list"`
 }
 
+type Label struct {
+	Name string `xml:"name"`
+}
+
 type LabelInfo struct {
 	CatalogNumber string `xml:"catalog-number"`
-	// TODO implement Label type
+	Label         Label  `xml:"label"`
 }
 
 type Medium struct {
-	format string `xml:"format"`
+	Format string `xml:"format"`
 	//DiscList TODO implement type
 	//TrackList TODO implement type
 }
 
+type TextRepresentation struct {
+	Language string `xml:"language"`
+	Script   string `xml:"script"`
+}
+
+type ArtistCredit struct {
+	NameCredit NameCredit `xml:"name-credit"`
+}
+
+type NameCredit struct {
+	Artist Artist `xml:"artist"`
+}
+
+type ReleaseGroup struct {
+	Type string `xml:"type,attr"`
+}
+
 type Release struct {
-	Id     string `xml:"id,attr"`
-	Title  string `xml:"title"`
-	Status string `xml:"status"`
-	//TextRepresentation  TODO implement type
-	ArtistCredit struct {
-		NameCredit struct {
-			Artist Artist `xml:"artist"`
-		} `xml:"name-credit"`
-	} `xml:"artist-credit"`
-	// ReleaseGroup TODO implement type
-	Date        BrainzTime  `xml:"date"`
-	CountryCode string      `xml:"country"`
-	Barcode     string      `xml:"barcode"`
-	Asin        string      `xml:"asin"`
-	LabelInfos  []LabelInfo `xml:"label-info-list>label-info"`
-	Media       []Medium    `xml:"medium-list>medium"`
+	Id                 string             `xml:"id,attr"`
+	Title              string             `xml:"title"`
+	Status             string             `xml:"status"`
+	Disambiguation     string             `xml:"disambiguation"`
+	TextRepresentation TextRepresentation `xml:"text-representation"`
+	ArtistCredit       ArtistCredit       `xml:"artist-credit"`
+	ReleaseGroup       ReleaseGroup       `xml:"release-group"`
+	Date               BrainzTime         `xml:"date"`
+	CountryCode        string             `xml:"country"`
+	Barcode            string             `xml:"barcode"`
+	Asin               string             `xml:"asin"`
+	LabelInfos         []LabelInfo        `xml:"label-info-list>label-info"`
+	Mediums            []Medium           `xml:"medium-list>medium"`
 }
 
 type releaseSearchRequest struct {
