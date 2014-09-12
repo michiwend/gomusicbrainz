@@ -1,7 +1,7 @@
 gomusicbrainz
 =============
 
-a Go (Golang) MusicBrainz WS2 client library - work in progress
+a Go (Golang) MusicBrainz WS2 client library - work in progress. [![Build Status](https://travis-ci.org/michiwend/gomusicbrainz.svg?branch=master)](https://travis-ci.org/michiwend/gomusicbrainz)
 
 ![gopherbrainz Oo](misc/gopherbrainz.png)
 
