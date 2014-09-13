@@ -112,7 +112,7 @@ func TestSearchArtist(t *testing.T) {
 		t.Error(err)
 	}
 	if !reflect.DeepEqual(*returned, want) {
-		t.Errorf("Artists returned: %+v, want: %+v", returned, want)
+		t.Errorf("Artists returned: %+v, want: %+v", *returned, want)
 	}
 }
 
@@ -168,7 +168,7 @@ func TestSearchRelease(t *testing.T) {
 		t.Error(err)
 	}
 	if !reflect.DeepEqual(*returned, want) {
-		t.Errorf("Releases returned: %+v, want: %+v", returned, want)
+		t.Errorf("Releases returned: %+v, want: %+v", *returned, want)
 	}
 }
 
@@ -208,6 +208,6 @@ func TestSearchReleaseGroup(t *testing.T) {
 		t.Error(err)
 	}
 	if !reflect.DeepEqual(*returned, want) {
-		t.Errorf("ReleaseGroups returned: %+v, want: %+v", returned, want)
+		t.Errorf("ReleaseGroups returned: %+v, want: %+v", *returned, want)
 	}
 }
