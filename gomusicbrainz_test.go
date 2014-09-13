@@ -211,3 +211,29 @@ func TestSearchReleaseGroup(t *testing.T) {
 		t.Errorf("ReleaseGroups returned: %+v, want: %+v", *returned, want)
 	}
 }
+
+func TestSearchTag(t *testing.T) {
+
+	want := []Tag{
+		{
+			Name:  "shoegaze",
+			Score: 100,
+		},
+		{
+			Name:  "rock shoegaze",
+			Score: 62,
+		},
+	}
+
+	setupHttpTesting()
+	defer server.Close()
+	serveTestFile("/tag", "SearchTag.xml", t)
+
+	returned, err := client.SearchTag("shoegaze", -1, -1)
+	if err != nil {
+		t.Error(err)
+	}
+	if !reflect.DeepEqual(*returned, want) {
+		t.Errorf("Tags returned: %+v, want: %+v", *returned, want)
+	}
+}

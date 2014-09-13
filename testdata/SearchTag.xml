@@ -1,0 +1,10 @@
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ext="http://musicbrainz.org/ns/ext#-2.0">
+    <tag-list count="2" offset="0">
+        <tag ext:score="100">
+            <name>shoegaze</name>
+        </tag>
+        <tag ext:score="62">
+            <name>rock shoegaze</name>
+        </tag>
+    </tag-list>
+</metadata>

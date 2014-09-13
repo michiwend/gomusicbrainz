@@ -74,6 +74,22 @@ type Alias struct {
 	SortName string `xml:"sort-name,attr"`
 }
 
+// Tag is the common type for Tags.
+type Tag struct {
+	Count int    `xml:"count,attr"`
+	Name  string `xml:"name"`
+	Score int    `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
+}
+
+// tagSearchRequest is used for unmarshaling xml only.
+type tagSearchRequest struct {
+	TagList struct {
+		Count  int   `xml:"count,attr"`
+		Offset int   `xml:"offset,attr"`
+		Tags   []Tag `xml:"tag"`
+	} `xml:"tag-list"`
+}
+
 type Artist struct {
 	Id             string   `xml:"id,attr"`
 	Type           string   `xml:"type,attr"`
