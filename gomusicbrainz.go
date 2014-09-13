@@ -162,7 +162,7 @@ func (c *GoMusicBrainz) SearchReleaseGroup(searchTerm string, limit int, offset 
 // SearchTag queries MusicBrainz' Search Server for Tags.
 // searchTerm follows the Apache Lucene syntax. The Tag index contains only the
 // tag field. For more information visit
-// https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release_Group
+// https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Tag
 // limit defines how many entries will be returned by the server (allowed
 // range 1-100, defaults to 25). offset can be used for result pagination. -1
 // can be set for both limit and offset to use the default values.
