@@ -17,6 +17,14 @@
                       <title>Main Tenance</title>
                   </release>
               </release-list>
+              <tag-list count="2">
+                  <tag count="1">
+                      <name>electronic</name>
+                  </tag>
+                  <tag count="1">
+                      <name>electronica</name>
+                  </tag>
+              </tag-list>
           </release-group>
     </release-group-list>
 </metadata>

@@ -170,6 +170,7 @@ type ReleaseGroup struct {
 	Title        string       `xml:"title"`
 	ArtistCredit ArtistCredit `xml:"artist-credit"`
 	Releases     []Release    `xml:"release-list>release"` // FIXME if important unmarshal count,attr
+	Tags         []Tag        `xml:"tag-list>tag"`
 }
 
 // releaseGroupSearchRequest is used for unmarshaling xml only.

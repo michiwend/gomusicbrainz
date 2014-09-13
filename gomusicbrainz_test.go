@@ -196,6 +196,16 @@ func TestSearchReleaseGroup(t *testing.T) {
 					Title: "Main Tenance",
 				},
 			},
+			Tags: []Tag{
+				{
+					Count: 1,
+					Name:  "electronic",
+				},
+				{
+					Count: 1,
+					Name:  "electronica",
+				},
+			},
 		},
 	}
 
