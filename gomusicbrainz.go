@@ -91,7 +91,7 @@ func intParamToString(i int) string {
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Artist
 // limit defines how many entries will be returned by the server (allowed
 // range 1-100, defaults to 25). offset can be used for result pagination.
-func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) ([]Artist, error) {
+func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) (*[]Artist, error) {
 
 	result := artistSearchRequest{}
 	endpoint := "/artist"
@@ -102,10 +102,10 @@ func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) (
 	}
 
 	if err := c.getReqeust(&result, params, endpoint); err != nil {
-		return []Artist{}, err
+		return nil, err
 	}
 
-	return result.ArtistList.Artists, nil
+	return &result.ArtistList.Artists, nil
 }
 
 // SearchRelease queries MusicBrainz' Search Server for Releases.
@@ -115,7 +115,7 @@ func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) (
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release
 // limit defines how many entries will be returned by the server (allowed
 // range 1-100, defaults to 25). offset can be used for result pagination.
-func (c *GoMusicBrainz) SearchRelease(searchTerm string, limit int, offset int) ([]Release, error) {
+func (c *GoMusicBrainz) SearchRelease(searchTerm string, limit int, offset int) (*[]Release, error) {
 
 	result := releaseSearchRequest{}
 	endpoint := "/release"
@@ -126,8 +126,8 @@ func (c *GoMusicBrainz) SearchRelease(searchTerm string, limit int, offset int) 
 	}
 
 	if err := c.getReqeust(&result, params, endpoint); err != nil {
-		return []Release{}, err
+		return nil, err
 	}
 
-	return result.ReleaseList.Releases, nil
+	return &result.ReleaseList.Releases, nil
 }

@@ -39,7 +39,7 @@ func main() {
 	artists, _ := client.SearchArtist(`bonobo OR "Parov Stelar"`, -1, -1)
 
 	// Pretty print Name and Id of each returned artist.
-	for _, artist := range artists {
+	for _, artist := range *artists {
 		fmt.Printf("Name: %-25s ID: %s\n", artist.Name, artist.Id)
 	}
 }
