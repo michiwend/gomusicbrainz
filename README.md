@@ -5,6 +5,10 @@ a Go (Golang) MusicBrainz WS2 client library - work in progress. [![Build Status
 
 ![gopherbrainz Oo](misc/gopherbrainz.png)
 
+## Current state
+Currently only search requests are supported. Browse and lookup requests will
+follow as soon as all search requests are covered.
+
 ## Example usage
 This simple example requests all artist matching "bonobo" or "Parov Stelar"
 ```Go
