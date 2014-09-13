@@ -122,10 +122,6 @@ type NameCredit struct {
 	Artist Artist `xml:"artist"`
 }
 
-type ReleaseGroup struct {
-	Type string `xml:"type,attr"`
-}
-
 type Release struct {
 	Id                 string             `xml:"id,attr"`
 	Title              string             `xml:"title"`
@@ -149,4 +145,22 @@ type releaseSearchRequest struct {
 		Offset   int       `xml:"offset,attr"`
 		Releases []Release `xml:"release"`
 	} `xml:"release-list"`
+}
+
+type ReleaseGroup struct {
+	Id           string       `xml:"id,attr"`
+	Type         string       `xml:"type,attr"`
+	PrimaryType  string       `xml:"primary-type"`
+	Title        string       `xml:"title"`
+	ArtistCredit ArtistCredit `xml:"artist-credit"`
+	Releases     []Release    `xml:"release-list>release"` // FIXME if important unmarshal count,attr
+}
+
+// releaseGroupSearchRequest is used for unmarshaling xml only.
+type releaseGroupSearchRequest struct {
+	ReleaseGroupList struct {
+		Count         int            `xml:"count,attr"`
+		Offset        int            `xml:"offset,attr"`
+		ReleaseGroups []ReleaseGroup `xml:"release-group"`
+	} `xml:"release-group-list"`
 }

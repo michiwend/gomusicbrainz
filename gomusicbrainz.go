@@ -133,3 +133,28 @@ func (c *GoMusicBrainz) SearchRelease(searchTerm string, limit int, offset int) 
 
 	return &result.ReleaseList.Releases, nil
 }
+
+// SearchReleaseGroup queries MusicBrainz' Search Server for ReleaseGroups.
+// searchTerm follows the Apache Lucene syntax. If no fields were specified the
+// Search Server searches the releasegroup field only. For a list of all valid
+// search fields visit
+// https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release_Group
+// limit defines how many entries will be returned by the server (allowed
+// range 1-100, defaults to 25). offset can be used for result pagination. -1
+// can be set for both limit and offset to use the default values.
+func (c *GoMusicBrainz) SearchReleaseGroup(searchTerm string, limit int, offset int) (*[]ReleaseGroup, error) {
+
+	result := releaseGroupSearchRequest{}
+	endpoint := "/release-group"
+	params := url.Values{
+		"query":  {searchTerm},
+		"limit":  {intParamToString(limit)},
+		"offset": {intParamToString(offset)},
+	}
+
+	if err := c.getReqeust(&result, params, endpoint); err != nil {
+		return nil, err
+	}
+
+	return &result.ReleaseGroupList.ReleaseGroups, nil
+}
