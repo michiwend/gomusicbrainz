@@ -171,3 +171,43 @@ func TestSearchRelease(t *testing.T) {
 		t.Errorf("Releases returned: %+v, want: %+v", returned, want)
 	}
 }
+
+func TestSearchReleaseGroup(t *testing.T) {
+
+	want := []ReleaseGroup{
+		{
+			Id:          "70664047-2545-4e46-b75f-4556f2a7b83e",
+			Type:        "Single",
+			Title:       "Main Tenance",
+			PrimaryType: "Single",
+			ArtistCredit: ArtistCredit{
+				NameCredit{
+					Artist{
+						Id:             "a8fa58d8-f60b-4b83-be7c-aea1af11596b",
+						Name:           "Fred Giannelli",
+						SortName:       "Giannelli, Fred",
+						Disambiguation: "US electronic artist",
+					},
+				},
+			},
+			Releases: []Release{
+				{
+					Id:    "9168f4cc-a852-4ba5-bf85-602996625651",
+					Title: "Main Tenance",
+				},
+			},
+		},
+	}
+
+	setupHttpTesting()
+	defer server.Close()
+	serveTestFile("/release-group", "SearchReleaseGroup.xml", t)
+
+	returned, err := client.SearchReleaseGroup("Tenance", -1, -1)
+	if err != nil {
+		t.Error(err)
+	}
+	if !reflect.DeepEqual(*returned, want) {
+		t.Errorf("ReleaseGroups returned: %+v, want: %+v", returned, want)
+	}
+}
