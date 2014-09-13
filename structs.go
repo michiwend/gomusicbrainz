@@ -31,8 +31,8 @@ import (
 	"time"
 )
 
-// BrainzTime implements XMLUnmarshaler interface and is used to unmarshal date
-// fields of WS2 responses.
+// BrainzTime implements XMLUnmarshaler interface and is used to unmarshal the
+// xml date fields.
 type BrainzTime struct {
 	time.Time
 }
@@ -79,11 +79,12 @@ type Artist struct {
 	Type        string   `xml:"type,attr"`
 	Name        string   `xml:"name"`
 	SortName    string   `xml:"sort-name"`
-	CountryCode string   `xml:"country"` //ISO_3166-1_alpha-2
+	CountryCode string   `xml:"country"`
 	Lifespan    Lifespan `xml:"life-span"`
 	Aliases     []Alias  `xml:"alias-list>alias"`
 }
 
+// artistSearchRequest is used for unmarshaling xml only.
 type artistSearchRequest struct {
 	ArtistList struct {
 		Count   int      `xml:"count,attr"`
@@ -140,6 +141,7 @@ type Release struct {
 	Mediums            []Medium           `xml:"medium-list>medium"`
 }
 
+// releaseSearchRequest is used for unmarshaling xml only.
 type releaseSearchRequest struct {
 	ReleaseList struct {
 		Count    int       `xml:"count,attr"`

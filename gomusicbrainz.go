@@ -90,7 +90,8 @@ func intParamToString(i int) string {
 // and alias. For a list of all valid search fields visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Artist
 // limit defines how many entries will be returned by the server (allowed
-// range 1-100, defaults to 25). offset can be used for result pagination.
+// range 1-100, defaults to 25). offset can be used for result pagination. -1
+// can be set for both limit and offset to use the default values.
 func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) (*[]Artist, error) {
 
 	result := artistSearchRequest{}
@@ -114,7 +115,8 @@ func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) (
 // search fields visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release
 // limit defines how many entries will be returned by the server (allowed
-// range 1-100, defaults to 25). offset can be used for result pagination.
+// range 1-100, defaults to 25). offset can be used for result pagination. -1
+// can be set for both limit and offset to use the default values.
 func (c *GoMusicBrainz) SearchRelease(searchTerm string, limit int, offset int) (*[]Release, error) {
 
 	result := releaseSearchRequest{}
