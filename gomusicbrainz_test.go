@@ -42,7 +42,7 @@ var (
 )
 
 // Init multiplexer and httptest server
-func setup() {
+func setupHttpTesting() {
 	mux = http.NewServeMux()
 	server = httptest.NewServer(mux)
 
@@ -57,11 +57,21 @@ func handleFunc(url string, response *string, t *testing.T) {
 	})
 }
 
-// serveTestFile responses to the http client with content of a file located
-// in ./testdata
-func serveTestFile(url string, file string, t *testing.T) {
+// serveTestFile responses to the http client with content of a test file
+// located in ./testdata
+func serveTestFile(url string, testfile string, t *testing.T) {
+
+	//TODO check request URL if it matches one of the following patterns
+	//lookup:   /<ENTITY>/<MBID>?inc=<INC>
+	//browse:   /<ENTITY>?<ENTITY>=<MBID>&limit=<LIMIT>&offset=<OFFSET>&inc=<INC>
+	//search:   /<ENTITY>?query=<QUERY>&limit=<LIMIT>&offset=<OFFSET>
+
 	mux.HandleFunc(url, func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./testdata/"+file)
+		if testing.Verbose() {
+			fmt.Println("GET request:", r.URL.String())
+		}
+
+		http.ServeFile(w, r, "./testdata/"+testfile)
 	})
 }
 
@@ -92,11 +102,11 @@ func TestSearchArtist(t *testing.T) {
 		},
 	}
 
-	setup()
+	setupHttpTesting()
 	defer server.Close()
 	serveTestFile("/artist", "SearchArtist.xml", t)
 
-	returned, err := client.SearchArtist("", -1, -1)
+	returned, err := client.SearchArtist("Gopher", -1, -1)
 	if err != nil {
 		t.Error(err)
 	}
@@ -148,11 +158,11 @@ func TestSearchRelease(t *testing.T) {
 		},
 	}
 
-	setup()
+	setupHttpTesting()
 	defer server.Close()
 	serveTestFile("/release", "SearchRelease.xml", t)
 
-	returned, err := client.SearchRelease("", -1, -1)
+	returned, err := client.SearchRelease("Fred", -1, -1)
 	if err != nil {
 		t.Error(err)
 	}
