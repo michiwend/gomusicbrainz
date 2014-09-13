@@ -75,6 +75,15 @@ func (c *GoMusicBrainz) getReqeust(data interface{}, params url.Values, endpoint
 	return nil
 }
 
+// intParamToString returns an empty string for -1.
+func intParamToString(i int) string {
+	if i == -1 {
+		return ""
+	} else {
+		return strconv.Itoa(i)
+	}
+}
+
 // SearchArtist queries MusicBrainz' Search Server for Artists.
 // searchTerm follows the Apache Lucene syntax. If no fields were specified the
 // Search Server searches for searchTerm in any of the fields artist, sortname
@@ -86,14 +95,13 @@ func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) (
 
 	result := artistSearchRequest{}
 	endpoint := "/artist"
-
-	err := c.getReqeust(&result, url.Values{
+	params := url.Values{
 		"query":  {searchTerm},
-		"limit":  {strconv.Itoa(limit)},
-		"offset": {strconv.Itoa(offset)},
-	}, endpoint)
+		"limit":  {intParamToString(limit)},
+		"offset": {intParamToString(offset)},
+	}
 
-	if err != nil {
+	if err := c.getReqeust(&result, params, endpoint); err != nil {
 		return []Artist{}, err
 	}
 
@@ -111,14 +119,13 @@ func (c *GoMusicBrainz) SearchRelease(searchTerm string, limit int, offset int) 
 
 	result := releaseSearchRequest{}
 	endpoint := "/release"
-
-	err := c.getReqeust(&result, url.Values{
+	params := url.Values{
 		"query":  {searchTerm},
-		"limit":  {strconv.Itoa(limit)},
-		"offset": {strconv.Itoa(offset)},
-	}, endpoint)
+		"limit":  {intParamToString(limit)},
+		"offset": {intParamToString(offset)},
+	}
 
-	if err != nil {
+	if err := c.getReqeust(&result, params, endpoint); err != nil {
 		return []Release{}, err
 	}
 
