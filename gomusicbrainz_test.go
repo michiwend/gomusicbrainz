@@ -79,11 +79,12 @@ func TestSearchArtist(t *testing.T) {
 
 	want := []Artist{
 		{
-			Id:          "some-artist-id",
-			Type:        "Group",
-			Name:        "Gopher And Friends",
-			SortName:    "0Gopher And Friends",
-			CountryCode: "DE",
+			Id:             "some-artist-id",
+			Type:           "Group",
+			Name:           "Gopher And Friends",
+			Disambiguation: "Some crazy pocket gophers",
+			SortName:       "0Gopher And Friends",
+			CountryCode:    "DE",
 			Lifespan: Lifespan{
 				Ended: false,
 				Begin: BrainzTime{time.Date(2007, 9, 21, 0, 0, 0, 0, time.UTC)},

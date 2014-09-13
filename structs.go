@@ -75,13 +75,14 @@ type Alias struct {
 }
 
 type Artist struct {
-	Id          string   `xml:"id,attr"`
-	Type        string   `xml:"type,attr"`
-	Name        string   `xml:"name"`
-	SortName    string   `xml:"sort-name"`
-	CountryCode string   `xml:"country"`
-	Lifespan    Lifespan `xml:"life-span"`
-	Aliases     []Alias  `xml:"alias-list>alias"`
+	Id             string   `xml:"id,attr"`
+	Type           string   `xml:"type,attr"`
+	Name           string   `xml:"name"`
+	Disambiguation string   `xml:"disambiguation"`
+	SortName       string   `xml:"sort-name"`
+	CountryCode    string   `xml:"country"`
+	Lifespan       Lifespan `xml:"life-span"`
+	Aliases        []Alias  `xml:"alias-list>alias"`
 }
 
 // artistSearchRequest is used for unmarshaling xml only.
