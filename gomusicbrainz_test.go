@@ -50,54 +50,22 @@ func setup() {
 	client = GoMusicBrainz{WS2RootURL: host}
 }
 
-// The handleFunc simply passes response to the http client.
+// handleFunc passes response to the http client.
 func handleFunc(url string, response *string, t *testing.T) {
 	mux.HandleFunc(url, func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, *response)
 	})
 }
 
+// serveTestFile responses to the http client with content of a file located
+// in ./testdata
+func serveTestFile(url string, file string, t *testing.T) {
+	mux.HandleFunc(url, func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./testdata/"+file)
+	})
+}
+
 func TestSearchArtist(t *testing.T) {
-
-	setup()
-	defer server.Close()
-
-	response := `
-		<?xml version="1.0" standalone="yes"?>
-		<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ext="http://musicbrainz.org/ns/ext#-2.0" created="2014-09-12T06:31:24.904Z">
-			<artist-list count="1" offset="0">
-				<artist id="some-artist-id" type="Group" ext:score="100">
-					<name>Gopher And Friends</name>
-					<sort-name>0Gopher And Friends</sort-name>
-					<country>DE</country>
-					<area id="some-area-id">
-						<name>Augsburg</name>
-						<sort-name>Augsburg</sort-name>
-					</area>
-					<begin-area id="some-area-id">
-						<name>Mountain View</name>
-						<sort-name>Mountain View</sort-name>
-					</begin-area>
-					<disambiguation>Some crazy pocket gophers</disambiguation>
-					<life-span>
-						<begin>2007-09-21</begin>
-						<ended>false</ended>
-					</life-span>
-					<alias-list>
-						<alias sort-name="0Mr. Gopher and Friends">Mr. Gopher and Friends</alias>
-						<alias sort-name="0Mr Gopher and Friends">Mr Gopher and Friends</alias>
-					</alias-list>
-					<tag-list>
-						<tag count="1">
-							<name>Pocket Gopher Music</name>
-						</tag>
-						<tag count="2">
-							<name>Golang</name>
-						</tag>
-					</tag-list>
-				</artist>
-			</artist-list>
-		</metadata>`
 
 	want := []Artist{
 		{
@@ -124,7 +92,9 @@ func TestSearchArtist(t *testing.T) {
 		},
 	}
 
-	handleFunc("/artist", &response, t)
+	setup()
+	defer server.Close()
+	serveTestFile("/artist", "SearchArtist.xml", t)
 
 	returned, err := client.SearchArtist("", -1, -1)
 	if err != nil {
@@ -136,50 +106,6 @@ func TestSearchArtist(t *testing.T) {
 }
 
 func TestSearchRelease(t *testing.T) {
-
-	setup()
-	defer server.Close()
-
-	response := `
-		<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ext="http://musicbrainz.org/ns/ext#-2.0">
-			<release-list offset="0" count="1">
-				<release id="9ab1b03e-6722-4ab8-bc7f-a8722f0d34c1" ext:score="100">
-					<title>Fred Schneider &amp; The Shake Society</title>
-					<status>official</status>
-					<text-representation>
-						<language>eng</language>
-						<script>latn</script>
-					</text-representation>
-					<artist-credit>
-						<name-credit>
-							<artist id="43bcca8b-9edc-4997-8343-122350e790bf">
-							   <name>Fred Schneider</name>
-							   <sort-name>Schneider, Fred</sort-name>
-							</artist>
-						</name-credit>
-					</artist-credit>
-					<release-group type="Album"/>
-					<date>1991-04-30</date>
-					<country>us</country>
-					<barcode>075992659222</barcode>
-					<asin>075992659222</asin>
-					<label-info-list>
-						<label-info>
-							<catalog-number>9 26592-2</catalog-number>
-							<label>
-								<name>Reprise Records</name>
-							</label>
-						</label-info>
-					</label-info-list>
-					<medium-list>
-						<medium><format>cd</format>
-							<disc-list count="2"/>
-							<track-list count="9"/>
-						 </medium>
-					</medium-list>
-				</release>
-			</release-list>
-		</metadata>`
 
 	want := []Release{
 		{
@@ -222,7 +148,9 @@ func TestSearchRelease(t *testing.T) {
 		},
 	}
 
-	handleFunc("/release", &response, t)
+	setup()
+	defer server.Close()
+	serveTestFile("/release", "SearchRelease.xml", t)
 
 	returned, err := client.SearchRelease("", -1, -1)
 	if err != nil {
