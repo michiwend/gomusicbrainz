@@ -38,7 +38,7 @@ import (
 var (
 	mux    *http.ServeMux
 	server *httptest.Server
-	client GoMusicBrainz
+	client WS2Client
 )
 
 // Init multiplexer and httptest server
@@ -47,7 +47,7 @@ func setupHttpTesting() {
 	server = httptest.NewServer(mux)
 
 	host, _ := url.Parse(server.URL)
-	client = GoMusicBrainz{WS2RootURL: host}
+	client = WS2Client{WS2RootURL: host}
 }
 
 // handleFunc passes response to the http client.

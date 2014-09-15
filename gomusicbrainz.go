@@ -36,19 +36,20 @@ import (
 	"strconv"
 )
 
-// NewWS2Client creates a new instance of GoMusicBrainz WS2 client with default
-// values.
-func NewWS2Client() *GoMusicBrainz {
-	c := GoMusicBrainz{}
+// NewWS2Client returns a new instance of WS2Client with default values.
+func NewWS2Client() *WS2Client {
+	c := WS2Client{}
+
 	c.WS2RootURL, _ = url.Parse("https://musicbrainz.org/ws/2")
 	return &c
 }
 
-type GoMusicBrainz struct {
-	WS2RootURL *url.URL
+// WS2Client defines a Go client for the MusicBrainz Web Service 2.
+type WS2Client struct {
+	WS2RootURL *url.URL // The API root URL
 }
 
-func (c *GoMusicBrainz) getReqeust(data interface{}, params url.Values, endpoint string) error {
+func (c *WS2Client) getReqeust(data interface{}, params url.Values, endpoint string) error {
 
 	client := &http.Client{}
 
@@ -92,7 +93,7 @@ func intParamToString(i int) string {
 // limit defines how many entries will be returned by the server (allowed
 // range 1-100, defaults to 25). offset can be used for result pagination. -1
 // can be set for both limit and offset to use the default values.
-func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) (*[]Artist, error) {
+func (c *WS2Client) SearchArtist(searchTerm string, limit int, offset int) (*[]Artist, error) {
 
 	result := artistSearchRequest{}
 	endpoint := "/artist"
@@ -117,7 +118,7 @@ func (c *GoMusicBrainz) SearchArtist(searchTerm string, limit int, offset int) (
 // limit defines how many entries will be returned by the server (allowed
 // range 1-100, defaults to 25). offset can be used for result pagination. -1
 // can be set for both limit and offset to use the default values.
-func (c *GoMusicBrainz) SearchRelease(searchTerm string, limit int, offset int) (*[]Release, error) {
+func (c *WS2Client) SearchRelease(searchTerm string, limit int, offset int) (*[]Release, error) {
 
 	result := releaseSearchRequest{}
 	endpoint := "/release"
@@ -142,7 +143,7 @@ func (c *GoMusicBrainz) SearchRelease(searchTerm string, limit int, offset int) 
 // limit defines how many entries will be returned by the server (allowed
 // range 1-100, defaults to 25). offset can be used for result pagination. -1
 // can be set for both limit and offset to use the default values.
-func (c *GoMusicBrainz) SearchReleaseGroup(searchTerm string, limit int, offset int) (*[]ReleaseGroup, error) {
+func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit int, offset int) (*[]ReleaseGroup, error) {
 
 	result := releaseGroupSearchRequest{}
 	endpoint := "/release-group"
@@ -166,7 +167,7 @@ func (c *GoMusicBrainz) SearchReleaseGroup(searchTerm string, limit int, offset 
 // limit defines how many entries will be returned by the server (allowed
 // range 1-100, defaults to 25). offset can be used for result pagination. -1
 // can be set for both limit and offset to use the default values.
-func (c *GoMusicBrainz) SearchTag(searchTerm string, limit int, offset int) (*[]Tag, error) {
+func (c *WS2Client) SearchTag(searchTerm string, limit int, offset int) (*[]Tag, error) {
 
 	result := tagSearchRequest{}
 	endpoint := "/tag"

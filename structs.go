@@ -32,7 +32,7 @@ import (
 )
 
 // BrainzTime implements XMLUnmarshaler interface and is used to unmarshal the
-// xml date fields.
+// XML date fields.
 type BrainzTime struct {
 	time.Time
 }
