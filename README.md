@@ -9,8 +9,13 @@ a Go (Golang) MusicBrainz WS2 client library - work in progress. [![Build Status
 Currently only search requests are supported. Browse and lookup requests will
 follow as soon as all search requests are covered.
 
+## Installation
+```bash
+go get github.com/michiwend/gomusicbrainz
+```
+
 ## Example usage
-This simple example requests all artist matching "bonobo" or "Parov Stelar"
+This example demonstrates a simple search requests to find all artists matching "bonobo" or "Parov Stelar". You can find it as a runnable go program in the samples folder.
 ```Go
 import "github.com/michiwend/gomusicbrainz"
 
