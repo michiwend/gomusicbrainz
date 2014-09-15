@@ -41,12 +41,29 @@ func NewWS2Client() *WS2Client {
 	c := WS2Client{}
 
 	c.WS2RootURL, _ = url.Parse("https://musicbrainz.org/ws/2")
+
+	// Provide meaningful User-Agent informations.
+	c.SetClientInfo(
+		"GoMusicBrainz - a Golang WS2 client",
+		"0.0.1-beta",
+		"michael@michiwend.com",
+	)
+
 	return &c
 }
 
 // WS2Client defines a Go client for the MusicBrainz Web Service 2.
 type WS2Client struct {
 	WS2RootURL *url.URL // The API root URL
+
+	userAgentHeader string
+}
+
+// SetClientInfo sets the HTTP user-agent header of the WS2Client. Please
+// provide meaningful information about your application as described at:
+// https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
+func (c *WS2Client) SetClientInfo(application string, version string, contact string) {
+	c.userAgentHeader = application + "/" + version + " ( " + contact + " ) "
 }
 
 func (c *WS2Client) getReqeust(data interface{}, params url.Values, endpoint string) error {
@@ -58,9 +75,7 @@ func (c *WS2Client) getReqeust(data interface{}, params url.Values, endpoint str
 		log.Fatalln(err)
 	}
 
-	// set user-agent as described on this page:
-	// https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
-	req.Header.Set("User-Agent", "GoMusicBrainz - a Golang WS2 client/0.0.1-beta ( https://github.com/michiwend/gomusicbrainz )")
+	req.Header.Set("User-Agent", c.userAgentHeader)
 
 	resp, err := client.Do(req)
 	if err != nil {

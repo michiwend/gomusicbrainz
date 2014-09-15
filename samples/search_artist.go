@@ -35,6 +35,13 @@ func main() {
 
 	// create a new WS2 client
 	client := gomusicbrainz.NewWS2Client()
+
+	// provide some information about your application
+	client.SetClientInfo(
+		"A GoMusicBrainz example",
+		"0.0.1-beta",
+		"http://github.com/michiwend/gomusicbrainz")
+
 	// Search for some artist
 	artists, _ := client.SearchArtist(`bonobo OR "Parov Stelar"`, -1, -1)
 
