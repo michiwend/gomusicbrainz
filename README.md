@@ -16,12 +16,19 @@ import "github.com/michiwend/gomusicbrainz"
 
 // create a new WS2 client
 client := gomusicbrainz.NewWS2Client()
-// Search for some artists
+
+// provide some information about your application
+client.SetClientInfo(
+    "A GoMusicBrainz example",
+    "0.0.1-beta",
+    "http://github.com/michiwend/gomusicbrainz")
+
+// Search for some artist
 artists, _ := client.SearchArtist(`bonobo OR "Parov Stelar"`, -1, -1)
 
 // Pretty print Name and Id of each returned artist.
-for _, artist := range artists {
-	fmt.Printf("Name: %-25s ID: %s\n", artist.Name, artist.Id)
+for _, artist := range *artists {
+    fmt.Printf("Name: %-25s ID: %s\n", artist.Name, artist.Id)
 }
 ```
 ## Full documentation
