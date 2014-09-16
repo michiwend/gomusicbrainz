@@ -61,6 +61,13 @@ func (t *BrainzTime) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 	return nil
 }
 
+// WS2ListResponse is an abstract common type that provides the Count and Offset
+// fields for ervery list response.
+type WS2ListResponse struct {
+	Count  int `xml:"count,attr"`
+	Offset int `xml:"offset,attr"`
+}
+
 type Lifespan struct {
 	Ended bool       `xml:"ended"`
 	Begin BrainzTime `xml:"begin"`
@@ -81,13 +88,14 @@ type Tag struct {
 	Score int    `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
 }
 
+type TagResponse struct {
+	WS2ListResponse
+	Tags []Tag `xml:"tag"`
+}
+
 // tagSearchRequest is used for unmarshaling xml only.
-type tagSearchRequest struct {
-	TagList struct {
-		Count  int   `xml:"count,attr"`
-		Offset int   `xml:"offset,attr"`
-		Tags   []Tag `xml:"tag"`
-	} `xml:"tag-list"`
+type tagResult struct {
+	Response TagResponse `xml:"tag-list"`
 }
 
 type Artist struct {
@@ -101,13 +109,13 @@ type Artist struct {
 	Aliases        []Alias  `xml:"alias-list>alias"`
 }
 
-// artistSearchRequest is used for unmarshaling xml only.
-type artistSearchRequest struct {
-	ArtistList struct {
-		Count   int      `xml:"count,attr"`
-		Offset  int      `xml:"offset,attr"`
-		Artists []Artist `xml:"artist"`
-	} `xml:"artist-list"`
+type ArtistResponse struct {
+	WS2ListResponse
+	Artists []Artist `xml:"artist"`
+}
+
+type artistResult struct {
+	Resonse ArtistResponse `xml:"artist-list"`
 }
 
 type Label struct {
@@ -154,13 +162,13 @@ type Release struct {
 	Mediums            []Medium           `xml:"medium-list>medium"`
 }
 
-// releaseSearchRequest is used for unmarshaling xml only.
-type releaseSearchRequest struct {
-	ReleaseList struct {
-		Count    int       `xml:"count,attr"`
-		Offset   int       `xml:"offset,attr"`
-		Releases []Release `xml:"release"`
-	} `xml:"release-list"`
+type ReleaseResponse struct {
+	WS2ListResponse
+	Releases []Release `xml:"release"`
+}
+
+type releaseResult struct {
+	Response ReleaseResponse `xml:"release-list"`
 }
 
 type ReleaseGroup struct {
@@ -173,11 +181,12 @@ type ReleaseGroup struct {
 	Tags         []Tag        `xml:"tag-list>tag"`
 }
 
+type ReleaseGroupResponse struct {
+	WS2ListResponse
+	ReleaseGroups []ReleaseGroup `xml:"release-group"`
+}
+
 // releaseGroupSearchRequest is used for unmarshaling xml only.
-type releaseGroupSearchRequest struct {
-	ReleaseGroupList struct {
-		Count         int            `xml:"count,attr"`
-		Offset        int            `xml:"offset,attr"`
-		ReleaseGroups []ReleaseGroup `xml:"release-group"`
-	} `xml:"release-group-list"`
+type releaseGroupResult struct {
+	Response ReleaseGroupResponse `xml:"release-group-list"`
 }

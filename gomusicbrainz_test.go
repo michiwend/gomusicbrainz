@@ -77,27 +77,33 @@ func serveTestFile(url string, testfile string, t *testing.T) {
 
 func TestSearchArtist(t *testing.T) {
 
-	want := []Artist{
-		{
-			Id:             "some-artist-id",
-			Type:           "Group",
-			Name:           "Gopher And Friends",
-			Disambiguation: "Some crazy pocket gophers",
-			SortName:       "0Gopher And Friends",
-			CountryCode:    "DE",
-			Lifespan: Lifespan{
-				Ended: false,
-				Begin: BrainzTime{time.Date(2007, 9, 21, 0, 0, 0, 0, time.UTC)},
-				End:   BrainzTime{time.Time{}},
-			},
-			Aliases: []Alias{
-				{
-					Name:     "Mr. Gopher and Friends",
-					SortName: "0Mr. Gopher and Friends",
+	want := ArtistResponse{
+		WS2ListResponse: WS2ListResponse{
+			Count:  1,
+			Offset: 0,
+		},
+		Artists: []Artist{
+			{
+				Id:             "some-artist-id",
+				Type:           "Group",
+				Name:           "Gopher And Friends",
+				Disambiguation: "Some crazy pocket gophers",
+				SortName:       "0Gopher And Friends",
+				CountryCode:    "DE",
+				Lifespan: Lifespan{
+					Ended: false,
+					Begin: BrainzTime{time.Date(2007, 9, 21, 0, 0, 0, 0, time.UTC)},
+					End:   BrainzTime{time.Time{}},
 				},
-				{
-					Name:     "Mr Gopher and Friends",
-					SortName: "0Mr Gopher and Friends",
+				Aliases: []Alias{
+					{
+						Name:     "Mr. Gopher and Friends",
+						SortName: "0Mr. Gopher and Friends",
+					},
+					{
+						Name:     "Mr Gopher and Friends",
+						SortName: "0Mr Gopher and Friends",
+					},
 				},
 			},
 		},
@@ -118,42 +124,48 @@ func TestSearchArtist(t *testing.T) {
 
 func TestSearchRelease(t *testing.T) {
 
-	want := []Release{
-		{
-			Id:     "9ab1b03e-6722-4ab8-bc7f-a8722f0d34c1",
-			Title:  "Fred Schneider & The Shake Society",
-			Status: "official",
-			TextRepresentation: TextRepresentation{
-				Language: "eng",
-				Script:   "latn",
-			},
-			ArtistCredit: ArtistCredit{
-				NameCredit{
-					Artist{
-						Id:       "43bcca8b-9edc-4997-8343-122350e790bf",
-						Name:     "Fred Schneider",
-						SortName: "Schneider, Fred",
+	want := ReleaseResponse{
+		WS2ListResponse: WS2ListResponse{
+			Count:  1,
+			Offset: 0,
+		},
+		Releases: []Release{
+			{
+				Id:     "9ab1b03e-6722-4ab8-bc7f-a8722f0d34c1",
+				Title:  "Fred Schneider & The Shake Society",
+				Status: "official",
+				TextRepresentation: TextRepresentation{
+					Language: "eng",
+					Script:   "latn",
+				},
+				ArtistCredit: ArtistCredit{
+					NameCredit{
+						Artist{
+							Id:       "43bcca8b-9edc-4997-8343-122350e790bf",
+							Name:     "Fred Schneider",
+							SortName: "Schneider, Fred",
+						},
 					},
 				},
-			},
-			ReleaseGroup: ReleaseGroup{
-				Type: "Album",
-			},
-			Date:        BrainzTime{time.Date(1991, 4, 30, 0, 0, 0, 0, time.UTC)},
-			CountryCode: "us",
-			Barcode:     "075992659222",
-			Asin:        "075992659222",
-			LabelInfos: []LabelInfo{
-				{
-					CatalogNumber: "9 26592-2",
-					Label: Label{
-						Name: "Reprise Records",
+				ReleaseGroup: ReleaseGroup{
+					Type: "Album",
+				},
+				Date:        BrainzTime{time.Date(1991, 4, 30, 0, 0, 0, 0, time.UTC)},
+				CountryCode: "us",
+				Barcode:     "075992659222",
+				Asin:        "075992659222",
+				LabelInfos: []LabelInfo{
+					{
+						CatalogNumber: "9 26592-2",
+						Label: Label{
+							Name: "Reprise Records",
+						},
 					},
 				},
-			},
-			Mediums: []Medium{
-				{
-					Format: "cd",
+				Mediums: []Medium{
+					{
+						Format: "cd",
+					},
 				},
 			},
 		},
@@ -174,36 +186,42 @@ func TestSearchRelease(t *testing.T) {
 
 func TestSearchReleaseGroup(t *testing.T) {
 
-	want := []ReleaseGroup{
-		{
-			Id:          "70664047-2545-4e46-b75f-4556f2a7b83e",
-			Type:        "Single",
-			Title:       "Main Tenance",
-			PrimaryType: "Single",
-			ArtistCredit: ArtistCredit{
-				NameCredit{
-					Artist{
-						Id:             "a8fa58d8-f60b-4b83-be7c-aea1af11596b",
-						Name:           "Fred Giannelli",
-						SortName:       "Giannelli, Fred",
-						Disambiguation: "US electronic artist",
+	want := ReleaseGroupResponse{
+		WS2ListResponse: WS2ListResponse{
+			Count:  1,
+			Offset: 0,
+		},
+		ReleaseGroups: []ReleaseGroup{
+			{
+				Id:          "70664047-2545-4e46-b75f-4556f2a7b83e",
+				Type:        "Single",
+				Title:       "Main Tenance",
+				PrimaryType: "Single",
+				ArtistCredit: ArtistCredit{
+					NameCredit{
+						Artist{
+							Id:             "a8fa58d8-f60b-4b83-be7c-aea1af11596b",
+							Name:           "Fred Giannelli",
+							SortName:       "Giannelli, Fred",
+							Disambiguation: "US electronic artist",
+						},
 					},
 				},
-			},
-			Releases: []Release{
-				{
-					Id:    "9168f4cc-a852-4ba5-bf85-602996625651",
-					Title: "Main Tenance",
+				Releases: []Release{
+					{
+						Id:    "9168f4cc-a852-4ba5-bf85-602996625651",
+						Title: "Main Tenance",
+					},
 				},
-			},
-			Tags: []Tag{
-				{
-					Count: 1,
-					Name:  "electronic",
-				},
-				{
-					Count: 1,
-					Name:  "electronica",
+				Tags: []Tag{
+					{
+						Count: 1,
+						Name:  "electronic",
+					},
+					{
+						Count: 1,
+						Name:  "electronica",
+					},
 				},
 			},
 		},
@@ -224,14 +242,20 @@ func TestSearchReleaseGroup(t *testing.T) {
 
 func TestSearchTag(t *testing.T) {
 
-	want := []Tag{
-		{
-			Name:  "shoegaze",
-			Score: 100,
+	want := TagResponse{
+		WS2ListResponse: WS2ListResponse{
+			Count:  2,
+			Offset: 0,
 		},
-		{
-			Name:  "rock shoegaze",
-			Score: 62,
+		Tags: []Tag{
+			{
+				Name:  "shoegaze",
+				Score: 100,
+			},
+			{
+				Name:  "rock shoegaze",
+				Score: 62,
+			},
 		},
 	}
 

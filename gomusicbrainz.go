@@ -59,13 +59,6 @@ type WS2Client struct {
 	userAgentHeader string
 }
 
-// SetClientInfo sets the HTTP user-agent header of the WS2Client. Please
-// provide meaningful information about your application as described at:
-// https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
-func (c *WS2Client) SetClientInfo(application string, version string, contact string) {
-	c.userAgentHeader = application + "/" + version + " ( " + contact + " ) "
-}
-
 func (c *WS2Client) getReqeust(data interface{}, params url.Values, endpoint string) error {
 
 	client := &http.Client{}
@@ -100,6 +93,13 @@ func intParamToString(i int) string {
 	}
 }
 
+// SetClientInfo sets the HTTP user-agent header of the WS2Client. Please
+// provide meaningful information about your application as described at:
+// https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
+func (c *WS2Client) SetClientInfo(application string, version string, contact string) {
+	c.userAgentHeader = application + "/" + version + " ( " + contact + " ) "
+}
+
 // SearchArtist queries MusicBrainz' Search Server for Artists.
 // searchTerm follows the Apache Lucene syntax. If no fields were specified the
 // Search Server searches for searchTerm in any of the fields artist, sortname
@@ -108,9 +108,9 @@ func intParamToString(i int) string {
 // limit defines how many entries will be returned by the server (allowed
 // range 1-100, defaults to 25). offset can be used for result pagination. -1
 // can be set for both limit and offset to use the default values.
-func (c *WS2Client) SearchArtist(searchTerm string, limit int, offset int) (*[]Artist, error) {
+func (c *WS2Client) SearchArtist(searchTerm string, limit int, offset int) (*ArtistResponse, error) {
 
-	result := artistSearchRequest{}
+	result := artistResult{}
 	endpoint := "/artist"
 	params := url.Values{
 		"query":  {searchTerm},
@@ -122,7 +122,7 @@ func (c *WS2Client) SearchArtist(searchTerm string, limit int, offset int) (*[]A
 		return nil, err
 	}
 
-	return &result.ArtistList.Artists, nil
+	return &result.Resonse, nil
 }
 
 // SearchRelease queries MusicBrainz' Search Server for Releases.
@@ -133,9 +133,9 @@ func (c *WS2Client) SearchArtist(searchTerm string, limit int, offset int) (*[]A
 // limit defines how many entries will be returned by the server (allowed
 // range 1-100, defaults to 25). offset can be used for result pagination. -1
 // can be set for both limit and offset to use the default values.
-func (c *WS2Client) SearchRelease(searchTerm string, limit int, offset int) (*[]Release, error) {
+func (c *WS2Client) SearchRelease(searchTerm string, limit int, offset int) (*ReleaseResponse, error) {
 
-	result := releaseSearchRequest{}
+	result := releaseResult{}
 	endpoint := "/release"
 	params := url.Values{
 		"query":  {searchTerm},
@@ -147,7 +147,7 @@ func (c *WS2Client) SearchRelease(searchTerm string, limit int, offset int) (*[]
 		return nil, err
 	}
 
-	return &result.ReleaseList.Releases, nil
+	return &result.Response, nil
 }
 
 // SearchReleaseGroup queries MusicBrainz' Search Server for ReleaseGroups.
@@ -158,9 +158,9 @@ func (c *WS2Client) SearchRelease(searchTerm string, limit int, offset int) (*[]
 // limit defines how many entries will be returned by the server (allowed
 // range 1-100, defaults to 25). offset can be used for result pagination. -1
 // can be set for both limit and offset to use the default values.
-func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit int, offset int) (*[]ReleaseGroup, error) {
+func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit int, offset int) (*ReleaseGroupResponse, error) {
 
-	result := releaseGroupSearchRequest{}
+	result := releaseGroupResult{}
 	endpoint := "/release-group"
 	params := url.Values{
 		"query":  {searchTerm},
@@ -172,7 +172,7 @@ func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit int, offset int)
 		return nil, err
 	}
 
-	return &result.ReleaseGroupList.ReleaseGroups, nil
+	return &result.Response, nil
 }
 
 // SearchTag queries MusicBrainz' Search Server for Tags.
@@ -182,9 +182,9 @@ func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit int, offset int)
 // limit defines how many entries will be returned by the server (allowed
 // range 1-100, defaults to 25). offset can be used for result pagination. -1
 // can be set for both limit and offset to use the default values.
-func (c *WS2Client) SearchTag(searchTerm string, limit int, offset int) (*[]Tag, error) {
+func (c *WS2Client) SearchTag(searchTerm string, limit int, offset int) (*TagResponse, error) {
 
-	result := tagSearchRequest{}
+	result := tagResult{}
 	endpoint := "/tag"
 	params := url.Values{
 		"query":  {searchTerm},
@@ -196,5 +196,5 @@ func (c *WS2Client) SearchTag(searchTerm string, limit int, offset int) (*[]Tag,
 		return nil, err
 	}
 
-	return &result.TagList.Tags, nil
+	return &result.Response, nil
 }
