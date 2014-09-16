@@ -74,8 +74,8 @@ type Lifespan struct {
 	End   BrainzTime `xml:"end"`
 }
 
-// Alias is a common type for aliases/misspellings of artists, works, areas,
-// labels and places.
+// Alias is a type for aliases/misspellings of artists, works, areas, labels
+// and places.
 type Alias struct {
 	Name     string `xml:",chardata"`
 	SortName string `xml:"sort-name,attr"`
@@ -88,6 +88,7 @@ type Tag struct {
 	Score int    `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
 }
 
+// TagResponse is the response type returned by tag request methods.
 type TagResponse struct {
 	WS2ListResponse
 	Tags []Tag `xml:"tag"`
@@ -104,6 +105,7 @@ type Artist struct {
 	Aliases        []Alias  `xml:"alias-list>alias"`
 }
 
+// ArtistResponse is the response type returned by artist request methods.
 type ArtistResponse struct {
 	WS2ListResponse
 	Artists []Artist `xml:"artist"`
@@ -153,6 +155,7 @@ type Release struct {
 	Mediums            []Medium           `xml:"medium-list>medium"`
 }
 
+// ReleaseResponse is the response type returned by release request methods.
 type ReleaseResponse struct {
 	WS2ListResponse
 	Releases []Release `xml:"release"`
@@ -168,6 +171,8 @@ type ReleaseGroup struct {
 	Tags         []Tag        `xml:"tag-list>tag"`
 }
 
+// ReleaseGroupResponse is the response type returned by release group
+// request methods.
 type ReleaseGroupResponse struct {
 	WS2ListResponse
 	ReleaseGroups []ReleaseGroup `xml:"release-group"`
