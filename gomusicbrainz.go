@@ -42,9 +42,6 @@ for more details on the lucene syntax. limit defines how many entries should be
 returned (1-100, default 25). offset is used for paging through more than one
 page of results. To ignore limit and/or offset, set it to -1.
 
-More information
-
-
 Lookup requests
 
 TODO
@@ -148,8 +145,14 @@ func (c *WS2Client) SetClientInfo(application string, version string, contact st
 // search fields visit
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Annotation
 func (c *WS2Client) SearchAnnotation(searchTerm string, limit int, offset int) (*AnnotationResponse, error) {
-	//TODO implement
-	return nil, nil
+
+	var result struct {
+		Response AnnotationResponse `xml:"annotation-list"`
+	}
+
+	err := c.searchRequest("/annotation", &result, searchTerm, limit, offset)
+
+	return &result.Response, err
 }
 
 // SearchArtist queries MusicBrainz´ Search Server for Artists.

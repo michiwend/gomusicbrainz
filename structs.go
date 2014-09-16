@@ -182,13 +182,22 @@ type ReleaseGroupResponse struct {
 	ReleaseGroups []ReleaseGroup `xml:"release-group"`
 }
 
+// Annotation is a miniature wiki that can be added to any existing artists,
+// labels, recordings, releases, release groups and works.
 type Annotation struct {
-	//TODO implement
+	Type   string `xml:"type,attr"`
+	Entity string `xml:"entity"`
+	Name   string `xml:"name"`
+	Text   string `xml:"text"`
 }
 
+// AnnotaionResponse is the response type returned by annotation request
+// methods.
 type AnnotationResponse struct {
-	//TODO implement
+	WS2ListResponse
+	Annotations []Annotation `xml:"annotation"`
 }
+
 type Area struct {
 	//TODO implement
 }
