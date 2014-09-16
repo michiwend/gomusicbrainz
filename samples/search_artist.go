@@ -45,10 +45,9 @@ func main() {
 	// Search for some artist with default settings
 	resp, _ := client.SearchArtist(`bonobo OR "Parov Stelar"`, -1, -1)
 
-	fmt.Printf("got %d results\n", resp.Count)
-
 	// Pretty print Name and Id of each returned artist.
 	for _, artist := range resp.Artists {
 		fmt.Printf("Name: %-25s ID: %s\n", artist.Name, artist.Id)
 	}
+
 }
