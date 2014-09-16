@@ -93,11 +93,6 @@ type TagResponse struct {
 	Tags []Tag `xml:"tag"`
 }
 
-// tagSearchRequest is used for unmarshaling xml only.
-type tagResult struct {
-	Response TagResponse `xml:"tag-list"`
-}
-
 type Artist struct {
 	Id             string   `xml:"id,attr"`
 	Type           string   `xml:"type,attr"`
@@ -112,10 +107,6 @@ type Artist struct {
 type ArtistResponse struct {
 	WS2ListResponse
 	Artists []Artist `xml:"artist"`
-}
-
-type artistResult struct {
-	Resonse ArtistResponse `xml:"artist-list"`
 }
 
 type Label struct {
@@ -167,10 +158,6 @@ type ReleaseResponse struct {
 	Releases []Release `xml:"release"`
 }
 
-type releaseResult struct {
-	Response ReleaseResponse `xml:"release-list"`
-}
-
 type ReleaseGroup struct {
 	Id           string       `xml:"id,attr"`
 	Type         string       `xml:"type,attr"`
@@ -184,9 +171,4 @@ type ReleaseGroup struct {
 type ReleaseGroupResponse struct {
 	WS2ListResponse
 	ReleaseGroups []ReleaseGroup `xml:"release-group"`
-}
-
-// releaseGroupSearchRequest is used for unmarshaling xml only.
-type releaseGroupResult struct {
-	Response ReleaseGroupResponse `xml:"release-group-list"`
 }

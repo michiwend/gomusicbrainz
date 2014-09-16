@@ -93,6 +93,21 @@ func intParamToString(i int) string {
 	}
 }
 
+func (c *WS2Client) searchRequest(endpoint string, result interface{}, searchTerm string, limit int, offset int) error {
+
+	params := url.Values{
+		"query":  {searchTerm},
+		"limit":  {intParamToString(limit)},
+		"offset": {intParamToString(offset)},
+	}
+
+	if err := c.getReqeust(result, params, endpoint); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // SetClientInfo sets the HTTP user-agent header of the WS2Client. Please
 // provide meaningful information about your application as described at:
 // https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
@@ -110,19 +125,13 @@ func (c *WS2Client) SetClientInfo(application string, version string, contact st
 // can be set for both limit and offset to use the default values.
 func (c *WS2Client) SearchArtist(searchTerm string, limit int, offset int) (*ArtistResponse, error) {
 
-	result := artistResult{}
-	endpoint := "/artist"
-	params := url.Values{
-		"query":  {searchTerm},
-		"limit":  {intParamToString(limit)},
-		"offset": {intParamToString(offset)},
+	var result struct {
+		Response ArtistResponse `xml:"artist-list"`
 	}
 
-	if err := c.getReqeust(&result, params, endpoint); err != nil {
-		return nil, err
-	}
+	err := c.searchRequest("/artist", &result, searchTerm, limit, offset)
 
-	return &result.Resonse, nil
+	return &result.Response, err
 }
 
 // SearchRelease queries MusicBrainz' Search Server for Releases.
@@ -135,19 +144,13 @@ func (c *WS2Client) SearchArtist(searchTerm string, limit int, offset int) (*Art
 // can be set for both limit and offset to use the default values.
 func (c *WS2Client) SearchRelease(searchTerm string, limit int, offset int) (*ReleaseResponse, error) {
 
-	result := releaseResult{}
-	endpoint := "/release"
-	params := url.Values{
-		"query":  {searchTerm},
-		"limit":  {intParamToString(limit)},
-		"offset": {intParamToString(offset)},
+	var result struct {
+		Response ReleaseResponse `xml:"release-list"`
 	}
 
-	if err := c.getReqeust(&result, params, endpoint); err != nil {
-		return nil, err
-	}
+	err := c.searchRequest("/release", &result, searchTerm, limit, offset)
 
-	return &result.Response, nil
+	return &result.Response, err
 }
 
 // SearchReleaseGroup queries MusicBrainz' Search Server for ReleaseGroups.
@@ -160,19 +163,13 @@ func (c *WS2Client) SearchRelease(searchTerm string, limit int, offset int) (*Re
 // can be set for both limit and offset to use the default values.
 func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit int, offset int) (*ReleaseGroupResponse, error) {
 
-	result := releaseGroupResult{}
-	endpoint := "/release-group"
-	params := url.Values{
-		"query":  {searchTerm},
-		"limit":  {intParamToString(limit)},
-		"offset": {intParamToString(offset)},
+	var result struct {
+		Response ReleaseGroupResponse `xml:"release-group-list"`
 	}
 
-	if err := c.getReqeust(&result, params, endpoint); err != nil {
-		return nil, err
-	}
+	err := c.searchRequest("/release-group", &result, searchTerm, limit, offset)
 
-	return &result.Response, nil
+	return &result.Response, err
 }
 
 // SearchTag queries MusicBrainz' Search Server for Tags.
@@ -184,17 +181,11 @@ func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit int, offset int)
 // can be set for both limit and offset to use the default values.
 func (c *WS2Client) SearchTag(searchTerm string, limit int, offset int) (*TagResponse, error) {
 
-	result := tagResult{}
-	endpoint := "/tag"
-	params := url.Values{
-		"query":  {searchTerm},
-		"limit":  {intParamToString(limit)},
-		"offset": {intParamToString(offset)},
+	var result struct {
+		Response TagResponse `xml:"tag-list"`
 	}
 
-	if err := c.getReqeust(&result, params, endpoint); err != nil {
-		return nil, err
-	}
+	err := c.searchRequest("/tag", &result, searchTerm, limit, offset)
 
-	return &result.Response, nil
+	return &result.Response, err
 }
