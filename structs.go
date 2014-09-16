@@ -115,6 +115,10 @@ type Label struct {
 	Name string `xml:"name"`
 }
 
+type LabelResponse struct {
+	//TODO implement
+}
+
 type LabelInfo struct {
 	CatalogNumber string `xml:"catalog-number"`
 	Label         Label  `xml:"label"`
@@ -176,4 +180,55 @@ type ReleaseGroup struct {
 type ReleaseGroupResponse struct {
 	WS2ListResponse
 	ReleaseGroups []ReleaseGroup `xml:"release-group"`
+}
+
+type Annotation struct {
+	//TODO implement
+}
+
+type AnnotationResponse struct {
+	//TODO implement
+}
+type Area struct {
+	//TODO implement
+}
+
+type AreaResponse struct {
+	//TODO implement
+}
+type CDStubs struct {
+	//TODO implement
+}
+
+type CDStubsResponse struct {
+	//TODO implement
+}
+type Freedb struct {
+	//TODO implement
+}
+
+type FreedbResponse struct {
+	//TODO implement
+}
+
+type Place struct {
+	//TODO implement
+}
+
+type PlaceResponse struct {
+	//TODO implement
+}
+type Recording struct {
+	//TODO implement
+}
+
+type RecordingResponse struct {
+	//TODO implement
+}
+type Work struct {
+	//TODO implement
+}
+
+type WorkResponse struct {
+	//TODO implement
 }

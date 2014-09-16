@@ -189,3 +189,36 @@ func (c *WS2Client) SearchTag(searchTerm string, limit int, offset int) (*TagRes
 
 	return &result.Response, err
 }
+
+func (c *WS2Client) SearchAnnotation(searchTerm string, limit int, offset int) (*AnnotationResponse, error) {
+	//TODO implement
+	return nil, nil
+}
+func (c *WS2Client) SearchArea(searchTerm string, limit int, offset int) (*AreaResponse, error) {
+	//TODO implement
+	return nil, nil
+}
+func (c *WS2Client) SearchCDStubs(searchTerm string, limit int, offset int) (*CDStubsResponse, error) {
+	//TODO implement
+	return nil, nil
+}
+func (c *WS2Client) SearchFreedb(searchTerm string, limit int, offset int) (*FreedbResponse, error) {
+	//TODO implement
+	return nil, nil
+}
+func (c *WS2Client) SearchLabel(searchTerm string, limit int, offset int) (*LabelResponse, error) {
+	//TODO implement
+	return nil, nil
+}
+func (c *WS2Client) SearchPlace(searchTerm string, limit int, offset int) (*PlaceResponse, error) {
+	//TODO implement
+	return nil, nil
+}
+func (c *WS2Client) SearchRecording(searchTerm string, limit int, offset int) (*RecordingResponse, error) {
+	//TODO implement
+	return nil, nil
+}
+func (c *WS2Client) SearchWork(searchTerm string, limit int, offset int) (*WorkResponse, error) {
+	//TODO implement
+	return nil, nil
+}
