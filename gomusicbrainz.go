@@ -25,6 +25,34 @@
 
 /*
 Package gomusicbrainz implements a MusicBrainz WS2 client library.
+
+MusicBrainz WS2 (Version 2 of the XML Web Service) supports three different requests:
+
+Search requests
+
+With search requests you can search MusicBrainz´ database for all entities.
+GoMusicBrainz implements one search method for every search request in the form:
+
+	(*WS2Client) Search<TYPE>(searchTerm, limit, offset) (Response<TYPE>, error)
+
+searchTerm follows the Apache Lucene syntax and can either contain multiple
+fields with logical operators or just a simple search string. Please refer to
+https://lucene.apache.org/core/4_3_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description
+for more details on the lucene syntax. limit defines how many entries should be
+returned (1-100, default 25). offset is used for paging through more than one
+page of results. To ignore limit and/or offset, set it to -1.
+
+More information
+
+
+Lookup requests
+
+TODO
+
+Browse requets
+
+TODO
+
 */
 package gomusicbrainz
 
@@ -109,20 +137,25 @@ func (c *WS2Client) searchRequest(endpoint string, result interface{}, searchTer
 }
 
 // SetClientInfo sets the HTTP user-agent header of the WS2Client. Please
-// provide meaningful information about your application as described at:
+// provide meaningful information about your application as described at
 // https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
 func (c *WS2Client) SetClientInfo(application string, version string, contact string) {
 	c.userAgentHeader = application + "/" + version + " ( " + contact + " ) "
 }
 
-// SearchArtist queries MusicBrainz' Search Server for Artists.
-// searchTerm follows the Apache Lucene syntax. If no fields were specified the
-// Search Server searches for searchTerm in any of the fields artist, sortname
-// and alias. For a list of all valid search fields visit
-// https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Artist
-// limit defines how many entries will be returned by the server (allowed
-// range 1-100, defaults to 25). offset can be used for result pagination. -1
-// can be set for both limit and offset to use the default values.
+// SearchAnnotation queries MusicBrainz´ Search Server for Annotations.
+// With no fields specified searchTerm searches TODO. For a list of all valid
+// search fields visit
+// http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Annotation
+func (c *WS2Client) SearchAnnotation(searchTerm string, limit int, offset int) (*AnnotationResponse, error) {
+	//TODO implement
+	return nil, nil
+}
+
+// SearchArtist queries MusicBrainz´ Search Server for Artists.
+// With no fields specified searchTerm searches the artist, sortname and alias
+// fields. For a list of all valid fields visit
+// http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Artist
 func (c *WS2Client) SearchArtist(searchTerm string, limit int, offset int) (*ArtistResponse, error) {
 
 	var result struct {
@@ -134,14 +167,10 @@ func (c *WS2Client) SearchArtist(searchTerm string, limit int, offset int) (*Art
 	return &result.Response, err
 }
 
-// SearchRelease queries MusicBrainz' Search Server for Releases.
-// searchTerm follows the Apache Lucene syntax. If no fields were specified the
-// Search Server searches the release field only. For a list of all valid
-// search fields visit
+// SearchRelease queries MusicBrainz´ Search Server for Releases.
+// With no fields specified searchTerm searches the release field only. For a
+// list of all valid fields visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release
-// limit defines how many entries will be returned by the server (allowed
-// range 1-100, defaults to 25). offset can be used for result pagination. -1
-// can be set for both limit and offset to use the default values.
 func (c *WS2Client) SearchRelease(searchTerm string, limit int, offset int) (*ReleaseResponse, error) {
 
 	var result struct {
@@ -153,14 +182,10 @@ func (c *WS2Client) SearchRelease(searchTerm string, limit int, offset int) (*Re
 	return &result.Response, err
 }
 
-// SearchReleaseGroup queries MusicBrainz' Search Server for ReleaseGroups.
-// searchTerm follows the Apache Lucene syntax. If no fields were specified the
-// Search Server searches the releasegroup field only. For a list of all valid
-// search fields visit
+// SearchReleaseGroup queries MusicBrainz´ Search Server for ReleaseGroups.
+// With no fields specified searchTerm searches the releasgroup field only. For
+// a list of all valid fields visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release_Group
-// limit defines how many entries will be returned by the server (allowed
-// range 1-100, defaults to 25). offset can be used for result pagination. -1
-// can be set for both limit and offset to use the default values.
 func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit int, offset int) (*ReleaseGroupResponse, error) {
 
 	var result struct {
@@ -173,12 +198,8 @@ func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit int, offset int)
 }
 
 // SearchTag queries MusicBrainz' Search Server for Tags.
-// searchTerm follows the Apache Lucene syntax. The Tag index contains only the
-// tag field. For more information visit
+// searchTerm only contains the tag field. For more information visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Tag
-// limit defines how many entries will be returned by the server (allowed
-// range 1-100, defaults to 25). offset can be used for result pagination. -1
-// can be set for both limit and offset to use the default values.
 func (c *WS2Client) SearchTag(searchTerm string, limit int, offset int) (*TagResponse, error) {
 
 	var result struct {
@@ -190,10 +211,6 @@ func (c *WS2Client) SearchTag(searchTerm string, limit int, offset int) (*TagRes
 	return &result.Response, err
 }
 
-func (c *WS2Client) SearchAnnotation(searchTerm string, limit int, offset int) (*AnnotationResponse, error) {
-	//TODO implement
-	return nil, nil
-}
 func (c *WS2Client) SearchArea(searchTerm string, limit int, offset int) (*AreaResponse, error) {
 	//TODO implement
 	return nil, nil

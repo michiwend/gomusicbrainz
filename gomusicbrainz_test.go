@@ -25,6 +25,8 @@
 
 package gomusicbrainz
 
+// TODO use testdata from https://github.com/metabrainz/mmd-schema/tree/master/test-data/valid
+
 import (
 	"fmt"
 	"net/http"
