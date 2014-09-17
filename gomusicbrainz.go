@@ -161,6 +161,21 @@ func (c *WS2Client) SearchAnnotation(searchTerm string, limit int, offset int) (
 	return &result.Response, err
 }
 
+// SearchArea queries MusicBrainz´ Search Server for Areas.
+// With no fields specified searchTerm searches the area and sortname fields.
+// For a list of all valid search fields visit
+// http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Area
+func (c *WS2Client) SearchArea(searchTerm string, limit int, offset int) (*AreaResponse, error) {
+
+	var result struct {
+		Response AreaResponse `xml:"area-list"`
+	}
+
+	err := c.searchRequest("/area", &result, searchTerm, limit, offset)
+
+	return &result.Response, err
+}
+
 // SearchArtist queries MusicBrainz´ Search Server for Artists.
 // With no fields specified searchTerm searches the artist, sortname and alias
 // fields. For a list of all valid fields visit
@@ -220,10 +235,6 @@ func (c *WS2Client) SearchTag(searchTerm string, limit int, offset int) (*TagRes
 	return &result.Response, err
 }
 
-func (c *WS2Client) SearchArea(searchTerm string, limit int, offset int) (*AreaResponse, error) {
-	//TODO implement
-	return nil, nil
-}
 func (c *WS2Client) SearchCDStubs(searchTerm string, limit int, offset int) (*CDStubsResponse, error) {
 	//TODO implement
 	return nil, nil
