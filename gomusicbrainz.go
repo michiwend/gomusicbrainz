@@ -132,6 +132,13 @@ func (c *WS2Client) searchRequest(endpoint string, result interface{}, searchTer
 	return nil
 }
 
+// SetRootURL sets the root URL for WS2.
+func (c *WS2Client) SetRootURL(rooturl string) error {
+	var err error
+	c.WS2RootURL, err = url.Parse(rooturl)
+	return err
+}
+
 // SetClientInfo sets the HTTP user-agent header of the WS2Client. Please
 // provide meaningful information about your application as described at
 // https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
