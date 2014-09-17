@@ -95,7 +95,7 @@ type TagResponse struct {
 }
 
 type Artist struct {
-	Id             string   `xml:"id,attr"`
+	ID             string   `xml:"id,attr"`
 	Type           string   `xml:"type,attr"`
 	Name           string   `xml:"name"`
 	Disambiguation string   `xml:"disambiguation"`
@@ -144,7 +144,7 @@ type NameCredit struct {
 }
 
 type Release struct {
-	Id                 string             `xml:"id,attr"`
+	ID                 string             `xml:"id,attr"`
 	Title              string             `xml:"title"`
 	Status             string             `xml:"status"`
 	Disambiguation     string             `xml:"disambiguation"`
@@ -166,7 +166,7 @@ type ReleaseResponse struct {
 }
 
 type ReleaseGroup struct {
-	Id           string       `xml:"id,attr"`
+	ID           string       `xml:"id,attr"`
 	Type         string       `xml:"type,attr"`
 	PrimaryType  string       `xml:"primary-type"`
 	Title        string       `xml:"title"`
@@ -191,7 +191,7 @@ type Annotation struct {
 	Text   string `xml:"text"`
 }
 
-// AnnotaionResponse is the response type returned by annotation request
+// AnnotationResponse is the response type returned by annotation request
 // methods.
 type AnnotationResponse struct {
 	WS2ListResponse

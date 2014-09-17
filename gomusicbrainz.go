@@ -33,7 +33,7 @@ Search requests
 With search requests you can search MusicBrainz´ database for all entities.
 GoMusicBrainz implements one search method for every search request in the form:
 
-	(*WS2Client) Search<TYPE>(searchTerm, limit, offset) (Response<TYPE>, error)
+	func (*WS2Client) Search<TYPE>(searchTerm, limit, offset) (Response<TYPE>, error)
 
 searchTerm follows the Apache Lucene syntax and can either contain multiple
 fields with logical operators or just a simple search string. Please refer to
@@ -113,9 +113,8 @@ func (c *WS2Client) getReqeust(data interface{}, params url.Values, endpoint str
 func intParamToString(i int) string {
 	if i == -1 {
 		return ""
-	} else {
-		return strconv.Itoa(i)
 	}
+	return strconv.Itoa(i)
 }
 
 func (c *WS2Client) searchRequest(endpoint string, result interface{}, searchTerm string, limit int, offset int) error {

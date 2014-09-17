@@ -44,7 +44,7 @@ var (
 )
 
 // Init multiplexer and httptest server
-func setupHttpTesting() {
+func setupHTTPTesting() {
 	mux = http.NewServeMux()
 	server = httptest.NewServer(mux)
 
@@ -101,7 +101,7 @@ func TestSearchAnnotation(t *testing.T) {
 		},
 	}
 
-	setupHttpTesting()
+	setupHTTPTesting()
 	defer server.Close()
 	serveTestFile("/annotation", "SearchAnnotation.xml", t)
 
@@ -124,7 +124,7 @@ func TestSearchArtist(t *testing.T) {
 		},
 		Artists: []Artist{
 			{
-				Id:             "some-artist-id",
+				ID:             "some-artist-id",
 				Type:           "Group",
 				Name:           "Gopher And Friends",
 				Disambiguation: "Some crazy pocket gophers",
@@ -149,7 +149,7 @@ func TestSearchArtist(t *testing.T) {
 		},
 	}
 
-	setupHttpTesting()
+	setupHTTPTesting()
 	defer server.Close()
 	serveTestFile("/artist", "SearchArtist.xml", t)
 
@@ -171,7 +171,7 @@ func TestSearchRelease(t *testing.T) {
 		},
 		Releases: []Release{
 			{
-				Id:     "9ab1b03e-6722-4ab8-bc7f-a8722f0d34c1",
+				ID:     "9ab1b03e-6722-4ab8-bc7f-a8722f0d34c1",
 				Title:  "Fred Schneider & The Shake Society",
 				Status: "official",
 				TextRepresentation: TextRepresentation{
@@ -181,7 +181,7 @@ func TestSearchRelease(t *testing.T) {
 				ArtistCredit: ArtistCredit{
 					NameCredit{
 						Artist{
-							Id:       "43bcca8b-9edc-4997-8343-122350e790bf",
+							ID:       "43bcca8b-9edc-4997-8343-122350e790bf",
 							Name:     "Fred Schneider",
 							SortName: "Schneider, Fred",
 						},
@@ -211,7 +211,7 @@ func TestSearchRelease(t *testing.T) {
 		},
 	}
 
-	setupHttpTesting()
+	setupHTTPTesting()
 	defer server.Close()
 	serveTestFile("/release", "SearchRelease.xml", t)
 
@@ -233,14 +233,14 @@ func TestSearchReleaseGroup(t *testing.T) {
 		},
 		ReleaseGroups: []ReleaseGroup{
 			{
-				Id:          "70664047-2545-4e46-b75f-4556f2a7b83e",
+				ID:          "70664047-2545-4e46-b75f-4556f2a7b83e",
 				Type:        "Single",
 				Title:       "Main Tenance",
 				PrimaryType: "Single",
 				ArtistCredit: ArtistCredit{
 					NameCredit{
 						Artist{
-							Id:             "a8fa58d8-f60b-4b83-be7c-aea1af11596b",
+							ID:             "a8fa58d8-f60b-4b83-be7c-aea1af11596b",
 							Name:           "Fred Giannelli",
 							SortName:       "Giannelli, Fred",
 							Disambiguation: "US electronic artist",
@@ -249,7 +249,7 @@ func TestSearchReleaseGroup(t *testing.T) {
 				},
 				Releases: []Release{
 					{
-						Id:    "9168f4cc-a852-4ba5-bf85-602996625651",
+						ID:    "9168f4cc-a852-4ba5-bf85-602996625651",
 						Title: "Main Tenance",
 					},
 				},
@@ -267,7 +267,7 @@ func TestSearchReleaseGroup(t *testing.T) {
 		},
 	}
 
-	setupHttpTesting()
+	setupHTTPTesting()
 	defer server.Close()
 	serveTestFile("/release-group", "SearchReleaseGroup.xml", t)
 
@@ -299,7 +299,7 @@ func TestSearchTag(t *testing.T) {
 		},
 	}
 
-	setupHttpTesting()
+	setupHTTPTesting()
 	defer server.Close()
 	serveTestFile("/tag", "SearchTag.xml", t)
 

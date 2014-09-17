@@ -47,7 +47,7 @@ func main() {
 
 	// Pretty print Name and Id of each returned artist.
 	for _, artist := range resp.Artists {
-		fmt.Printf("Name: %-25s ID: %s\n", artist.Name, artist.Id)
+		fmt.Printf("Name: %-25s ID: %s\n", artist.Name, artist.ID)
 	}
 
 }
