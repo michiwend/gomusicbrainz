@@ -115,6 +115,9 @@ type AreaResponse struct {
 	WS2ListResponse
 	Areas []Area `xml:"area"`
 }
+
+// Artist represents generally a musician, a group of musicians, a collaboration
+// of multiple musicians or other music professionals.
 type Artist struct {
 	ID             string   `xml:"id,attr"`
 	Type           string   `xml:"type,attr"`
@@ -136,6 +139,7 @@ type Label struct {
 	Name string `xml:"name"`
 }
 
+// LabelResponse is the response type returned by label request methods.
 type LabelResponse struct {
 	//TODO implement
 }
@@ -164,6 +168,9 @@ type NameCredit struct {
 	Artist Artist `xml:"artist"`
 }
 
+// Release represents a unique release (i.e. issuing) of a product on a
+// specific date with specific release information such as the country, label,
+// barcode, packaging, etc. More information at https://musicbrainz.org/doc/Release
 type Release struct {
 	ID                 string             `xml:"id,attr"`
 	Title              string             `xml:"title"`
@@ -186,6 +193,9 @@ type ReleaseResponse struct {
 	Releases []Release `xml:"release"`
 }
 
+// ReleaseGroup groups several different releases into a single logical entity.
+// Every release belongs to one, and only one release group. More informations
+// at https://musicbrainz.org/doc/Release_Group
 type ReleaseGroup struct {
 	ID           string       `xml:"id,attr"`
 	Type         string       `xml:"type,attr"`
@@ -204,7 +214,8 @@ type ReleaseGroupResponse struct {
 }
 
 // Annotation is a miniature wiki that can be added to any existing artists,
-// labels, recordings, releases, release groups and works.
+// labels, recordings, releases, release groups and works. More informations at
+// https://musicbrainz.org/doc/Annotation
 type Annotation struct {
 	Type   string `xml:"type,attr"`
 	Entity string `xml:"entity"`
