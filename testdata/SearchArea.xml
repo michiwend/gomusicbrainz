@@ -1,0 +1,34 @@
+<?xml version="1.0" standalone="yes"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ext="http://musicbrainz.org/ns/ext#-2.0" created="2014-09-17T01:35:09.319Z">
+<area-list count="1" offset="0">
+    <area id="d79e4501-8cba-431b-96e7-bb9976f0ae76" type="Subdivision" ext:score="100">
+        <name>&#xCE;le-de-France</name>
+        <sort-name>&#xCE;le-de-France</sort-name>
+        <iso-3166-2-code-list>
+            <iso-3166-2-code>FR-J</iso-3166-2-code>
+        </iso-3166-2-code-list>
+        <life-span>
+            <ended>false</ended>
+        </life-span>
+        <alias-list>
+            <alias locale="et" sort-name="&#xCE;le-de-France" type="Area name" primary="primary">&#xCE;le-de-France</alias>
+            <alias locale="ja" sort-name="&#x30A4;&#x30EB;&#xFF1D;&#x30C9;&#xFF1D;&#x30D5;&#x30E9;&#x30F3;&#x30B9;&#x5730;&#x57DF;&#x570F;" type="Area name" primary="primary">&#x30A4;&#x30EB;&#xFF1D;&#x30C9;&#xFF1D;&#x30D5;&#x30E9;&#x30F3;&#x30B9;&#x5730;&#x57DF;&#x570F;</alias>
+        </alias-list>
+        <relation-list target-type="area">
+            <relation type="part of" type-id="de7cc874-8b1b-3a05-8272-f3834c968fb7">
+                <target>08310658-51eb-3801-80de-5a0739207115</target>
+                <direction>backward</direction>
+                <area id="08310658-51eb-3801-80de-5a0739207115" type="Country">
+                    <name>France</name>
+                    <sort-name>France</sort-name>
+                    <life-span>
+                        <ended>false</ended>
+                    </life-span>
+                </area>
+            </relation>
+        </relation-list>
+    </area>
+</area-list>
+</metadata>
+
+
