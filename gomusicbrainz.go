@@ -117,7 +117,7 @@ func intParamToString(i int) string {
 	return strconv.Itoa(i)
 }
 
-func (c *WS2Client) searchRequest(endpoint string, result interface{}, searchTerm string, limit int, offset int) error {
+func (c *WS2Client) searchRequest(endpoint string, result interface{}, searchTerm string, limit, offset int) error {
 
 	params := url.Values{
 		"query":  {searchTerm},
@@ -150,7 +150,7 @@ func (c *WS2Client) SetClientInfo(application string, version string, contact st
 // With no fields specified searchTerm searches TODO. For a list of all valid
 // search fields visit
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Annotation
-func (c *WS2Client) SearchAnnotation(searchTerm string, limit int, offset int) (*AnnotationResponse, error) {
+func (c *WS2Client) SearchAnnotation(searchTerm string, limit, offset int) (*AnnotationResponse, error) {
 
 	var result struct {
 		Response AnnotationResponse `xml:"annotation-list"`
@@ -165,7 +165,7 @@ func (c *WS2Client) SearchAnnotation(searchTerm string, limit int, offset int) (
 // With no fields specified searchTerm searches the area and sortname fields.
 // For a list of all valid search fields visit
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Area
-func (c *WS2Client) SearchArea(searchTerm string, limit int, offset int) (*AreaResponse, error) {
+func (c *WS2Client) SearchArea(searchTerm string, limit, offset int) (*AreaResponse, error) {
 
 	var result struct {
 		Response AreaResponse `xml:"area-list"`
@@ -180,7 +180,7 @@ func (c *WS2Client) SearchArea(searchTerm string, limit int, offset int) (*AreaR
 // With no fields specified searchTerm searches the artist, sortname and alias
 // fields. For a list of all valid fields visit
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Artist
-func (c *WS2Client) SearchArtist(searchTerm string, limit int, offset int) (*ArtistResponse, error) {
+func (c *WS2Client) SearchArtist(searchTerm string, limit, offset int) (*ArtistResponse, error) {
 
 	var result struct {
 		Response ArtistResponse `xml:"artist-list"`
@@ -195,7 +195,7 @@ func (c *WS2Client) SearchArtist(searchTerm string, limit int, offset int) (*Art
 // With no fields specified searchTerm searches the release field only. For a
 // list of all valid fields visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release
-func (c *WS2Client) SearchRelease(searchTerm string, limit int, offset int) (*ReleaseResponse, error) {
+func (c *WS2Client) SearchRelease(searchTerm string, limit, offset int) (*ReleaseResponse, error) {
 
 	var result struct {
 		Response ReleaseResponse `xml:"release-list"`
@@ -210,7 +210,7 @@ func (c *WS2Client) SearchRelease(searchTerm string, limit int, offset int) (*Re
 // With no fields specified searchTerm searches the releasgroup field only. For
 // a list of all valid fields visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release_Group
-func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit int, offset int) (*ReleaseGroupResponse, error) {
+func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit, offset int) (*ReleaseGroupResponse, error) {
 
 	var result struct {
 		Response ReleaseGroupResponse `xml:"release-group-list"`
@@ -224,7 +224,7 @@ func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit int, offset int)
 // SearchTag queries MusicBrainz' Search Server for Tags.
 // searchTerm only contains the tag field. For more information visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Tag
-func (c *WS2Client) SearchTag(searchTerm string, limit int, offset int) (*TagResponse, error) {
+func (c *WS2Client) SearchTag(searchTerm string, limit, offset int) (*TagResponse, error) {
 
 	var result struct {
 		Response TagResponse `xml:"tag-list"`
@@ -235,27 +235,27 @@ func (c *WS2Client) SearchTag(searchTerm string, limit int, offset int) (*TagRes
 	return &result.Response, err
 }
 
-func (c *WS2Client) SearchCDStubs(searchTerm string, limit int, offset int) (*CDStubsResponse, error) {
+func (c *WS2Client) SearchCDStubs(searchTerm string, limit, offset int) (*CDStubsResponse, error) {
 	//TODO implement
 	return nil, nil
 }
-func (c *WS2Client) SearchFreedb(searchTerm string, limit int, offset int) (*FreedbResponse, error) {
+func (c *WS2Client) SearchFreedb(searchTerm string, limit, offset int) (*FreedbResponse, error) {
 	//TODO implement
 	return nil, nil
 }
-func (c *WS2Client) SearchLabel(searchTerm string, limit int, offset int) (*LabelResponse, error) {
+func (c *WS2Client) SearchLabel(searchTerm string, limit, offset int) (*LabelResponse, error) {
 	//TODO implement
 	return nil, nil
 }
-func (c *WS2Client) SearchPlace(searchTerm string, limit int, offset int) (*PlaceResponse, error) {
+func (c *WS2Client) SearchPlace(searchTerm string, limit, offset int) (*PlaceResponse, error) {
 	//TODO implement
 	return nil, nil
 }
-func (c *WS2Client) SearchRecording(searchTerm string, limit int, offset int) (*RecordingResponse, error) {
+func (c *WS2Client) SearchRecording(searchTerm string, limit, offset int) (*RecordingResponse, error) {
 	//TODO implement
 	return nil, nil
 }
-func (c *WS2Client) SearchWork(searchTerm string, limit int, offset int) (*WorkResponse, error) {
+func (c *WS2Client) SearchWork(searchTerm string, limit, offset int) (*WorkResponse, error) {
 	//TODO implement
 	return nil, nil
 }
