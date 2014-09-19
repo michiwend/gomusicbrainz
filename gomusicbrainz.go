@@ -64,7 +64,7 @@ import (
 // NewWS2Client returns a new instance of WS2Client. Please provide meaningful
 // information about your application as described at
 // https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
-func NewWS2Client(rooturl string, appname string, version string, contact string) *WS2Client {
+func NewWS2Client(rooturl, appname, version, contact string) *WS2Client {
 	c := WS2Client{}
 
 	c.WS2RootURL, _ = url.Parse(rooturl)
