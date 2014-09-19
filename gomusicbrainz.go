@@ -61,18 +61,14 @@ import (
 	"strconv"
 )
 
-// NewWS2Client returns a new instance of WS2Client with default values.
-func NewWS2Client() *WS2Client {
+// NewWS2Client returns a new instance of WS2Client. Please provide meaningful
+// information about your application as described at
+// https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
+func NewWS2Client(rooturl string, appname string, version string, contact string) *WS2Client {
 	c := WS2Client{}
 
-	c.WS2RootURL, _ = url.Parse("https://musicbrainz.org/ws/2")
-
-	// Provide meaningful User-Agent informations.
-	c.SetClientInfo(
-		"GoMusicBrainz - a Golang WS2 client",
-		"0.0.1-beta",
-		"michael@michiwend.com",
-	)
+	c.WS2RootURL, _ = url.Parse(rooturl)
+	c.userAgentHeader = appname + "/" + version + " ( " + contact + " ) "
 
 	return &c
 }
@@ -107,6 +103,7 @@ func (c *WS2Client) getReqeust(data interface{}, params url.Values, endpoint str
 		return err
 	}
 	return nil
+
 }
 
 // intParamToString returns an empty string for -1.

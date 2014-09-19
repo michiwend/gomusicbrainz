@@ -31,7 +31,6 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
-	"net/url"
 	"reflect"
 	"testing"
 	"time"
@@ -40,7 +39,7 @@ import (
 var (
 	mux    *http.ServeMux
 	server *httptest.Server
-	client WS2Client
+	client *WS2Client
 )
 
 // Init multiplexer and httptest server
@@ -48,16 +47,21 @@ func setupHTTPTesting() {
 	mux = http.NewServeMux()
 	server = httptest.NewServer(mux)
 
-	host, _ := url.Parse(server.URL)
-	client = WS2Client{WS2RootURL: host}
+	client = NewWS2Client(
+		server.URL,
+		"Application Name",
+		"Version",
+		"Contact",
+	)
 }
 
 // handleFunc passes response to the http client.
+/*
 func handleFunc(url string, response *string, t *testing.T) {
 	mux.HandleFunc(url, func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, *response)
 	})
-}
+}*/
 
 // serveTestFile responses to the http client with content of a test file
 // located in ./testdata
