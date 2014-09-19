@@ -19,16 +19,15 @@ This example demonstrates a simple search requests to find all artists matching 
 ```Go
 import "github.com/michiwend/gomusicbrainz"
 
-// create a new WS2 client
-client := gomusicbrainz.NewWS2Client()
 
-// provide some information about your application
-client.SetClientInfo(
+// create a new WS2Client.
+client := gomusicbrainz.NewWS2Client(
+    "https://musicbrainz.org/ws/2",
     "A GoMusicBrainz example",
     "0.0.1-beta",
     "http://github.com/michiwend/gomusicbrainz")
 
-// Search for some artist with default settings
+// Search for some artist with defaults for limit and offset.
 resp, _ := client.SearchArtist(`bonobo OR "Parov Stelar"`, -1, -1)
 
 // Pretty print Name and Id of each returned artist.
