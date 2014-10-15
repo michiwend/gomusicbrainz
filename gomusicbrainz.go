@@ -186,9 +186,9 @@ func (c *WS2Client) SearchArtist(searchTerm string, limit, offset int) (*ArtistR
 	rsp.WS2ListResponse = result.ArtistList.WS2ListResponse
 	rsp.Scores = make(ScoreMap)
 
-	for _, v := range result.ArtistList.Artists {
+	for i, v := range result.ArtistList.Artists {
 		rsp.Artists = append(rsp.Artists, v.Artist)
-		rsp.Scores[MBID(v.ID)] = v.Score
+		rsp.Scores[&rsp.Artists[i]] = v.Score
 	}
 
 	return &rsp, err

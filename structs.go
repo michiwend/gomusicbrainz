@@ -34,8 +34,8 @@ import (
 // MBID represents a MusicBrainz ID.
 type MBID string
 
-// ScoreMap maps MBIDs to Scores for search responses.
-type ScoreMap map[MBID]int
+// ScoreMap maps addresses of search request results to its scores.
+type ScoreMap map[interface{}]int
 
 type ISO31662Code string
 

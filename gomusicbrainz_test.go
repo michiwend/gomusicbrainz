@@ -191,9 +191,6 @@ func TestSearchArtist(t *testing.T) {
 				},
 			},
 		},
-		Scores: ScoreMap{
-			"some-artist-id": 100,
-		},
 	}
 
 	setupHTTPTesting()
@@ -204,6 +201,11 @@ func TestSearchArtist(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+
+	want.Scores = ScoreMap{
+		&returned.Artists[0]: 100,
+	}
+
 	if !reflect.DeepEqual(*returned, want) {
 		t.Errorf("Artists returned: %+v, want: %+v", *returned, want)
 	}
