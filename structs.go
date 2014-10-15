@@ -31,6 +31,14 @@ import (
 	"time"
 )
 
+// MBID represents a MusicBrainz ID.
+type MBID string
+
+// ScoreMap maps MBIDs to Scores for search responses.
+type ScoreMap map[MBID]int
+
+type ISO31662Code string
+
 // BrainzTime implements XMLUnmarshaler interface and is used to unmarshal the
 // XML date fields.
 type BrainzTime struct {
@@ -96,8 +104,6 @@ type TagResponse struct {
 	WS2ListResponse
 	Tags []Tag `xml:"tag"`
 }
-
-type ISO31662Code string
 
 // Area represents a geographic region or settlement.
 type Area struct {
