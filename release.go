@@ -22,5 +22,16 @@ type Release struct {
 // ReleaseResponse is the response type returned by release request methods.
 type ReleaseResponse struct {
 	WS2ListResponse
-	Releases []Release `xml:"release"`
+	Releases []Release
+	Scores   ScoreMap
+}
+
+type releaseListResult struct {
+	ReleaseList struct {
+		WS2ListResponse
+		Releases []struct {
+			Release
+			Score int `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
+		} `xml:"release"`
+	} `xml:"release-list"`
 }

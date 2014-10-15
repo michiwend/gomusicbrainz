@@ -170,13 +170,19 @@ func (c *WS2Client) SearchAnnotation(searchTerm string, limit, offset int) (*Ann
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Area
 func (c *WS2Client) SearchArea(searchTerm string, limit, offset int) (*AreaResponse, error) {
 
-	var result struct {
-		Response AreaResponse `xml:"area-list"`
-	}
-
+	result := areaListResult{}
 	err := c.searchRequest("/area", &result, searchTerm, limit, offset)
 
-	return &result.Response, err
+	rsp := AreaResponse{}
+	rsp.WS2ListResponse = result.AreaList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.AreaList.Areas {
+		rsp.Areas = append(rsp.Areas, v.Area)
+		rsp.Scores[&rsp.Areas[i]] = v.Score
+	}
+
+	return &rsp, err
 }
 
 // SearchArtist queries MusicBrainz´ Search Server for Artists.
@@ -206,13 +212,19 @@ func (c *WS2Client) SearchArtist(searchTerm string, limit, offset int) (*ArtistR
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release
 func (c *WS2Client) SearchRelease(searchTerm string, limit, offset int) (*ReleaseResponse, error) {
 
-	var result struct {
-		Response ReleaseResponse `xml:"release-list"`
-	}
-
+	result := releaseListResult{}
 	err := c.searchRequest("/release", &result, searchTerm, limit, offset)
 
-	return &result.Response, err
+	rsp := ReleaseResponse{}
+	rsp.WS2ListResponse = result.ReleaseList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.ReleaseList.Releases {
+		rsp.Releases = append(rsp.Releases, v.Release)
+		rsp.Scores[&rsp.Releases[i]] = v.Score
+	}
+
+	return &rsp, err
 }
 
 // SearchReleaseGroup queries MusicBrainz´ Search Server for ReleaseGroups.
@@ -221,13 +233,19 @@ func (c *WS2Client) SearchRelease(searchTerm string, limit, offset int) (*Releas
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release_Group
 func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit, offset int) (*ReleaseGroupResponse, error) {
 
-	var result struct {
-		Response ReleaseGroupResponse `xml:"release-group-list"`
-	}
-
+	result := releaseGroupListResult{}
 	err := c.searchRequest("/release-group", &result, searchTerm, limit, offset)
 
-	return &result.Response, err
+	rsp := ReleaseGroupResponse{}
+	rsp.WS2ListResponse = result.ReleaseGroupList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.ReleaseGroupList.ReleaseGroups {
+		rsp.ReleaseGroups = append(rsp.ReleaseGroups, v.ReleaseGroup)
+		rsp.Scores[&rsp.ReleaseGroups[i]] = v.Score
+	}
+
+	return &rsp, err
 }
 
 // SearchTag queries MusicBrainz' Search Server for Tags.
@@ -235,35 +253,46 @@ func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit, offset int) (*R
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Tag
 func (c *WS2Client) SearchTag(searchTerm string, limit, offset int) (*TagResponse, error) {
 
-	var result struct {
-		Response TagResponse `xml:"tag-list"`
-	}
-
+	result := tagListResult{}
 	err := c.searchRequest("/tag", &result, searchTerm, limit, offset)
 
-	return &result.Response, err
+	rsp := TagResponse{}
+	rsp.WS2ListResponse = result.TagList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.TagList.Tags {
+		rsp.Tags = append(rsp.Tags, v.Tag)
+		rsp.Scores[&rsp.Tags[i]] = v.Score
+	}
+
+	return &rsp, err
 }
 
 func (c *WS2Client) SearchCDStubs(searchTerm string, limit, offset int) (*CDStubsResponse, error) {
 	//TODO implement
 	return nil, nil
 }
+
 func (c *WS2Client) SearchFreedb(searchTerm string, limit, offset int) (*FreedbResponse, error) {
 	//TODO implement
 	return nil, nil
 }
+
 func (c *WS2Client) SearchLabel(searchTerm string, limit, offset int) (*LabelResponse, error) {
 	//TODO implement
 	return nil, nil
 }
+
 func (c *WS2Client) SearchPlace(searchTerm string, limit, offset int) (*PlaceResponse, error) {
 	//TODO implement
 	return nil, nil
 }
+
 func (c *WS2Client) SearchRecording(searchTerm string, limit, offset int) (*RecordingResponse, error) {
 	//TODO implement
 	return nil, nil
 }
+
 func (c *WS2Client) SearchWork(searchTerm string, limit, offset int) (*WorkResponse, error) {
 	//TODO implement
 	return nil, nil

@@ -13,9 +13,20 @@ type ReleaseGroup struct {
 	Tags         []Tag        `xml:"tag-list>tag"`
 }
 
-// ReleaseGroupResponse is the response type returned by release group
-// request methods.
+// ReleaseGroupResponse is the response type returned by release group request
+// methods.
 type ReleaseGroupResponse struct {
 	WS2ListResponse
-	ReleaseGroups []ReleaseGroup `xml:"release-group"`
+	ReleaseGroups []ReleaseGroup
+	Scores        ScoreMap
+}
+
+type releaseGroupListResult struct {
+	ReleaseGroupList struct {
+		WS2ListResponse
+		ReleaseGroups []struct {
+			ReleaseGroup
+			Score int `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
+		} `xml:"release-group"`
+	} `xml:"release-group-list"`
 }

@@ -159,6 +159,11 @@ func TestSearchArea(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+
+	want.Scores = ScoreMap{
+		&returned.Areas[0]: 100,
+	}
+
 	if !reflect.DeepEqual(*returned, want) {
 		t.Errorf("Areas returned: %+v, want: %+v", *returned, want)
 	}
@@ -273,6 +278,11 @@ func TestSearchRelease(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+
+	want.Scores = ScoreMap{
+		&returned.Releases[0]: 100,
+	}
+
 	if !reflect.DeepEqual(*returned, want) {
 		t.Errorf("Releases returned: %+v, want: %+v", *returned, want)
 	}
@@ -329,6 +339,11 @@ func TestSearchReleaseGroup(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+
+	want.Scores = ScoreMap{
+		&returned.ReleaseGroups[0]: 100,
+	}
+
 	if !reflect.DeepEqual(*returned, want) {
 		t.Errorf("ReleaseGroups returned: %+v, want: %+v", *returned, want)
 	}
@@ -343,12 +358,10 @@ func TestSearchTag(t *testing.T) {
 		},
 		Tags: []Tag{
 			{
-				Name:  "shoegaze",
-				Score: 100,
+				Name: "shoegaze",
 			},
 			{
-				Name:  "rock shoegaze",
-				Score: 62,
+				Name: "rock shoegaze",
 			},
 		},
 	}
@@ -361,6 +374,12 @@ func TestSearchTag(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+
+	want.Scores = ScoreMap{
+		&returned.Tags[0]: 100,
+		&returned.Tags[1]: 62,
+	}
+
 	if !reflect.DeepEqual(*returned, want) {
 		t.Errorf("Tags returned: %+v, want: %+v", *returned, want)
 	}

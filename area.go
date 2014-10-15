@@ -14,5 +14,16 @@ type Area struct {
 // AreaResponse is the response type returned by area request methods.
 type AreaResponse struct {
 	WS2ListResponse
-	Areas []Area `xml:"area"`
+	Areas  []Area `xml:"area"`
+	Scores ScoreMap
+}
+
+type areaListResult struct {
+	AreaList struct {
+		WS2ListResponse
+		Areas []struct {
+			Area
+			Score int `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
+		} `xml:"area"`
+	} `xml:"area-list"`
 }
