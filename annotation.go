@@ -14,5 +14,16 @@ type Annotation struct {
 // methods.
 type AnnotationResponse struct {
 	WS2ListResponse
-	Annotations []Annotation `xml:"annotation"`
+	Annotations []Annotation
+	Scores      ScoreMap
+}
+
+type annotationListResult struct {
+	AnnotationList struct {
+		WS2ListResponse
+		Annotations []struct {
+			Annotation
+			Score int `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
+		} `xml:"annotation"`
+	} `xml:"annotation-list"`
 }

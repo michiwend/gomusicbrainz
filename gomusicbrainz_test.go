@@ -113,6 +113,11 @@ func TestSearchAnnotation(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+
+	want.Scores = ScoreMap{
+		&returned.Annotations[0]: 100,
+	}
+
 	if !reflect.DeepEqual(*returned, want) {
 		t.Errorf("Annotations returned: %+v, want: %+v", *returned, want)
 	}
