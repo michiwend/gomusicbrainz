@@ -179,13 +179,19 @@ func (c *WS2Client) SearchArea(searchTerm string, limit, offset int) (*AreaRespo
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Artist
 func (c *WS2Client) SearchArtist(searchTerm string, limit, offset int) (*ArtistResponse, error) {
 
-	var result struct {
-		Response ArtistResponse `xml:"artist-list"`
-	}
-
+	result := artistListResult{}
 	err := c.searchRequest("/artist", &result, searchTerm, limit, offset)
 
-	return &result.Response, err
+	rsp := ArtistResponse{}
+	rsp.WS2ListResponse = result.ArtistList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for _, v := range result.ArtistList.Artists {
+		rsp.Artists = append(rsp.Artists, v.Artist)
+		rsp.Scores[MBID(v.ID)] = v.Score
+	}
+
+	return &rsp, err
 }
 
 // SearchRelease queries MusicBrainz´ Search Server for Releases.

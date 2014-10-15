@@ -122,25 +122,6 @@ type AreaResponse struct {
 	Areas []Area `xml:"area"`
 }
 
-// Artist represents generally a musician, a group of musicians, a collaboration
-// of multiple musicians or other music professionals.
-type Artist struct {
-	ID             string   `xml:"id,attr"`
-	Type           string   `xml:"type,attr"`
-	Name           string   `xml:"name"`
-	Disambiguation string   `xml:"disambiguation"`
-	SortName       string   `xml:"sort-name"`
-	CountryCode    string   `xml:"country"`
-	Lifespan       Lifespan `xml:"life-span"`
-	Aliases        []Alias  `xml:"alias-list>alias"`
-}
-
-// ArtistResponse is the response type returned by artist request methods.
-type ArtistResponse struct {
-	WS2ListResponse
-	Artists []Artist `xml:"artist"`
-}
-
 type Label struct {
 	Name string `xml:"name"`
 }

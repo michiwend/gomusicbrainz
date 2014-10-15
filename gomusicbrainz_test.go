@@ -191,6 +191,9 @@ func TestSearchArtist(t *testing.T) {
 				},
 			},
 		},
+		Scores: ScoreMap{
+			"some-artist-id": 100,
+		},
 	}
 
 	setupHTTPTesting()
