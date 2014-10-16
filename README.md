@@ -44,4 +44,4 @@ All search request follow the [Apache Lucene syntax](https://lucene.apache.org/c
 
 Documentation for this package can be found on godoc.org or gowalker.org:
 
-[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/michiwend/gomusicbrainz) [![Go Walker](http://gowalker.org/api/v1/badge)](https://github.com/michiwend/gomusicbrainz)
+[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/michiwend/gomusicbrainz) [![Go Walker](http://gowalker.org/api/v1/badge)](https://gowalker.org/github.com/michiwend/gomusicbrainz)
