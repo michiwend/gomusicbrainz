@@ -3,7 +3,7 @@ gomusicbrainz
 
 a Go (Golang) MusicBrainz WS2 client library - work in progress. [![Build Status](https://travis-ci.org/michiwend/gomusicbrainz.svg?branch=master)](https://travis-ci.org/michiwend/gomusicbrainz)
 
-![gopherbrainz Oo](misc/gopherbrainz.png)
+![gopherbrainz Oo](https://raw.githubusercontent.com/michiwend/gomusicbrainz/master/misc/gopherbrainz.png)
 
 ## Current state
 Currently only search requests are supported. Browse and lookup requests will
