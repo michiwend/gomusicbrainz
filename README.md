@@ -42,6 +42,6 @@ Name: Parov Stelar & the Band  Score: 70
 ## Full documentation
 All search request follow the [Apache Lucene syntax](https://lucene.apache.org/core/4_3_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description). Please head over to the [MusicBrainz website] (https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search) for more information about all possible query-fields.
 
-Documentation for this package can be found on godoc.org (badge).
+Documentation for this package can be found on godoc.org or gowalker.org:
 
-[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/michiwend/gomusicbrainz)
+[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/michiwend/gomusicbrainz) [![Go Walker](http://gowalker.org/api/v1/badge)](https://github.com/michiwend/gomusicbrainz)
