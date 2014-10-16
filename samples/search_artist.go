@@ -40,7 +40,7 @@ func main() {
 		"0.0.1-beta",
 		"http://github.com/michiwend/gomusicbrainz")
 
-	// Search for some artist with default settings
+	// Search for some artist(s)
 	resp, _ := client.SearchArtist(`bonobo OR "Parov Stelar"`, -1, -1)
 
 	// Pretty print Name and Id of each returned artist.
