@@ -13,6 +13,17 @@ type TagResponse struct {
 	Scores ScoreMap
 }
 
+// ResultsWithScore returns a slice of Tags with a specific score.
+func (r *TagResponse) ResultsWithScore(score int) []Tag {
+	var res []Tag
+	for k, v := range r.Scores {
+		if v == score {
+			res = append(res, *k.(*Tag))
+		}
+	}
+	return res
+}
+
 type tagListResult struct {
 	TagList struct {
 		WS2ListResponse

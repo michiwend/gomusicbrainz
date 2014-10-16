@@ -20,7 +20,17 @@ type ArtistResponse struct {
 	Scores  ScoreMap
 }
 
-// artistUnmarshal is a structure used only to unmarshal the API response.
+// ResultsWithScore returns a slice of Artists with a specific score.
+func (r *ArtistResponse) ResultsWithScore(score int) []Artist {
+	var res []Artist
+	for k, v := range r.Scores {
+		if v == score {
+			res = append(res, *k.(*Artist))
+		}
+	}
+	return res
+}
+
 type artistListResult struct {
 	ArtistList struct {
 		WS2ListResponse

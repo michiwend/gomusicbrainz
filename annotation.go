@@ -18,6 +18,17 @@ type AnnotationResponse struct {
 	Scores      ScoreMap
 }
 
+// ResultsWithScore returns a slice of Annotations with a specific score.
+func (r *AnnotationResponse) ResultsWithScore(score int) []Annotation {
+	var res []Annotation
+	for k, v := range r.Scores {
+		if v == score {
+			res = append(res, *k.(*Annotation))
+		}
+	}
+	return res
+}
+
 type annotationListResult struct {
 	AnnotationList struct {
 		WS2ListResponse

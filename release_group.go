@@ -21,6 +21,17 @@ type ReleaseGroupResponse struct {
 	Scores        ScoreMap
 }
 
+// ResultsWithScore returns a slice of ReleaseGroups with a specific score.
+func (r *ReleaseGroupResponse) ResultsWithScore(score int) []ReleaseGroup {
+	var res []ReleaseGroup
+	for k, v := range r.Scores {
+		if v == score {
+			res = append(res, *k.(*ReleaseGroup))
+		}
+	}
+	return res
+}
+
 type releaseGroupListResult struct {
 	ReleaseGroupList struct {
 		WS2ListResponse

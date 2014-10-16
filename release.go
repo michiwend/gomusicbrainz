@@ -26,6 +26,17 @@ type ReleaseResponse struct {
 	Scores   ScoreMap
 }
 
+// ResultsWithScore returns a slice of Releases with a specific score.
+func (r *ReleaseResponse) ResultsWithScore(score int) []Release {
+	var res []Release
+	for k, v := range r.Scores {
+		if v == score {
+			res = append(res, *k.(*Release))
+		}
+	}
+	return res
+}
+
 type releaseListResult struct {
 	ReleaseList struct {
 		WS2ListResponse
