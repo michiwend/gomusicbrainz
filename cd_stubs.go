@@ -29,6 +29,6 @@ type CDStubs struct {
 	//TODO implement
 }
 
-type CDStubsResponse struct {
+type CDStubsSearchResponse struct {
 	//TODO implement
 }

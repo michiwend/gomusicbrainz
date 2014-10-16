@@ -83,7 +83,7 @@ func serveTestFile(url string, testfile string, t *testing.T) {
 
 func TestSearchAnnotation(t *testing.T) {
 
-	want := AnnotationResponse{
+	want := AnnotationSearchResponse{
 		WS2ListResponse: WS2ListResponse{
 			Count:  1,
 			Offset: 0,
@@ -126,7 +126,7 @@ func TestSearchAnnotation(t *testing.T) {
 
 func TestSearchArea(t *testing.T) {
 
-	want := AreaResponse{
+	want := AreaSearchResponse{
 		WS2ListResponse: WS2ListResponse{
 			Count:  1,
 			Offset: 0,
@@ -171,7 +171,7 @@ func TestSearchArea(t *testing.T) {
 
 func TestSearchArtist(t *testing.T) {
 
-	want := ArtistResponse{
+	want := ArtistSearchResponse{
 		WS2ListResponse: WS2ListResponse{
 			Count:  1,
 			Offset: 0,
@@ -223,7 +223,7 @@ func TestSearchArtist(t *testing.T) {
 
 func TestSearchRelease(t *testing.T) {
 
-	want := ReleaseResponse{
+	want := ReleaseSearchResponse{
 		WS2ListResponse: WS2ListResponse{
 			Count:  1,
 			Offset: 0,
@@ -290,7 +290,7 @@ func TestSearchRelease(t *testing.T) {
 
 func TestSearchReleaseGroup(t *testing.T) {
 
-	want := ReleaseGroupResponse{
+	want := ReleaseGroupSearchResponse{
 		WS2ListResponse: WS2ListResponse{
 			Count:  1,
 			Offset: 0,
@@ -351,7 +351,7 @@ func TestSearchReleaseGroup(t *testing.T) {
 
 func TestSearchTag(t *testing.T) {
 
-	want := TagResponse{
+	want := TagSearchResponse{
 		WS2ListResponse: WS2ListResponse{
 			Count:  2,
 			Offset: 0,

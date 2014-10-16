@@ -38,16 +38,16 @@ type ReleaseGroup struct {
 	Tags         []Tag        `xml:"tag-list>tag"`
 }
 
-// ReleaseGroupResponse is the response type returned by release group request
+// ReleaseGroupSearchResponse is the response type returned by release group request
 // methods.
-type ReleaseGroupResponse struct {
+type ReleaseGroupSearchResponse struct {
 	WS2ListResponse
 	ReleaseGroups []ReleaseGroup
 	Scores        ScoreMap
 }
 
 // ResultsWithScore returns a slice of ReleaseGroups with a specific score.
-func (r *ReleaseGroupResponse) ResultsWithScore(score int) []ReleaseGroup {
+func (r *ReleaseGroupSearchResponse) ResultsWithScore(score int) []ReleaseGroup {
 	var res []ReleaseGroup
 	for k, v := range r.Scores {
 		if v == score {

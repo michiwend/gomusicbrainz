@@ -36,15 +36,15 @@ type Area struct {
 	Aliases       []Alias        `xml:"alias-list>alias"`
 }
 
-// AreaResponse is the response type returned by area request methods.
-type AreaResponse struct {
+// AreaSearchResponse is the response type returned by the area search method.
+type AreaSearchResponse struct {
 	WS2ListResponse
 	Areas  []Area `xml:"area"`
 	Scores ScoreMap
 }
 
 // ResultsWithScore returns a slice of Areas with a specific score.
-func (r *AreaResponse) ResultsWithScore(score int) []Area {
+func (r *AreaSearchResponse) ResultsWithScore(score int) []Area {
 	var res []Area
 	for k, v := range r.Scores {
 		if v == score {

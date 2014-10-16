@@ -44,15 +44,15 @@ type Release struct {
 	Mediums            []Medium           `xml:"medium-list>medium"`
 }
 
-// ReleaseResponse is the response type returned by release request methods.
-type ReleaseResponse struct {
+// ReleaseSearchResponse is the response type returned by the release search method.
+type ReleaseSearchResponse struct {
 	WS2ListResponse
 	Releases []Release
 	Scores   ScoreMap
 }
 
 // ResultsWithScore returns a slice of Releases with a specific score.
-func (r *ReleaseResponse) ResultsWithScore(score int) []Release {
+func (r *ReleaseSearchResponse) ResultsWithScore(score int) []Release {
 	var res []Release
 	for k, v := range r.Scores {
 		if v == score {

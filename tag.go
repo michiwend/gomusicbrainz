@@ -31,15 +31,15 @@ type Tag struct {
 	Name  string `xml:"name"`
 }
 
-// TagResponse is the response type returned by tag request methods.
-type TagResponse struct {
+// TagSearchResponse is the response type returned by the tag search method.
+type TagSearchResponse struct {
 	WS2ListResponse
 	Tags   []Tag
 	Scores ScoreMap
 }
 
 // ResultsWithScore returns a slice of Tags with a specific score.
-func (r *TagResponse) ResultsWithScore(score int) []Tag {
+func (r *TagSearchResponse) ResultsWithScore(score int) []Tag {
 	var res []Tag
 	for k, v := range r.Scores {
 		if v == score {

@@ -29,6 +29,6 @@ type Work struct {
 	//TODO implement
 }
 
-type WorkResponse struct {
+type WorkSearchResponse struct {
 	//TODO implement
 }

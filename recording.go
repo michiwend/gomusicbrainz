@@ -29,6 +29,6 @@ type Recording struct {
 	//TODO implement
 }
 
-type RecordingResponse struct {
+type RecordingSearchResponse struct {
 	//TODO implement
 }

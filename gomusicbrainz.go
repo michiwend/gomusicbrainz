@@ -33,7 +33,7 @@ Search requests
 With search requests you can search MusicBrainz´ database for all entities.
 GoMusicBrainz implements one search method for every search request in the form:
 
-	func (*WS2Client) Search<TYPE>(searchTerm, limit, offset) (Response<TYPE>, error)
+	func (*WS2Client) Search<TYPE>(searchTerm, limit, offset) (SearchResponse<TYPE>, error)
 
 searchTerm follows the Apache Lucene syntax and can either contain multiple
 fields with logical operators or just a simple search string. Please refer to
@@ -147,12 +147,12 @@ func (c *WS2Client) SetClientInfo(application string, version string, contact st
 // With no fields specified searchTerm searches TODO. For a list of all valid
 // search fields visit
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Annotation
-func (c *WS2Client) SearchAnnotation(searchTerm string, limit, offset int) (*AnnotationResponse, error) {
+func (c *WS2Client) SearchAnnotation(searchTerm string, limit, offset int) (*AnnotationSearchResponse, error) {
 
 	result := annotationListResult{}
 	err := c.searchRequest("/annotation", &result, searchTerm, limit, offset)
 
-	rsp := AnnotationResponse{}
+	rsp := AnnotationSearchResponse{}
 	rsp.WS2ListResponse = result.AnnotationList.WS2ListResponse
 	rsp.Scores = make(ScoreMap)
 
@@ -168,12 +168,12 @@ func (c *WS2Client) SearchAnnotation(searchTerm string, limit, offset int) (*Ann
 // With no fields specified searchTerm searches the area and sortname fields.
 // For a list of all valid search fields visit
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Area
-func (c *WS2Client) SearchArea(searchTerm string, limit, offset int) (*AreaResponse, error) {
+func (c *WS2Client) SearchArea(searchTerm string, limit, offset int) (*AreaSearchResponse, error) {
 
 	result := areaListResult{}
 	err := c.searchRequest("/area", &result, searchTerm, limit, offset)
 
-	rsp := AreaResponse{}
+	rsp := AreaSearchResponse{}
 	rsp.WS2ListResponse = result.AreaList.WS2ListResponse
 	rsp.Scores = make(ScoreMap)
 
@@ -189,12 +189,12 @@ func (c *WS2Client) SearchArea(searchTerm string, limit, offset int) (*AreaRespo
 // With no fields specified searchTerm searches the artist, sortname and alias
 // fields. For a list of all valid fields visit
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Artist
-func (c *WS2Client) SearchArtist(searchTerm string, limit, offset int) (*ArtistResponse, error) {
+func (c *WS2Client) SearchArtist(searchTerm string, limit, offset int) (*ArtistSearchResponse, error) {
 
 	result := artistListResult{}
 	err := c.searchRequest("/artist", &result, searchTerm, limit, offset)
 
-	rsp := ArtistResponse{}
+	rsp := ArtistSearchResponse{}
 	rsp.WS2ListResponse = result.ArtistList.WS2ListResponse
 	rsp.Scores = make(ScoreMap)
 
@@ -210,12 +210,12 @@ func (c *WS2Client) SearchArtist(searchTerm string, limit, offset int) (*ArtistR
 // With no fields specified searchTerm searches the release field only. For a
 // list of all valid fields visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release
-func (c *WS2Client) SearchRelease(searchTerm string, limit, offset int) (*ReleaseResponse, error) {
+func (c *WS2Client) SearchRelease(searchTerm string, limit, offset int) (*ReleaseSearchResponse, error) {
 
 	result := releaseListResult{}
 	err := c.searchRequest("/release", &result, searchTerm, limit, offset)
 
-	rsp := ReleaseResponse{}
+	rsp := ReleaseSearchResponse{}
 	rsp.WS2ListResponse = result.ReleaseList.WS2ListResponse
 	rsp.Scores = make(ScoreMap)
 
@@ -231,12 +231,12 @@ func (c *WS2Client) SearchRelease(searchTerm string, limit, offset int) (*Releas
 // With no fields specified searchTerm searches the releasgroup field only. For
 // a list of all valid fields visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release_Group
-func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit, offset int) (*ReleaseGroupResponse, error) {
+func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit, offset int) (*ReleaseGroupSearchResponse, error) {
 
 	result := releaseGroupListResult{}
 	err := c.searchRequest("/release-group", &result, searchTerm, limit, offset)
 
-	rsp := ReleaseGroupResponse{}
+	rsp := ReleaseGroupSearchResponse{}
 	rsp.WS2ListResponse = result.ReleaseGroupList.WS2ListResponse
 	rsp.Scores = make(ScoreMap)
 
@@ -251,12 +251,12 @@ func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit, offset int) (*R
 // SearchTag queries MusicBrainz' Search Server for Tags.
 // searchTerm only contains the tag field. For more information visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Tag
-func (c *WS2Client) SearchTag(searchTerm string, limit, offset int) (*TagResponse, error) {
+func (c *WS2Client) SearchTag(searchTerm string, limit, offset int) (*TagSearchResponse, error) {
 
 	result := tagListResult{}
 	err := c.searchRequest("/tag", &result, searchTerm, limit, offset)
 
-	rsp := TagResponse{}
+	rsp := TagSearchResponse{}
 	rsp.WS2ListResponse = result.TagList.WS2ListResponse
 	rsp.Scores = make(ScoreMap)
 
@@ -268,32 +268,32 @@ func (c *WS2Client) SearchTag(searchTerm string, limit, offset int) (*TagRespons
 	return &rsp, err
 }
 
-func (c *WS2Client) SearchCDStubs(searchTerm string, limit, offset int) (*CDStubsResponse, error) {
+func (c *WS2Client) SearchCDStubs(searchTerm string, limit, offset int) (*CDStubsSearchResponse, error) {
 	//TODO implement
 	return nil, nil
 }
 
-func (c *WS2Client) SearchFreedb(searchTerm string, limit, offset int) (*FreedbResponse, error) {
+func (c *WS2Client) SearchFreedb(searchTerm string, limit, offset int) (*FreedbSearchResponse, error) {
 	//TODO implement
 	return nil, nil
 }
 
-func (c *WS2Client) SearchLabel(searchTerm string, limit, offset int) (*LabelResponse, error) {
+func (c *WS2Client) SearchLabel(searchTerm string, limit, offset int) (*LabelSearchResponse, error) {
 	//TODO implement
 	return nil, nil
 }
 
-func (c *WS2Client) SearchPlace(searchTerm string, limit, offset int) (*PlaceResponse, error) {
+func (c *WS2Client) SearchPlace(searchTerm string, limit, offset int) (*PlaceSearchResponse, error) {
 	//TODO implement
 	return nil, nil
 }
 
-func (c *WS2Client) SearchRecording(searchTerm string, limit, offset int) (*RecordingResponse, error) {
+func (c *WS2Client) SearchRecording(searchTerm string, limit, offset int) (*RecordingSearchResponse, error) {
 	//TODO implement
 	return nil, nil
 }
 
-func (c *WS2Client) SearchWork(searchTerm string, limit, offset int) (*WorkResponse, error) {
+func (c *WS2Client) SearchWork(searchTerm string, limit, offset int) (*WorkSearchResponse, error) {
 	//TODO implement
 	return nil, nil
 }

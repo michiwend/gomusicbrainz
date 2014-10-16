@@ -38,15 +38,15 @@ type Artist struct {
 	Aliases        []Alias  `xml:"alias-list>alias"`
 }
 
-// ArtistResponse is the response type returned by artist request methods.
-type ArtistResponse struct {
+// ArtistSearchResponse is the response type returned by the artist search method.
+type ArtistSearchResponse struct {
 	WS2ListResponse
 	Artists []Artist
 	Scores  ScoreMap
 }
 
 // ResultsWithScore returns a slice of Artists with a specific score.
-func (r *ArtistResponse) ResultsWithScore(score int) []Artist {
+func (r *ArtistSearchResponse) ResultsWithScore(score int) []Artist {
 	var res []Artist
 	for k, v := range r.Scores {
 		if v == score {

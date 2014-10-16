@@ -29,6 +29,6 @@ type Place struct {
 	//TODO implement
 }
 
-type PlaceResponse struct {
+type PlaceSearchResponse struct {
 	//TODO implement
 }

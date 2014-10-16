@@ -29,7 +29,7 @@ type Label struct {
 	Name string `xml:"name"`
 }
 
-// LabelResponse is the response type returned by label request methods.
-type LabelResponse struct {
+// LabelSearchResponse is the response type returned by the label search method.
+type LabelSearchResponse struct {
 	//TODO implement
 }

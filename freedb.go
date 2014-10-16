@@ -29,6 +29,6 @@ type Freedb struct {
 	//TODO implement
 }
 
-type FreedbResponse struct {
+type FreedbSearchResponse struct {
 	//TODO implement
 }

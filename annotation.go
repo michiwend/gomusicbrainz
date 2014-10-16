@@ -35,16 +35,16 @@ type Annotation struct {
 	Text   string `xml:"text"`
 }
 
-// AnnotationResponse is the response type returned by annotation request
+// AnnotationSearchResponse is the response type returned by annotation request
 // methods.
-type AnnotationResponse struct {
+type AnnotationSearchResponse struct {
 	WS2ListResponse
 	Annotations []Annotation
 	Scores      ScoreMap
 }
 
 // ResultsWithScore returns a slice of Annotations with a specific score.
-func (r *AnnotationResponse) ResultsWithScore(score int) []Annotation {
+func (r *AnnotationSearchResponse) ResultsWithScore(score int) []Annotation {
 	var res []Annotation
 	for k, v := range r.Scores {
 		if v == score {
