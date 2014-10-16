@@ -39,16 +39,16 @@ type Area struct {
 // AreaSearchResponse is the response type returned by the area search method.
 type AreaSearchResponse struct {
 	WS2ListResponse
-	Areas  []Area `xml:"area"`
+	Areas  []*Area
 	Scores ScoreMap
 }
 
 // ResultsWithScore returns a slice of Areas with a specific score.
-func (r *AreaSearchResponse) ResultsWithScore(score int) []Area {
-	var res []Area
+func (r *AreaSearchResponse) ResultsWithScore(score int) []*Area {
+	var res []*Area
 	for k, v := range r.Scores {
 		if v == score {
-			res = append(res, *k.(*Area))
+			res = append(res, k.(*Area))
 		}
 	}
 	return res
@@ -58,7 +58,7 @@ type areaListResult struct {
 	AreaList struct {
 		WS2ListResponse
 		Areas []struct {
-			Area
+			*Area
 			Score int `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
 		} `xml:"area"`
 	} `xml:"area-list"`

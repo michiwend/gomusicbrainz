@@ -47,16 +47,16 @@ type Release struct {
 // ReleaseSearchResponse is the response type returned by the release search method.
 type ReleaseSearchResponse struct {
 	WS2ListResponse
-	Releases []Release
+	Releases []*Release
 	Scores   ScoreMap
 }
 
 // ResultsWithScore returns a slice of Releases with a specific score.
-func (r *ReleaseSearchResponse) ResultsWithScore(score int) []Release {
-	var res []Release
+func (r *ReleaseSearchResponse) ResultsWithScore(score int) []*Release {
+	var res []*Release
 	for k, v := range r.Scores {
 		if v == score {
-			res = append(res, *k.(*Release))
+			res = append(res, k.(*Release))
 		}
 	}
 	return res
@@ -66,7 +66,7 @@ type releaseListResult struct {
 	ReleaseList struct {
 		WS2ListResponse
 		Releases []struct {
-			Release
+			*Release
 			Score int `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
 		} `xml:"release"`
 	} `xml:"release-list"`

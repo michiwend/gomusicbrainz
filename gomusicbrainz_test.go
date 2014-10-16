@@ -88,7 +88,7 @@ func TestSearchAnnotation(t *testing.T) {
 			Count:  1,
 			Offset: 0,
 		},
-		Annotations: []Annotation{
+		Annotations: []*Annotation{
 			{
 				Type:   "release",
 				Entity: "bdb24cb5-404b-4f60-bba4-7b730325ae47",
@@ -115,10 +115,12 @@ func TestSearchAnnotation(t *testing.T) {
 	}
 
 	want.Scores = ScoreMap{
-		&returned.Annotations[0]: 100,
+		returned.Annotations[0]: 100,
 	}
 
 	if !reflect.DeepEqual(*returned, want) {
+		// FIXME replace this line since it prints only addresses of the
+		// relevant data.
 		t.Errorf("Annotations returned: %+v, want: %+v", *returned, want)
 	}
 
@@ -131,7 +133,7 @@ func TestSearchArea(t *testing.T) {
 			Count:  1,
 			Offset: 0,
 		},
-		Areas: []Area{
+		Areas: []*Area{
 			{
 				ID:       "d79e4501-8cba-431b-96e7-bb9976f0ae76",
 				Type:     "Subdivision",
@@ -161,10 +163,12 @@ func TestSearchArea(t *testing.T) {
 	}
 
 	want.Scores = ScoreMap{
-		&returned.Areas[0]: 100,
+		returned.Areas[0]: 100,
 	}
 
 	if !reflect.DeepEqual(*returned, want) {
+		// FIXME replace this line since it prints only addresses of the
+		// relevant data.
 		t.Errorf("Areas returned: %+v, want: %+v", *returned, want)
 	}
 }
@@ -176,7 +180,7 @@ func TestSearchArtist(t *testing.T) {
 			Count:  1,
 			Offset: 0,
 		},
-		Artists: []Artist{
+		Artists: []*Artist{
 			{
 				ID:             "some-artist-id",
 				Type:           "Group",
@@ -213,10 +217,12 @@ func TestSearchArtist(t *testing.T) {
 	}
 
 	want.Scores = ScoreMap{
-		&returned.Artists[0]: 100,
+		returned.Artists[0]: 100,
 	}
 
 	if !reflect.DeepEqual(*returned, want) {
+		// FIXME replace this line since it prints only addresses of the
+		// relevant data.
 		t.Errorf("Artists returned: %+v, want: %+v", *returned, want)
 	}
 }
@@ -228,7 +234,7 @@ func TestSearchRelease(t *testing.T) {
 			Count:  1,
 			Offset: 0,
 		},
-		Releases: []Release{
+		Releases: []*Release{
 			{
 				ID:     "9ab1b03e-6722-4ab8-bc7f-a8722f0d34c1",
 				Title:  "Fred Schneider & The Shake Society",
@@ -280,10 +286,12 @@ func TestSearchRelease(t *testing.T) {
 	}
 
 	want.Scores = ScoreMap{
-		&returned.Releases[0]: 100,
+		returned.Releases[0]: 100,
 	}
 
 	if !reflect.DeepEqual(*returned, want) {
+		// FIXME replace this line since it prints only addresses of the
+		// relevant data.
 		t.Errorf("Releases returned: %+v, want: %+v", *returned, want)
 	}
 }
@@ -295,7 +303,7 @@ func TestSearchReleaseGroup(t *testing.T) {
 			Count:  1,
 			Offset: 0,
 		},
-		ReleaseGroups: []ReleaseGroup{
+		ReleaseGroups: []*ReleaseGroup{
 			{
 				ID:          "70664047-2545-4e46-b75f-4556f2a7b83e",
 				Type:        "Single",
@@ -341,10 +349,12 @@ func TestSearchReleaseGroup(t *testing.T) {
 	}
 
 	want.Scores = ScoreMap{
-		&returned.ReleaseGroups[0]: 100,
+		returned.ReleaseGroups[0]: 100,
 	}
 
 	if !reflect.DeepEqual(*returned, want) {
+		// FIXME replace this line since it prints only addresses of the
+		// relevant data.
 		t.Errorf("ReleaseGroups returned: %+v, want: %+v", *returned, want)
 	}
 }
@@ -356,13 +366,13 @@ func TestSearchTag(t *testing.T) {
 			Count:  2,
 			Offset: 0,
 		},
-		Tags: []Tag{
+		Tags: []*Tag{
 			{
 				Name: "shoegaze",
 			},
-			/*	{
+			{
 				Name: "rock shoegaze",
-			},*/
+			},
 		},
 	}
 
@@ -376,12 +386,13 @@ func TestSearchTag(t *testing.T) {
 	}
 
 	want.Scores = ScoreMap{
-		&returned.Tags[0]: 100,
-		//&returned.Tags[1]: 62, //FIXME test fails with more than one element
-		// in slice; the address of the first element differs...
+		returned.Tags[0]: 100,
+		returned.Tags[1]: 62,
 	}
 
 	if !reflect.DeepEqual(*returned, want) {
+		// FIXME replace this line since it prints only addresses of the
+		// relevant data.
 		t.Errorf("Tags returned: %+v, want: %+v", *returned, want)
 	}
 }

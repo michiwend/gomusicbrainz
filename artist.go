@@ -41,16 +41,16 @@ type Artist struct {
 // ArtistSearchResponse is the response type returned by the artist search method.
 type ArtistSearchResponse struct {
 	WS2ListResponse
-	Artists []Artist
+	Artists []*Artist
 	Scores  ScoreMap
 }
 
 // ResultsWithScore returns a slice of Artists with a specific score.
-func (r *ArtistSearchResponse) ResultsWithScore(score int) []Artist {
-	var res []Artist
+func (r *ArtistSearchResponse) ResultsWithScore(score int) []*Artist {
+	var res []*Artist
 	for k, v := range r.Scores {
 		if v == score {
-			res = append(res, *k.(*Artist))
+			res = append(res, k.(*Artist))
 		}
 	}
 	return res
@@ -60,7 +60,7 @@ type artistListResult struct {
 	ArtistList struct {
 		WS2ListResponse
 		Artists []struct {
-			Artist
+			*Artist
 			Score int `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
 		} `xml:"artist"`
 	} `xml:"artist-list"`

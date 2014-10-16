@@ -39,16 +39,16 @@ type Annotation struct {
 // methods.
 type AnnotationSearchResponse struct {
 	WS2ListResponse
-	Annotations []Annotation
+	Annotations []*Annotation
 	Scores      ScoreMap
 }
 
 // ResultsWithScore returns a slice of Annotations with a specific score.
-func (r *AnnotationSearchResponse) ResultsWithScore(score int) []Annotation {
-	var res []Annotation
+func (r *AnnotationSearchResponse) ResultsWithScore(score int) []*Annotation {
+	var res []*Annotation
 	for k, v := range r.Scores {
 		if v == score {
-			res = append(res, *k.(*Annotation))
+			res = append(res, k.(*Annotation))
 		}
 	}
 	return res
@@ -58,7 +58,7 @@ type annotationListResult struct {
 	AnnotationList struct {
 		WS2ListResponse
 		Annotations []struct {
-			Annotation
+			*Annotation
 			Score int `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
 		} `xml:"annotation"`
 	} `xml:"annotation-list"`

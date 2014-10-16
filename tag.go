@@ -34,16 +34,16 @@ type Tag struct {
 // TagSearchResponse is the response type returned by the tag search method.
 type TagSearchResponse struct {
 	WS2ListResponse
-	Tags   []Tag
+	Tags   []*Tag
 	Scores ScoreMap
 }
 
 // ResultsWithScore returns a slice of Tags with a specific score.
-func (r *TagSearchResponse) ResultsWithScore(score int) []Tag {
-	var res []Tag
+func (r *TagSearchResponse) ResultsWithScore(score int) []*Tag {
+	var res []*Tag
 	for k, v := range r.Scores {
 		if v == score {
-			res = append(res, *k.(*Tag))
+			res = append(res, k.(*Tag))
 		}
 	}
 	return res
@@ -53,7 +53,7 @@ type tagListResult struct {
 	TagList struct {
 		WS2ListResponse
 		Tags []struct {
-			Tag
+			*Tag
 			Score int `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
 		} `xml:"tag"`
 	} `xml:"tag-list"`

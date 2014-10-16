@@ -158,7 +158,7 @@ func (c *WS2Client) SearchAnnotation(searchTerm string, limit, offset int) (*Ann
 
 	for i, v := range result.AnnotationList.Annotations {
 		rsp.Annotations = append(rsp.Annotations, v.Annotation)
-		rsp.Scores[&rsp.Annotations[i]] = v.Score
+		rsp.Scores[rsp.Annotations[i]] = v.Score
 	}
 
 	return &rsp, err
@@ -179,7 +179,7 @@ func (c *WS2Client) SearchArea(searchTerm string, limit, offset int) (*AreaSearc
 
 	for i, v := range result.AreaList.Areas {
 		rsp.Areas = append(rsp.Areas, v.Area)
-		rsp.Scores[&rsp.Areas[i]] = v.Score
+		rsp.Scores[rsp.Areas[i]] = v.Score
 	}
 
 	return &rsp, err
@@ -200,7 +200,7 @@ func (c *WS2Client) SearchArtist(searchTerm string, limit, offset int) (*ArtistS
 
 	for i, v := range result.ArtistList.Artists {
 		rsp.Artists = append(rsp.Artists, v.Artist)
-		rsp.Scores[&rsp.Artists[i]] = v.Score
+		rsp.Scores[rsp.Artists[i]] = v.Score
 	}
 
 	return &rsp, err
@@ -221,7 +221,7 @@ func (c *WS2Client) SearchRelease(searchTerm string, limit, offset int) (*Releas
 
 	for i, v := range result.ReleaseList.Releases {
 		rsp.Releases = append(rsp.Releases, v.Release)
-		rsp.Scores[&rsp.Releases[i]] = v.Score
+		rsp.Scores[rsp.Releases[i]] = v.Score
 	}
 
 	return &rsp, err
@@ -242,7 +242,7 @@ func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit, offset int) (*R
 
 	for i, v := range result.ReleaseGroupList.ReleaseGroups {
 		rsp.ReleaseGroups = append(rsp.ReleaseGroups, v.ReleaseGroup)
-		rsp.Scores[&rsp.ReleaseGroups[i]] = v.Score
+		rsp.Scores[rsp.ReleaseGroups[i]] = v.Score
 	}
 
 	return &rsp, err
@@ -262,7 +262,7 @@ func (c *WS2Client) SearchTag(searchTerm string, limit, offset int) (*TagSearchR
 
 	for i, v := range result.TagList.Tags {
 		rsp.Tags = append(rsp.Tags, v.Tag)
-		rsp.Scores[&rsp.Tags[i]] = v.Score
+		rsp.Scores[rsp.Tags[i]] = v.Score
 	}
 
 	return &rsp, err

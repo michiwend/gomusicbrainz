@@ -42,16 +42,16 @@ type ReleaseGroup struct {
 // methods.
 type ReleaseGroupSearchResponse struct {
 	WS2ListResponse
-	ReleaseGroups []ReleaseGroup
+	ReleaseGroups []*ReleaseGroup
 	Scores        ScoreMap
 }
 
 // ResultsWithScore returns a slice of ReleaseGroups with a specific score.
-func (r *ReleaseGroupSearchResponse) ResultsWithScore(score int) []ReleaseGroup {
-	var res []ReleaseGroup
+func (r *ReleaseGroupSearchResponse) ResultsWithScore(score int) []*ReleaseGroup {
+	var res []*ReleaseGroup
 	for k, v := range r.Scores {
 		if v == score {
-			res = append(res, *k.(*ReleaseGroup))
+			res = append(res, k.(*ReleaseGroup))
 		}
 	}
 	return res
@@ -61,7 +61,7 @@ type releaseGroupListResult struct {
 	ReleaseGroupList struct {
 		WS2ListResponse
 		ReleaseGroups []struct {
-			ReleaseGroup
+			*ReleaseGroup
 			Score int `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
 		} `xml:"release-group"`
 	} `xml:"release-group-list"`

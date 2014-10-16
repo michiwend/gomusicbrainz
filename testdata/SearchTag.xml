@@ -3,8 +3,8 @@
         <tag ext:score="100">
             <name>shoegaze</name>
         </tag>
-        <!--<tag ext:score="62">
+        <tag ext:score="62">
             <name>rock shoegaze</name>
-        </tag>-->
+        </tag>
     </tag-list>
 </metadata>
