@@ -41,11 +41,11 @@ func main() {
 		"http://github.com/michiwend/gomusicbrainz")
 
 	// Search for some artist(s)
-	resp, _ := client.SearchArtist(`bonobo OR "Parov Stelar"`, -1, -1)
+	resp, _ := client.SearchArtist(`artist:"Parov Stelar"`, -1, -1)
 
-	// Pretty print Name and Id of each returned artist.
+	// Pretty print Name and score of each returned artist.
 	for _, artist := range resp.Artists {
-		fmt.Printf("Name: %-25s ID: %s\n", artist.Name, artist.ID)
+		fmt.Printf("Name: %-25sScore: %d\n", artist.Name, resp.Scores[artist])
 	}
 
 }

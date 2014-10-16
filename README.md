@@ -15,11 +15,9 @@ go get github.com/michiwend/gomusicbrainz
 ```
 
 ## Example usage
-This example demonstrates a simple search requests to find all artists matching "bonobo" or "Parov Stelar". You can find it as a runnable go program in the samples folder.
+This example demonstrates a simple search requests to find the artist
+*Parov Stelar*. You can find it as a runnable go program in the samples folder.
 ```Go
-import "github.com/michiwend/gomusicbrainz"
-
-
 // create a new WS2Client.
 client := gomusicbrainz.NewWS2Client(
     "https://musicbrainz.org/ws/2",
@@ -27,13 +25,19 @@ client := gomusicbrainz.NewWS2Client(
     "0.0.1-beta",
     "http://github.com/michiwend/gomusicbrainz")
 
-// Search for some artist with defaults for limit and offset.
-resp, _ := client.SearchArtist(`bonobo OR "Parov Stelar"`, -1, -1)
+// Search for some artist(s)
+resp, _ := client.SearchArtist(`artist:"Parov Stelar"`, -1, -1)
 
-// Pretty print Name and Id of each returned artist.
+// Pretty print Name and score of each returned artist.
 for _, artist := range resp.Artists {
-    fmt.Printf("Name: %-25s ID: %s\n", artist.Name, artist.Id)
+    fmt.Printf("Name: %-25sScore: %d\n", artist.Name, resp.Scores[artist])
 }
+```
+the above code will produce the following output:
+```
+Name: Parov Stelar             Score: 100
+Name: Parov Stelar Trio        Score: 80
+Name: Parov Stelar & the Band  Score: 70
 ```
 ## Full documentation
 All search request follow the [Apache Lucene syntax](https://lucene.apache.org/core/4_3_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description). Please head over to the [MusicBrainz website] (https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search) for more information about all possible query-fields.
