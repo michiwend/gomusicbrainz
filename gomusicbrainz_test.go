@@ -213,7 +213,7 @@ func TestSearchArtist(t *testing.T) {
 					Begin: BrainzTime{time.Date(2007, 9, 21, 0, 0, 0, 0, time.UTC)},
 					End:   BrainzTime{time.Time{}},
 				},
-				Aliases: []Alias{
+				Aliases: []*Alias{
 					{
 						Name:     "Mr. Gopher and Friends",
 						SortName: "0Mr. Gopher and Friends",
@@ -277,7 +277,7 @@ func TestSearchRelease(t *testing.T) {
 				CountryCode: "us",
 				Barcode:     "075992659222",
 				Asin:        "075992659222",
-				LabelInfos: []LabelInfo{
+				LabelInfos: []*LabelInfo{
 					{
 						CatalogNumber: "9 26592-2",
 						Label: Label{
@@ -285,7 +285,7 @@ func TestSearchRelease(t *testing.T) {
 						},
 					},
 				},
-				Mediums: []Medium{
+				Mediums: []*Medium{
 					{
 						Format: "cd",
 					},
@@ -335,13 +335,13 @@ func TestSearchReleaseGroup(t *testing.T) {
 						},
 					},
 				},
-				Releases: []Release{
+				Releases: []*Release{
 					{
 						ID:    "9168f4cc-a852-4ba5-bf85-602996625651",
 						Title: "Main Tenance",
 					},
 				},
-				Tags: []Tag{
+				Tags: []*Tag{
 					{
 						Count: 1,
 						Name:  "electronic",

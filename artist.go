@@ -35,7 +35,7 @@ type Artist struct {
 	SortName       string   `xml:"sort-name"`
 	CountryCode    string   `xml:"country"`
 	Lifespan       Lifespan `xml:"life-span"`
-	Aliases        []Alias  `xml:"alias-list>alias"`
+	Aliases        []*Alias `xml:"alias-list>alias"`
 }
 
 // ArtistSearchResponse is the response type returned by the artist search method.

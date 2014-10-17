@@ -40,8 +40,8 @@ type Release struct {
 	CountryCode        string             `xml:"country"`
 	Barcode            string             `xml:"barcode"`
 	Asin               string             `xml:"asin"`
-	LabelInfos         []LabelInfo        `xml:"label-info-list>label-info"`
-	Mediums            []Medium           `xml:"medium-list>medium"`
+	LabelInfos         []*LabelInfo       `xml:"label-info-list>label-info"`
+	Mediums            []*Medium          `xml:"medium-list>medium"`
 }
 
 // ReleaseSearchResponse is the response type returned by the release search method.
