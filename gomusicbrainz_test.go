@@ -32,8 +32,12 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"reflect"
+	"strings"
 	"testing"
 	"time"
+
+	"github.com/aryann/difflib"
+	"github.com/davecgh/go-spew/spew"
 )
 
 var (
@@ -81,6 +85,26 @@ func serveTestFile(url string, testfile string, t *testing.T) {
 	})
 }
 
+// pretty prints a diff
+func requestDiff(want, returned interface{}) string {
+	spew.Config.SortKeys = true
+	spew.Config.ContinueOnMethod = true
+	recs := difflib.Diff(
+		// FIXME splits "strings with whitespaces" into sperate fields
+		strings.Fields(spew.Sprintf("%#v", returned)),
+		strings.Fields(spew.Sprintf("%#v", want)))
+
+	out := "\n"
+	for _, rec := range recs {
+		if rec.Delta == difflib.RightOnly {
+			out += fmt.Sprintf("%-10s%s\n", "want:", rec.Payload)
+		} else if rec.Delta == difflib.LeftOnly {
+			out += fmt.Sprintf("%-10s%s\n", "returned:", rec.Payload)
+		}
+	}
+	return out
+}
+
 func TestSearchAnnotation(t *testing.T) {
 
 	want := AnnotationSearchResponse{
@@ -119,9 +143,7 @@ func TestSearchAnnotation(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(*returned, want) {
-		// FIXME replace this line since it prints only addresses of the
-		// relevant data.
-		t.Errorf("Annotations returned: %+v, want: %+v", *returned, want)
+		t.Error(requestDiff(&want, returned))
 	}
 
 }
@@ -167,9 +189,7 @@ func TestSearchArea(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(*returned, want) {
-		// FIXME replace this line since it prints only addresses of the
-		// relevant data.
-		t.Errorf("Areas returned: %+v, want: %+v", *returned, want)
+		t.Error(requestDiff(&want, returned))
 	}
 }
 
@@ -221,9 +241,7 @@ func TestSearchArtist(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(*returned, want) {
-		// FIXME replace this line since it prints only addresses of the
-		// relevant data.
-		t.Errorf("Artists returned: %+v, want: %+v", *returned, want)
+		t.Error(requestDiff(&want, returned))
 	}
 }
 
@@ -290,9 +308,7 @@ func TestSearchRelease(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(*returned, want) {
-		// FIXME replace this line since it prints only addresses of the
-		// relevant data.
-		t.Errorf("Releases returned: %+v, want: %+v", *returned, want)
+		t.Error(requestDiff(&want, returned))
 	}
 }
 
@@ -353,9 +369,7 @@ func TestSearchReleaseGroup(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(*returned, want) {
-		// FIXME replace this line since it prints only addresses of the
-		// relevant data.
-		t.Errorf("ReleaseGroups returned: %+v, want: %+v", *returned, want)
+		t.Error(requestDiff(&want, returned))
 	}
 }
 
@@ -391,8 +405,6 @@ func TestSearchTag(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(*returned, want) {
-		// FIXME replace this line since it prints only addresses of the
-		// relevant data.
-		t.Errorf("Tags returned: %+v, want: %+v", *returned, want)
+		t.Error(requestDiff(&want, returned))
 	}
 }
