@@ -25,10 +25,43 @@
 
 package gomusicbrainz
 
+// Place represents a building or outdoor area used for performing or producing
+// music.
 type Place struct {
-	//TODO implement
+	ID          MBID          `xml:"id,attr"`
+	Type        string        `xml:"type,attr"`
+	Name        string        `xml:"name"`
+	Address     string        `xml:"address"`
+	Coordinates MBCoordinates `xml:"coordinates"`
+	Area        Area          `xml:"area"`
+	Lifespan    Lifespan      `xml:"life-span"`
+	Aliases     []*Alias      `xml:"alias-list>alias"`
 }
 
+// PlaceSearchResponse is the response type returned by the place search method.
 type PlaceSearchResponse struct {
-	//TODO implement
+	WS2ListResponse
+	Places []*Place
+	Scores ScoreMap
+}
+
+// ResultsWithScore returns a slice of Places with a specific score.
+func (r *PlaceSearchResponse) ResultsWithScore(score int) []*Place {
+	var res []*Place
+	for k, v := range r.Scores {
+		if v == score {
+			res = append(res, k.(*Place))
+		}
+	}
+	return res
+}
+
+type placeListResult struct {
+	PlaceList struct {
+		WS2ListResponse
+		Places []struct {
+			*Place
+			Score int `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
+		} `xml:"place"`
+	} `xml:"place-list"`
 }
