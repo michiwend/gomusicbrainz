@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ext="http://musicbrainz.org/ns/ext#-2.0" created="2013-02-05T08:20:53.231Z">
+    <cdstub-list count="1" offset="0">
+        <cdstub id="vi44WFVS5zRT2svM.PORcEm9LJk-" ext:score="100">
+            <title>Silent Conflict (Live @ The Hard Rock Cafe)</title>
+            <artist>Bonobo</artist>
+            <barcode>634479355059</barcode>
+            <comment>CD Baby id:bonobo</comment>
+            <track-list count="3"/>
+        </cdstub>
+    </cdstub-list>
+</metadata>
