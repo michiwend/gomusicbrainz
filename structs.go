@@ -83,6 +83,8 @@ type WS2ListResponse struct {
 	Offset int `xml:"offset,attr"`
 }
 
+// Lifespan represents either the life span of a natural person or more
+// generally the period of time in which an entity e.g. a Label existed.
 type Lifespan struct {
 	Ended bool       `xml:"ended"`
 	Begin BrainzTime `xml:"begin"`
@@ -104,6 +106,10 @@ type LabelInfo struct {
 	Label         Label  `xml:"label"`
 }
 
+// Medium represents one of the physical, separate things you would get when
+// you buy something in a record store e.g. CDs, vinyls, etc. Mediums are
+// always included in a release. For more information visit
+// https://musicbrainz.org/doc/Medium
 type Medium struct {
 	Format string `xml:"format"`
 	//DiscList TODO implement type
@@ -115,6 +121,9 @@ type TextRepresentation struct {
 	Script   string `xml:"script"`
 }
 
+// ArtistCredit is either used to link multiple artists to one
+// release/recording or to credit an artist with a different name.
+// Visist https://musicbrainz.org/doc/Artist_Credit for more information.
 type ArtistCredit struct {
 	NameCredit NameCredit `xml:"name-credit"`
 }
