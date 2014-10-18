@@ -101,11 +101,6 @@ type Alias struct {
 	Primary  string `xml:"primary,attr"`
 }
 
-type LabelInfo struct {
-	CatalogNumber string `xml:"catalog-number"`
-	Label         Label  `xml:"label"`
-}
-
 // Medium represents one of the physical, separate things you would get when
 // you buy something in a record store e.g. CDs, vinyls, etc. Mediums are
 // always included in a release. For more information visit
