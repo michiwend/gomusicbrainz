@@ -41,7 +41,7 @@ type Label struct {
 	Aliases        []*Alias `xml:"alias-list>alias"`
 }
 
-// LabelSearchResponse is the response type returned by the label search method.
+// LabelSearchResponse is the response type returned by the SearchLabel method.
 type LabelSearchResponse struct {
 	WS2ListResponse
 	Labels []*Label

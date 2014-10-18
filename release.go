@@ -47,7 +47,7 @@ type Release struct {
 	Mediums []*Medium `xml:"medium-list>medium"`
 }
 
-// ReleaseSearchResponse is the response type returned by the release search method.
+// ReleaseSearchResponse is the response type returned by the SearchRelease method.
 type ReleaseSearchResponse struct {
 	WS2ListResponse
 	Releases []*Release

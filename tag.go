@@ -31,7 +31,7 @@ type Tag struct {
 	Name  string `xml:"name"`
 }
 
-// TagSearchResponse is the response type returned by the tag search method.
+// TagSearchResponse is the response type returned by the SearchTag method.
 type TagSearchResponse struct {
 	WS2ListResponse
 	Tags   []*Tag

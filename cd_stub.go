@@ -37,7 +37,7 @@ type CDStub struct {
 	} `xml:"track-list"`
 }
 
-// CDStubSearchResponse is the response type returned by the CDStub search method.
+// CDStubSearchResponse is the response type returned by the SearchCDStub method.
 type CDStubSearchResponse struct {
 	WS2ListResponse
 	CDStubs []*CDStub

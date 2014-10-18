@@ -38,7 +38,7 @@ type Place struct {
 	Aliases     []*Alias      `xml:"alias-list>alias"`
 }
 
-// PlaceSearchResponse is the response type returned by the place search method.
+// PlaceSearchResponse is the response type returned by the SearchPlace method.
 type PlaceSearchResponse struct {
 	WS2ListResponse
 	Places []*Place

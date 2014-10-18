@@ -36,7 +36,7 @@ type Area struct {
 	Aliases       []Alias        `xml:"alias-list>alias"`
 }
 
-// AreaSearchResponse is the response type returned by the area search method.
+// AreaSearchResponse is the response type returned by the SearchArea method.
 type AreaSearchResponse struct {
 	WS2ListResponse
 	Areas  []*Area

@@ -38,7 +38,7 @@ type Artist struct {
 	Aliases        []*Alias `xml:"alias-list>alias"`
 }
 
-// ArtistSearchResponse is the response type returned by the artist search method.
+// ArtistSearchResponse is the response type returned by the SearchArtist method.
 type ArtistSearchResponse struct {
 	WS2ListResponse
 	Artists []*Artist
