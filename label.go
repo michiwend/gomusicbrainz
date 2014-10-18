@@ -25,11 +25,46 @@
 
 package gomusicbrainz
 
+// Label represents an imprint, a record company or a music group. Labels refer
+// mainly to imprints in MusicBrainz. Visit https://musicbrainz.org/doc/Label
+// for more informations.
 type Label struct {
-	Name string `xml:"name"`
+	ID             MBID     `xml:"id,attr"`
+	Name           string   `xml:"name"`
+	Type           string   `xml:"type,attr"`
+	SortName       string   `xml:"sort-name"`
+	Disambiguation string   `xml:"disambiguation"`
+	CountryCode    string   `xml:"country"`
+	Area           Area     `xml:"area"`
+	LabelCode      int      `xml:"label-code"`
+	Lifespan       Lifespan `xml:"life-span"`
+	Aliases        []*Alias `xml:"alias-list>alias"`
 }
 
 // LabelSearchResponse is the response type returned by the label search method.
 type LabelSearchResponse struct {
-	//TODO implement
+	WS2ListResponse
+	Labels []*Label
+	Scores ScoreMap
+}
+
+// ResultsWithScore returns a slice of Labels with a specific score.
+func (r *LabelSearchResponse) ResultsWithScore(score int) []*Label {
+	var res []*Label
+	for k, v := range r.Scores {
+		if v == score {
+			res = append(res, k.(*Label))
+		}
+	}
+	return res
+}
+
+type labelListResult struct {
+	LabelList struct {
+		WS2ListResponse
+		Labels []struct {
+			*Label
+			Score int `xml:"http://musicbrainz.org/ns/ext#-2.0 score,attr"`
+		} `xml:"label"`
+	} `xml:"label-list"`
 }

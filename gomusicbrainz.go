@@ -278,9 +278,25 @@ func (c *WS2Client) SearchFreedb(searchTerm string, limit, offset int) (*FreedbS
 	return nil, nil
 }
 
+// SearchLabel queries MusicBrainz´ Search Server for Labels.
+// With no fields specified searchTerm searches the label, sortname and alias
+// fields. For a list of all valid fields visit
+// https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Label
 func (c *WS2Client) SearchLabel(searchTerm string, limit, offset int) (*LabelSearchResponse, error) {
-	//TODO implement
-	return nil, nil
+
+	result := labelListResult{}
+	err := c.searchRequest("/label", &result, searchTerm, limit, offset)
+
+	rsp := LabelSearchResponse{}
+	rsp.WS2ListResponse = result.LabelList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.LabelList.Labels {
+		rsp.Labels = append(rsp.Labels, v.Label)
+		rsp.Scores[rsp.Labels[i]] = v.Score
+	}
+
+	return &rsp, err
 }
 
 // SearchPlace queries MusicBrainz´ Search Server for Places.

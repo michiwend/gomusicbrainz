@@ -1,0 +1,23 @@
+<?xml version="1.0" standalone="yes"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ext="http://musicbrainz.org/ns/ext#-2.0" created="2014-10-18T12:17:08.605Z">
+    <label-list count="1" offset="0">
+        <label id="c1c625b5-9929-4a30-8c3e-f77e109cdf07" type="Original Production" ext:score="100">
+            <name>Compost Records</name>
+            <sort-name>Compost Records</sort-name>
+            <label-code>2518</label-code>
+            <disambiguation>German record label established in 1994.</disambiguation>
+            <country>DE</country>
+            <area id="85752fda-13c4-31a3-bee5-0e5cb1f51dad">
+                <name>Germany</name>
+                <sort-name>Germany</sort-name>
+            </area>
+            <life-span>
+                <begin>1994</begin>
+                <ended>false</ended>
+            </life-span>
+            <alias-list>
+                <alias locale="ja" sort-name="&#x30B3;&#x30F3;&#x30DD;&#x30B9;&#x30C8;&#x30FB;&#x30EC;&#x30B3;&#x30FC;&#x30BA;" type="Label name">&#x30B3;&#x30F3;&#x30DD;&#x30B9;&#x30C8;&#x30FB;&#x30EC;&#x30B3;&#x30FC;&#x30BA;</alias>
+            </alias-list>
+        </label>
+    </label-list>
+</metadata>
