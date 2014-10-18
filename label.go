@@ -27,7 +27,7 @@ package gomusicbrainz
 
 // Label represents an imprint, a record company or a music group. Labels refer
 // mainly to imprints in MusicBrainz. Visit https://musicbrainz.org/doc/Label
-// for more informations.
+// for more information.
 type Label struct {
 	ID             MBID     `xml:"id,attr"`
 	Name           string   `xml:"name"`
