@@ -34,6 +34,13 @@ import (
 // MBID represents a MusicBrainz ID.
 type MBID string
 
+// MBCoordinates represents a tuple of latitude,longitude values.
+type MBCoordinates struct {
+	// TODO maybe use $geolocation library and its generic type.
+	Lat string `xml:"latitude"`
+	Lng string `xml:"longitude"`
+}
+
 // ScoreMap maps addresses of search request results to its scores.
 type ScoreMap map[interface{}]int
 
