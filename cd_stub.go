@@ -25,10 +25,10 @@
 
 package gomusicbrainz
 
-type CDStubs struct {
+type CDStub struct {
 	//TODO implement
 }
 
-type CDStubsSearchResponse struct {
+type CDStubSearchResponse struct {
 	//TODO implement
 }

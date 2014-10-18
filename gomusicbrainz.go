@@ -268,7 +268,7 @@ func (c *WS2Client) SearchTag(searchTerm string, limit, offset int) (*TagSearchR
 	return &rsp, err
 }
 
-func (c *WS2Client) SearchCDStubs(searchTerm string, limit, offset int) (*CDStubsSearchResponse, error) {
+func (c *WS2Client) SearchCDStub(searchTerm string, limit, offset int) (*CDStubSearchResponse, error) {
 	//TODO implement
 	return nil, nil
 }
