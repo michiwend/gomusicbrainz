@@ -268,9 +268,25 @@ func (c *WS2Client) SearchTag(searchTerm string, limit, offset int) (*TagSearchR
 	return &rsp, err
 }
 
+// SearchCDStub queries MusicBrainz´ Search Server for CDStubs.
+// With no fields specified searchTerm searches only the artist Field. For a
+// list of all valid fields visit
+// https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#CDStubs
 func (c *WS2Client) SearchCDStub(searchTerm string, limit, offset int) (*CDStubSearchResponse, error) {
-	//TODO implement
-	return nil, nil
+
+	result := cdStubListResult{}
+	err := c.searchRequest("/cdstub", &result, searchTerm, limit, offset)
+
+	rsp := CDStubSearchResponse{}
+	rsp.WS2ListResponse = result.CDStubList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.CDStubList.CDStubs {
+		rsp.CDStubs = append(rsp.CDStubs, v.CDStub)
+		rsp.Scores[rsp.CDStubs[i]] = v.Score
+	}
+
+	return &rsp, err
 }
 
 func (c *WS2Client) SearchFreedb(searchTerm string, limit, offset int) (*FreedbSearchResponse, error) {
