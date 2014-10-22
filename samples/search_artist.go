@@ -34,7 +34,7 @@ import (
 func main() {
 
 	// create a new WS2Client.
-	client := gomusicbrainz.NewWS2Client(
+	client, _ := gomusicbrainz.NewWS2Client(
 		"https://musicbrainz.org/ws/2",
 		"A GoMusicBrainz example",
 		"0.0.1-beta",

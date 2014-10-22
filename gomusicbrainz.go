@@ -64,13 +64,17 @@ import (
 // NewWS2Client returns a new instance of WS2Client. Please provide meaningful
 // information about your application as described at
 // https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
-func NewWS2Client(rooturl, appname, version, contact string) *WS2Client {
+func NewWS2Client(rooturl, appname, version, contact string) (*WS2Client, error) {
 	c := WS2Client{}
+	var err error
 
-	c.WS2RootURL, _ = url.Parse(rooturl)
+	c.WS2RootURL, err = url.Parse(rooturl)
+	if err != nil {
+		return nil, err
+	}
 	c.userAgentHeader = appname + "/" + version + " ( " + contact + " ) "
 
-	return &c
+	return &c, nil
 }
 
 // WS2Client defines a Go client for the MusicBrainz Web Service 2.

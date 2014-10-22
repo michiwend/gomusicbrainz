@@ -51,7 +51,7 @@ func setupHTTPTesting() {
 	mux = http.NewServeMux()
 	server = httptest.NewServer(mux)
 
-	client = NewWS2Client(
+	client, _ = NewWS2Client(
 		server.URL,
 		"Application Name",
 		"Version",
