@@ -29,6 +29,11 @@ type Recording struct {
 	//TODO implement
 }
 
+func (c *WS2Client) SearchRecording(searchTerm string, limit, offset int) (*RecordingSearchResponse, error) {
+	//TODO implement
+	return nil, nil
+}
+
 type RecordingSearchResponse struct {
 	//TODO implement
 }

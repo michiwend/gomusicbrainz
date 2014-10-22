@@ -29,13 +29,34 @@ package gomusicbrainz
 // Every release belongs to one, and only one release group. More informations
 // at https://musicbrainz.org/doc/Release_Group
 type ReleaseGroup struct {
-	ID           string       `xml:"id,attr"`
+	ID           MBID         `xml:"id,attr"`
 	Type         string       `xml:"type,attr"`
 	PrimaryType  string       `xml:"primary-type"`
 	Title        string       `xml:"title"`
 	ArtistCredit ArtistCredit `xml:"artist-credit"`
 	Releases     []*Release   `xml:"release-list>release"` // FIXME if important unmarshal count,attr
 	Tags         []*Tag       `xml:"tag-list>tag"`
+}
+
+// SearchReleaseGroup queries MusicBrainz´ Search Server for ReleaseGroups.
+// With no fields specified searchTerm searches the releasgroup field only. For
+// a list of all valid fields visit
+// https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release_Group
+func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit, offset int) (*ReleaseGroupSearchResponse, error) {
+
+	result := releaseGroupListResult{}
+	err := c.searchRequest("/release-group", &result, searchTerm, limit, offset)
+
+	rsp := ReleaseGroupSearchResponse{}
+	rsp.WS2ListResponse = result.ReleaseGroupList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.ReleaseGroupList.ReleaseGroups {
+		rsp.ReleaseGroups = append(rsp.ReleaseGroups, v.ReleaseGroup)
+		rsp.Scores[rsp.ReleaseGroups[i]] = v.Score
+	}
+
+	return &rsp, err
 }
 
 // ReleaseGroupSearchResponse is the response type returned by release group request

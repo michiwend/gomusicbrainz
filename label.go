@@ -41,6 +41,27 @@ type Label struct {
 	Aliases        []*Alias `xml:"alias-list>alias"`
 }
 
+// SearchLabel queries MusicBrainz´ Search Server for Labels.
+// With no fields specified searchTerm searches the label, sortname and alias
+// fields. For a list of all valid fields visit
+// https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Label
+func (c *WS2Client) SearchLabel(searchTerm string, limit, offset int) (*LabelSearchResponse, error) {
+
+	result := labelListResult{}
+	err := c.searchRequest("/label", &result, searchTerm, limit, offset)
+
+	rsp := LabelSearchResponse{}
+	rsp.WS2ListResponse = result.LabelList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.LabelList.Labels {
+		rsp.Labels = append(rsp.Labels, v.Label)
+		rsp.Scores[rsp.Labels[i]] = v.Score
+	}
+
+	return &rsp, err
+}
+
 // LabelSearchResponse is the response type returned by the SearchLabel method.
 type LabelSearchResponse struct {
 	WS2ListResponse

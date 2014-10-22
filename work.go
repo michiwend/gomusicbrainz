@@ -29,6 +29,11 @@ type Work struct {
 	//TODO implement
 }
 
+func (c *WS2Client) SearchWork(searchTerm string, limit, offset int) (*WorkSearchResponse, error) {
+	//TODO implement
+	return nil, nil
+}
+
 type WorkSearchResponse struct {
 	//TODO implement
 }

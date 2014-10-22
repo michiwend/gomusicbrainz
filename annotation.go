@@ -35,6 +35,27 @@ type Annotation struct {
 	Text   string `xml:"text"`
 }
 
+// SearchAnnotation queries MusicBrainz´ Search Server for Annotations.
+// With no fields specified searchTerm searches TODO. For a list of all valid
+// search fields visit
+// http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Annotation
+func (c *WS2Client) SearchAnnotation(searchTerm string, limit, offset int) (*AnnotationSearchResponse, error) {
+
+	result := annotationListResult{}
+	err := c.searchRequest("/annotation", &result, searchTerm, limit, offset)
+
+	rsp := AnnotationSearchResponse{}
+	rsp.WS2ListResponse = result.AnnotationList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.AnnotationList.Annotations {
+		rsp.Annotations = append(rsp.Annotations, v.Annotation)
+		rsp.Scores[rsp.Annotations[i]] = v.Score
+	}
+
+	return &rsp, err
+}
+
 // AnnotationSearchResponse is the response type returned by annotation request
 // methods.
 type AnnotationSearchResponse struct {

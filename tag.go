@@ -31,6 +31,26 @@ type Tag struct {
 	Name  string `xml:"name"`
 }
 
+// SearchTag queries MusicBrainz' Search Server for Tags.
+// searchTerm only contains the tag field. For more information visit
+// https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Tag
+func (c *WS2Client) SearchTag(searchTerm string, limit, offset int) (*TagSearchResponse, error) {
+
+	result := tagListResult{}
+	err := c.searchRequest("/tag", &result, searchTerm, limit, offset)
+
+	rsp := TagSearchResponse{}
+	rsp.WS2ListResponse = result.TagList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.TagList.Tags {
+		rsp.Tags = append(rsp.Tags, v.Tag)
+		rsp.Scores[rsp.Tags[i]] = v.Score
+	}
+
+	return &rsp, err
+}
+
 // TagSearchResponse is the response type returned by the SearchTag method.
 type TagSearchResponse struct {
 	WS2ListResponse

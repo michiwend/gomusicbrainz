@@ -29,6 +29,11 @@ type Freedb struct {
 	//TODO implement
 }
 
+func (c *WS2Client) SearchFreedb(searchTerm string, limit, offset int) (*FreedbSearchResponse, error) {
+	//TODO implement
+	return nil, nil
+}
+
 type FreedbSearchResponse struct {
 	//TODO implement
 }

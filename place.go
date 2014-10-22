@@ -38,6 +38,27 @@ type Place struct {
 	Aliases     []*Alias      `xml:"alias-list>alias"`
 }
 
+// SearchPlace queries MusicBrainz´ Search Server for Places.
+// With no fields specified searchTerm searches the place, alias, address and
+// area fields. For a list of all valid fields visit
+// https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Place
+func (c *WS2Client) SearchPlace(searchTerm string, limit, offset int) (*PlaceSearchResponse, error) {
+
+	result := placeListResult{}
+	err := c.searchRequest("/place", &result, searchTerm, limit, offset)
+
+	rsp := PlaceSearchResponse{}
+	rsp.WS2ListResponse = result.PlaceList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.PlaceList.Places {
+		rsp.Places = append(rsp.Places, v.Place)
+		rsp.Scores[rsp.Places[i]] = v.Score
+	}
+
+	return &rsp, err
+}
+
 // PlaceSearchResponse is the response type returned by the SearchPlace method.
 type PlaceSearchResponse struct {
 	WS2ListResponse

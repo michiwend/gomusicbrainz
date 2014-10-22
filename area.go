@@ -27,13 +27,34 @@ package gomusicbrainz
 
 // Area represents a geographic region or settlement.
 type Area struct {
-	ID            string         `xml:"id,attr"`
+	ID            MBID           `xml:"id,attr"`
 	Type          string         `xml:"type,attr"`
 	Name          string         `xml:"name"`
 	SortName      string         `xml:"sort-name"`
 	ISO31662Codes []ISO31662Code `xml:"iso-3166-2-code-list>iso-3166-2-code"`
 	Lifespan      Lifespan       `xml:"life-span"`
 	Aliases       []Alias        `xml:"alias-list>alias"`
+}
+
+// SearchArea queries MusicBrainz´ Search Server for Areas.
+// With no fields specified searchTerm searches the area and sortname fields.
+// For a list of all valid search fields visit
+// http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Area
+func (c *WS2Client) SearchArea(searchTerm string, limit, offset int) (*AreaSearchResponse, error) {
+
+	result := areaListResult{}
+	err := c.searchRequest("/area", &result, searchTerm, limit, offset)
+
+	rsp := AreaSearchResponse{}
+	rsp.WS2ListResponse = result.AreaList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.AreaList.Areas {
+		rsp.Areas = append(rsp.Areas, v.Area)
+		rsp.Scores[rsp.Areas[i]] = v.Score
+	}
+
+	return &rsp, err
 }
 
 // AreaSearchResponse is the response type returned by the SearchArea method.

@@ -38,6 +38,27 @@ type Artist struct {
 	Aliases        []*Alias `xml:"alias-list>alias"`
 }
 
+// SearchArtist queries MusicBrainz´ Search Server for Artists.
+// With no fields specified searchTerm searches the artist, sortname and alias
+// fields. For a list of all valid fields visit
+// http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Artist
+func (c *WS2Client) SearchArtist(searchTerm string, limit, offset int) (*ArtistSearchResponse, error) {
+
+	result := artistListResult{}
+	err := c.searchRequest("/artist", &result, searchTerm, limit, offset)
+
+	rsp := ArtistSearchResponse{}
+	rsp.WS2ListResponse = result.ArtistList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.ArtistList.Artists {
+		rsp.Artists = append(rsp.Artists, v.Artist)
+		rsp.Scores[rsp.Artists[i]] = v.Score
+	}
+
+	return &rsp, err
+}
+
 // ArtistSearchResponse is the response type returned by the SearchArtist method.
 type ArtistSearchResponse struct {
 	WS2ListResponse

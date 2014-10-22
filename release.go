@@ -29,7 +29,7 @@ package gomusicbrainz
 // specific date with specific release information such as the country, label,
 // barcode, packaging, etc. More information at https://musicbrainz.org/doc/Release
 type Release struct {
-	ID                 string             `xml:"id,attr"`
+	ID                 MBID               `xml:"id,attr"`
 	Title              string             `xml:"title"`
 	Status             string             `xml:"status"`
 	Disambiguation     string             `xml:"disambiguation"`
@@ -45,6 +45,27 @@ type Release struct {
 		Label         *Label `xml:"label"`
 	} `xml:"label-info-list>label-info"`
 	Mediums []*Medium `xml:"medium-list>medium"`
+}
+
+// SearchRelease queries MusicBrainz´ Search Server for Releases.
+// With no fields specified searchTerm searches the release field only. For a
+// list of all valid fields visit
+// https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release
+func (c *WS2Client) SearchRelease(searchTerm string, limit, offset int) (*ReleaseSearchResponse, error) {
+
+	result := releaseListResult{}
+	err := c.searchRequest("/release", &result, searchTerm, limit, offset)
+
+	rsp := ReleaseSearchResponse{}
+	rsp.WS2ListResponse = result.ReleaseList.WS2ListResponse
+	rsp.Scores = make(ScoreMap)
+
+	for i, v := range result.ReleaseList.Releases {
+		rsp.Releases = append(rsp.Releases, v.Release)
+		rsp.Scores[rsp.Releases[i]] = v.Score
+	}
+
+	return &rsp, err
 }
 
 // ReleaseSearchResponse is the response type returned by the SearchRelease method.
