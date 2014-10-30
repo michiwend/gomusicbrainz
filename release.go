@@ -25,6 +25,8 @@
 
 package gomusicbrainz
 
+import "encoding/xml"
+
 // Release represents a unique release (i.e. issuing) of a product on a
 // specific date with specific release information such as the country, label,
 // barcode, packaging, etc. More information at https://musicbrainz.org/doc/Release
@@ -45,6 +47,31 @@ type Release struct {
 		Label         *Label `xml:"label"`
 	} `xml:"label-info-list>label-info"`
 	Mediums []*Medium `xml:"medium-list>medium"`
+}
+
+func (mble *Release) lookupResult() interface{} {
+	var res struct {
+		XMLName xml.Name `xml:"metadata"`
+		Ptr     *Release `xml:"release"`
+	}
+	res.Ptr = mble
+	return &res
+}
+
+func (mble *Release) apiEndpoint() string {
+	return "/release"
+}
+
+func (mble *Release) id() MBID {
+	return mble.ID
+}
+
+// LookupRelease performs a release lookup request for the given MBID.
+func (c *WS2Client) LookupRelease(id MBID) (*Release, error) {
+	a := &Release{ID: id}
+	err := c.Lookup(a)
+
+	return a, err
 }
 
 // SearchRelease queries MusicBrainz´ Search Server for Releases.

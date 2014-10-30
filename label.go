@@ -25,6 +25,8 @@
 
 package gomusicbrainz
 
+import "encoding/xml"
+
 // Label represents an imprint, a record company or a music group. Labels refer
 // mainly to imprints in MusicBrainz. Visit https://musicbrainz.org/doc/Label
 // for more information.
@@ -39,6 +41,31 @@ type Label struct {
 	LabelCode      int      `xml:"label-code"`
 	Lifespan       Lifespan `xml:"life-span"`
 	Aliases        []*Alias `xml:"alias-list>alias"`
+}
+
+func (mble *Label) lookupResult() interface{} {
+	var res struct {
+		XMLName xml.Name `xml:"metadata"`
+		Ptr     *Label   `xml:"label"`
+	}
+	res.Ptr = mble
+	return &res
+}
+
+func (mble *Label) apiEndpoint() string {
+	return "/label"
+}
+
+func (mble *Label) id() MBID {
+	return mble.ID
+}
+
+// LookupLabel performs a label lookup request for the given MBID.
+func (c *WS2Client) LookupLabel(id MBID) (*Label, error) {
+	a := &Label{ID: id}
+	err := c.Lookup(a)
+
+	return a, err
 }
 
 // SearchLabel queries MusicBrainz´ Search Server for Labels.

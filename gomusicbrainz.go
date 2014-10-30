@@ -55,6 +55,7 @@ package gomusicbrainz
 
 import (
 	"encoding/xml"
+	"errors"
 	"log"
 	"net/http"
 	"net/url"
@@ -132,4 +133,11 @@ func (c *WS2Client) searchRequest(endpoint string, result interface{}, searchTer
 	return nil
 }
 
+// Lookup performs a WS2 lookup request for the given entity (e.g. Artist,
+// Label, ...)
+func (c *WS2Client) Lookup(entity MBLookupEntity) error {
+	if entity.id() == "" {
+		return errors.New("can't perform lookup without ID.")
+	}
+	return c.getReqeust(entity.lookupResult(), url.Values{}, entity.apiEndpoint()+"/"+string(entity.id()))
 }

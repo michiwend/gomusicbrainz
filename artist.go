@@ -25,6 +25,8 @@
 
 package gomusicbrainz
 
+import "encoding/xml"
+
 // Artist represents generally a musician, a group of musicians, a collaboration
 // of multiple musicians or other music professionals.
 type Artist struct {
@@ -36,6 +38,31 @@ type Artist struct {
 	CountryCode    string   `xml:"country"`
 	Lifespan       Lifespan `xml:"life-span"`
 	Aliases        []*Alias `xml:"alias-list>alias"`
+}
+
+func (mble *Artist) lookupResult() interface{} {
+	var res struct {
+		XMLName xml.Name `xml:"metadata"`
+		Ptr     *Artist  `xml:"artist"`
+	}
+	res.Ptr = mble
+	return &res
+}
+
+func (mble *Artist) apiEndpoint() string {
+	return "/artist"
+}
+
+func (mble *Artist) id() MBID {
+	return mble.ID
+}
+
+// LookupArtist performs an artist lookup request for the given MBID.
+func (c *WS2Client) LookupArtist(id MBID) (*Artist, error) {
+	a := &Artist{ID: id}
+	err := c.Lookup(a)
+
+	return a, err
 }
 
 // SearchArtist queries MusicBrainz´ Search Server for Artists.

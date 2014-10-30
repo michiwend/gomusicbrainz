@@ -25,6 +25,8 @@
 
 package gomusicbrainz
 
+import "encoding/xml"
+
 // ReleaseGroup groups several different releases into a single logical entity.
 // Every release belongs to one, and only one release group. More informations
 // at https://musicbrainz.org/doc/Release_Group
@@ -36,6 +38,31 @@ type ReleaseGroup struct {
 	ArtistCredit ArtistCredit `xml:"artist-credit"`
 	Releases     []*Release   `xml:"release-list>release"` // FIXME if important unmarshal count,attr
 	Tags         []*Tag       `xml:"tag-list>tag"`
+}
+
+func (mble *ReleaseGroup) lookupResult() interface{} {
+	var res struct {
+		XMLName xml.Name      `xml:"metadata"`
+		Ptr     *ReleaseGroup `xml:"release-group"`
+	}
+	res.Ptr = mble
+	return &res
+}
+
+func (mble *ReleaseGroup) apiEndpoint() string {
+	return "/release-group"
+}
+
+func (mble *ReleaseGroup) id() MBID {
+	return mble.ID
+}
+
+// LookupReleaseGroup performs a release-group lookup request for the given MBID.
+func (c *WS2Client) LookupReleaseGroup(id MBID) (*ReleaseGroup, error) {
+	a := &ReleaseGroup{ID: id}
+	err := c.Lookup(a)
+
+	return a, err
 }
 
 // SearchReleaseGroup queries MusicBrainz´ Search Server for ReleaseGroups.

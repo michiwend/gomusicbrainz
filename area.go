@@ -25,6 +25,8 @@
 
 package gomusicbrainz
 
+import "encoding/xml"
+
 // Area represents a geographic region or settlement.
 type Area struct {
 	ID            MBID           `xml:"id,attr"`
@@ -34,6 +36,31 @@ type Area struct {
 	ISO31662Codes []ISO31662Code `xml:"iso-3166-2-code-list>iso-3166-2-code"`
 	Lifespan      Lifespan       `xml:"life-span"`
 	Aliases       []Alias        `xml:"alias-list>alias"`
+}
+
+func (mble *Area) lookupResult() interface{} {
+	var res struct {
+		XMLName xml.Name `xml:"metadata"`
+		Ptr     *Area    `xml:"area"`
+	}
+	res.Ptr = mble
+	return &res
+}
+
+func (mble *Area) apiEndpoint() string {
+	return "/area"
+}
+
+func (mble *Area) id() MBID {
+	return mble.ID
+}
+
+// LookupArea performs an area lookup request for the given MBID.
+func (c *WS2Client) LookupArea(id MBID) (*Area, error) {
+	a := &Area{ID: id}
+	err := c.Lookup(a)
+
+	return a, err
 }
 
 // SearchArea queries MusicBrainz´ Search Server for Areas.

@@ -41,6 +41,17 @@ type MBCoordinates struct {
 	Lng string `xml:"longitude"`
 }
 
+// MBLookupEntity represents all MusicBrainz entities for which a MBID-lookup
+// request is provided by WS2.
+type MBLookupEntity interface {
+	lookupResult() interface{}
+	apiEndpoint() string
+	id() MBID
+}
+
+type MBEntity interface {
+}
+
 // ScoreMap maps addresses of search request results to its scores.
 type ScoreMap map[interface{}]int
 

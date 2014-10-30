@@ -25,6 +25,8 @@
 
 package gomusicbrainz
 
+import "encoding/xml"
+
 // Place represents a building or outdoor area used for performing or producing
 // music.
 type Place struct {
@@ -36,6 +38,31 @@ type Place struct {
 	Area        Area          `xml:"area"`
 	Lifespan    Lifespan      `xml:"life-span"`
 	Aliases     []*Alias      `xml:"alias-list>alias"`
+}
+
+func (mble *Place) lookupResult() interface{} {
+	var res struct {
+		XMLName xml.Name `xml:"metadata"`
+		Ptr     *Place   `xml:"place"`
+	}
+	res.Ptr = mble
+	return &res
+}
+
+func (mble *Place) apiEndpoint() string {
+	return "/place"
+}
+
+func (mble *Place) id() MBID {
+	return mble.ID
+}
+
+// LookupPlace performs a place lookup request for the given MBID.
+func (c *WS2Client) LookupPlace(id MBID) (*Place, error) {
+	a := &Place{ID: id}
+	err := c.Lookup(a)
+
+	return a, err
 }
 
 // SearchPlace queries MusicBrainz´ Search Server for Places.
