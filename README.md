@@ -1,6 +1,6 @@
 # gomusicbrainz [![License MIT](http://img.shields.io/badge/License-MIT-lightgrey.svg?style=flat-square)](http://opensource.org/licenses/MIT) [![GoDoc](http://img.shields.io/badge/api-Godoc-blue.svg?style=flat-square)](https://godoc.org/github.com/michiwend/gomusicbrainz) [![GoWalker](http://img.shields.io/badge/api-GoWalker-green.svg?style=flat-square)](https://gowalker.org/github.com/michiwend/gomusicbrainz) [![Build Status](http://img.shields.io/travis/michiwend/gomusicbrainz.svg?style=flat-square)](https://travis-ci.org/michiwend/gomusicbrainz) 
 
-a Go (Golang) MusicBrainz WS2 client library - work in progress.
+a Go (Golang) MusicBrainz WS2 client library - a work in progress.
 
 ![gopherbrainz Oo](https://raw.githubusercontent.com/michiwend/gomusicbrainz/master/misc/gopherbrainz.png)
 
@@ -57,7 +57,7 @@ the form
 ```Go
 func(*WS2Client) Lookup<ETITY>(id MBID) (*<ENTITY>, error)
 ```
-or the common lookup method if you allready have an entity (with MBID) that
+or the common lookup method if you already have an entity (with MBID) that
 implements the MBLookupEntity interface:
 ```Go
 func(*WS2Client) Lookup(entity MBLookupEntity) error
