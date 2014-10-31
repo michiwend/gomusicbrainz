@@ -18,7 +18,12 @@ GoMusicBrainz provides a search method for every WS2 search request in the form:
 ```Go
 func (*WS2Client) Search<ENTITY>(searchTerm, limit, offset) (<ENTITY>SearchResponse, error)
 ```
-searchTerm follows the Apache Lucene syntax and can either contain multiple fields with logical operators or just a simple search string. Please refer to [lucene.apache.org](https://lucene.apache.org/core/4_3_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description) for more details on the lucene syntax. In addition the [MusicBrainz website] (https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search) provides information about all possible query-fields.
+searchTerm follows the Apache Lucene syntax and can either contain multiple
+fields with logical operators or just a simple search string. Please refer to
+[lucene.apache.org](https://lucene.apache.org/core/4_3_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description)
+for more details on the lucene syntax. In addition the
+[MusicBrainz website] (https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search)
+provides information about all possible query-fields.
 
 ### Example
 This example demonstrates a simple search requests to find the artist
@@ -46,7 +51,43 @@ Name: Parov Stelar Trio        Score: 80
 Name: Parov Stelar & the Band  Score: 70
 ```
 
+## Lookup Requests
+GoMusicBrainz provides two ways to perform lookup requests: Either the specific
+lookup method that is implemented for each entity that has a lookup endpoint in
+the form
+```Go
+func(*WS2Client) Lookup<ETITY>(id MBID) (*<ENTITY>, error)
+```
+or the common lookup method if you allready have an entity (with MBID) that
+implements the MBLookupEntity interface:
+```Go
+func(*WS2Client) Lookup(entity MBLookupEntity) error
+```
+
+### Example
+The following example demonstrates the (specific) LookupArtist method. You can
+find it as a runnable go program in the samples folder.
+
+```Go
+// create a new WS2Client.
+client, _ := gomusicbrainz.NewWS2Client(
+    "https://musicbrainz.org/ws/2",
+    "A GoMusicBrainz example",
+    "0.0.1-beta",
+    "http://github.com/michiwend/gomusicbrainz")
+
+// Lookup artist by id.
+artist, err := client.LookupArtist("9a709693-b4f8-4da9-8cc1-038c911a61be")
+
+if err != nil {
+    fmt.Println(err)
+    return
+}
+
+fmt.Printf("%+v", artist)
+```
+
 ## Package Documentation
-Full documentation for this package can be found at [GoDoc](https://godoc.org/github.com/michiwend/gomusicbrainz) and  [GoWalker](https://gowalker.org/github.com/michiwend/gomusicbrainz)
-
-
+Full documentation for this package can be found at
+[GoDoc](https://godoc.org/github.com/michiwend/gomusicbrainz)
+and  [GoWalker](https://gowalker.org/github.com/michiwend/gomusicbrainz)
