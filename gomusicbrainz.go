@@ -59,19 +59,24 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"path"
 	"strconv"
+	"strings"
 )
 
 // NewWS2Client returns a new instance of WS2Client. Please provide meaningful
 // information about your application as described at
 // https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
-func NewWS2Client(rooturl, appname, version, contact string) (*WS2Client, error) {
+func NewWS2Client(wsurl, appname, version, contact string) (*WS2Client, error) {
 	c := WS2Client{}
 	var err error
 
-	c.WS2RootURL, err = url.Parse(rooturl)
+	c.WS2RootURL, err = url.Parse(wsurl)
 	if err != nil {
 		return nil, err
+	}
+	if !strings.HasSuffix(c.WS2RootURL.Path, "ws/2") {
+		c.WS2RootURL.Path = path.Join(c.WS2RootURL.Path, "ws/2")
 	}
 	c.userAgentHeader = appname + "/" + version + " ( " + contact + " ) "
 
@@ -88,7 +93,11 @@ func (c *WS2Client) getReqeust(data interface{}, params url.Values, endpoint str
 
 	client := &http.Client{}
 
-	req, err := http.NewRequest("GET", c.WS2RootURL.String()+endpoint+"?"+params.Encode(), nil)
+	reqUrl := c.WS2RootURL
+	reqUrl.Path = path.Join(reqUrl.Path, endpoint)
+	reqUrl.RawQuery = params.Encode()
+
+	req, err := http.NewRequest("GET", reqUrl.String(), nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -107,7 +116,6 @@ func (c *WS2Client) getReqeust(data interface{}, params url.Values, endpoint str
 		return err
 	}
 	return nil
-
 }
 
 // intParamToString returns an empty string for -1.
