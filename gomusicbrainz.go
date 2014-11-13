@@ -141,13 +141,20 @@ func (c *WS2Client) searchRequest(endpoint string, result interface{}, searchTer
 	return nil
 }
 
+func encodeInc(inc []string) url.Values {
+	return url.Values{
+		"inc": {strings.Join(inc, "+")},
+	}
+}
+
 // Lookup performs a WS2 lookup request for the given entity (e.g. Artist,
 // Label, ...)
-func (c *WS2Client) Lookup(entity MBLookupEntity) error {
+func (c *WS2Client) Lookup(entity MBLookupEntity, inc []string) error {
 	if entity.id() == "" {
 		return errors.New("can't perform lookup without ID.")
 	}
-	return c.getReqeust(entity.lookupResult(), url.Values{},
+
+	return c.getReqeust(entity.lookupResult(), encodeInc(inc),
 		path.Join(
 			entity.apiEndpoint(),
 			string(entity.id()),

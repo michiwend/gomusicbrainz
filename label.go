@@ -61,9 +61,9 @@ func (mble *Label) id() MBID {
 }
 
 // LookupLabel performs a label lookup request for the given MBID.
-func (c *WS2Client) LookupLabel(id MBID) (*Label, error) {
+func (c *WS2Client) LookupLabel(id MBID, inc []string) (*Label, error) {
 	a := &Label{ID: id}
-	err := c.Lookup(a)
+	err := c.Lookup(a, inc)
 
 	return a, err
 }

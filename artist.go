@@ -58,9 +58,9 @@ func (mble *Artist) id() MBID {
 }
 
 // LookupArtist performs an artist lookup request for the given MBID.
-func (c *WS2Client) LookupArtist(id MBID) (*Artist, error) {
+func (c *WS2Client) LookupArtist(id MBID, inc []string) (*Artist, error) {
 	a := &Artist{ID: id}
-	err := c.Lookup(a)
+	err := c.Lookup(a, inc)
 
 	return a, err
 }

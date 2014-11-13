@@ -41,7 +41,7 @@ func main() {
 		"http://github.com/michiwend/gomusicbrainz")
 
 	// Lookup artist by id.
-	artist, err := client.LookupArtist("9a709693-b4f8-4da9-8cc1-038c911a61be")
+	artist, err := client.LookupArtist("10adbe5e-a2c0-4bf3-8249-2b4cbf6e6ca8", nil)
 
 	if err != nil {
 		fmt.Println(err)
