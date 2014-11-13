@@ -147,5 +147,10 @@ func (c *WS2Client) Lookup(entity MBLookupEntity) error {
 	if entity.id() == "" {
 		return errors.New("can't perform lookup without ID.")
 	}
-	return c.getReqeust(entity.lookupResult(), url.Values{}, entity.apiEndpoint()+"/"+string(entity.id()))
+	return c.getReqeust(entity.lookupResult(), url.Values{},
+		path.Join(
+			entity.apiEndpoint(),
+			string(entity.id()),
+		),
+	)
 }
