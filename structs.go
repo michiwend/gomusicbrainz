@@ -27,7 +27,6 @@ package gomusicbrainz
 
 import (
 	"encoding/xml"
-	"errors"
 	"strings"
 	"time"
 )
@@ -218,10 +217,10 @@ func (r *RelationMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error
 			(*r)[targetType][i] = &v
 		}
 
-	// FIXME add implement missing relations
+	// FIXME implement missing relations
 
 	default:
-		return errors.New("unknown target-type: " + targetType)
+		return d.Skip()
 	}
 
 	return nil
