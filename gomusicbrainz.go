@@ -28,6 +28,7 @@ Package gomusicbrainz implements a MusicBrainz WS2 client library.
 
 MusicBrainz WS2 (Version 2 of the XML Web Service) supports three different requests:
 
+
 Search requests
 
 With search requests you can search MusicBrainz´ database for all entities.
@@ -42,13 +43,30 @@ for more details on the lucene syntax. limit defines how many entries should be
 returned (1-100, default 25). offset is used for paging through more than one
 page of results. To ignore limit and/or offset, set it to -1.
 
+
 Lookup requests
 
-TODO
+You can perform a lookup of an entity when you have the MBID for that entity.
+GoMusicBrainz provides two ways to perform lookup requests: Either the specific
+lookup method that is implemented for each entity that has a lookup endpoint
+in the form
+
+	func(*WS2Client) Lookup<ETITY>(id MBID, inc []string) (*<ENTITY>, error)
+
+or the common lookup method if you already have an entity (with MBID) that
+implements the MBLookupEntity interface:
+
+	func(*MBLookupEntity) Lookup(entity MBLookupEntity, inc []string) error
+
+With both methods you can include inc params which affect subqueries e.g.
+relationships. see
+http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2#inc.3D_arguments_which_affect_subqueries
+Not all of them are supported yet.
+
 
 Browse requets
 
-TODO
+not supported yet.
 
 */
 package gomusicbrainz
