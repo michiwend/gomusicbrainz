@@ -30,17 +30,15 @@ import "encoding/xml"
 // Artist represents generally a musician, a group of musicians, a collaboration
 // of multiple musicians or other music professionals.
 type Artist struct {
-	ID             MBID     `xml:"id,attr"`
-	Type           string   `xml:"type,attr"`
-	Name           string   `xml:"name"`
-	Disambiguation string   `xml:"disambiguation"`
-	SortName       string   `xml:"sort-name"`
-	CountryCode    string   `xml:"country"`
-	Lifespan       Lifespan `xml:"life-span"`
-	Aliases        []*Alias `xml:"alias-list>alias"`
-
-	//RelationLists []RelationList `xml:"relation-list"`
-	Relations RelationMap `xml:"relation-list"`
+	ID             MBID               `xml:"id,attr"`
+	Type           string             `xml:"type,attr"`
+	Name           string             `xml:"name"`
+	Disambiguation string             `xml:"disambiguation"`
+	SortName       string             `xml:"sort-name"`
+	CountryCode    string             `xml:"country"`
+	Lifespan       Lifespan           `xml:"life-span"`
+	Aliases        []*Alias           `xml:"alias-list>alias"`
+	Relations      TargetRelationsMap `xml:"relation-list"`
 }
 
 func (mble *Artist) lookupResult() interface{} {

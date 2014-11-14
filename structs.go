@@ -165,12 +165,12 @@ type ArtistRelation struct {
 	Direction string `xml:"direction"`
 }
 
-// RelationMap maps target-types to Relations.
-type RelationMap map[string][]Relation
+// TargetRelationsMap maps target-types to Relations.
+type TargetRelationsMap map[string][]Relation
 
 // UnmarshalXML is needed to implement XMLUnmarshaler for custom, value-based
 // unmarshaling of relation-list elements.
-func (r *RelationMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+func (r *TargetRelationsMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 
 	var targetType string
 
