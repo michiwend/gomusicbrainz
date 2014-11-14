@@ -111,7 +111,7 @@ func (c *WS2Client) getReqeust(data interface{}, params url.Values, endpoint str
 
 	client := &http.Client{}
 
-	reqUrl := c.WS2RootURL
+	reqUrl := *c.WS2RootURL
 	reqUrl.Path = path.Join(reqUrl.Path, endpoint)
 	reqUrl.RawQuery = params.Encode()
 
