@@ -182,7 +182,9 @@ func (r *RelationMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error
 		}
 	}
 
-	(*r) = make(map[string][]Relation)
+	if *r == nil {
+		(*r) = make(map[string][]Relation)
+	}
 
 	switch targetType {
 	case "artist":
