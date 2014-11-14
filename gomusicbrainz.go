@@ -51,12 +51,12 @@ GoMusicBrainz provides two ways to perform lookup requests: Either the specific
 lookup method that is implemented for each entity that has a lookup endpoint
 in the form
 
-	func(*WS2Client) Lookup<ETITY>(id MBID, inc []string) (*<ENTITY>, error)
+	func(*WS2Client) Lookup<ETITY>(id MBID, inc ...string) (*<ENTITY>, error)
 
 or the common lookup method if you already have an entity (with MBID) that
 implements the MBLookupEntity interface:
 
-	func(*MBLookupEntity) Lookup(entity MBLookupEntity, inc []string) error
+	func(*WS2Client) Lookup(entity MBLookupEntity, inc ...string) error
 
 With both methods you can include inc params which affect subqueries e.g.
 relationships. see
@@ -160,14 +160,17 @@ func (c *WS2Client) searchRequest(endpoint string, result interface{}, searchTer
 }
 
 func encodeInc(inc []string) url.Values {
-	return url.Values{
-		"inc": {strings.Join(inc, "+")},
+	if inc != nil {
+		return url.Values{
+			"inc": {strings.Join(inc, "+")},
+		}
 	}
+	return nil
 }
 
 // Lookup performs a WS2 lookup request for the given entity (e.g. Artist,
 // Label, ...)
-func (c *WS2Client) Lookup(entity MBLookupEntity, inc []string) error {
+func (c *WS2Client) Lookup(entity MBLookupEntity, inc ...string) error {
 	if entity.id() == "" {
 		return errors.New("can't perform lookup without ID.")
 	}

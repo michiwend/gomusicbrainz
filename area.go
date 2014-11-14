@@ -56,9 +56,9 @@ func (mble *Area) id() MBID {
 }
 
 // LookupArea performs an area lookup request for the given MBID.
-func (c *WS2Client) LookupArea(id MBID, inc []string) (*Area, error) {
+func (c *WS2Client) LookupArea(id MBID, inc ...string) (*Area, error) {
 	a := &Area{ID: id}
-	err := c.Lookup(a, inc)
+	err := c.Lookup(a, inc...)
 
 	return a, err
 }

@@ -55,12 +55,12 @@ GoMusicBrainz provides two ways to perform lookup requests: Either the specific
 lookup method that is implemented for each entity that has a lookup endpoint in
 the form
 ```Go
-func(*WS2Client) Lookup<ETITY>(id MBID) (*<ENTITY>, error)
+func(*WS2Client) Lookup<ETITY>(id MBID, inc ...string) (*<ENTITY>, error)
 ```
 or the common lookup method if you already have an entity (with MBID) that
 implements the MBLookupEntity interface:
 ```Go
-func(*MBLookupEntity) Lookup(entity MBLookupEntity, inc []string) error
+func(*WS2Client) Lookup(entity MBLookupEntity, inc ...string) error
 ```
 
 ### Example
@@ -76,7 +76,7 @@ client, _ := gomusicbrainz.NewWS2Client(
     "http://github.com/michiwend/gomusicbrainz")
 
 // Lookup artist by id.
-artist, err := client.LookupArtist("9a709693-b4f8-4da9-8cc1-038c911a61be", nil)
+artist, err := client.LookupArtist("9a709693-b4f8-4da9-8cc1-038c911a61be")
 
 if err != nil {
     fmt.Println(err)

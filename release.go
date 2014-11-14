@@ -69,9 +69,9 @@ func (mble *Release) id() MBID {
 }
 
 // LookupRelease performs a release lookup request for the given MBID.
-func (c *WS2Client) LookupRelease(id MBID, inc []string) (*Release, error) {
+func (c *WS2Client) LookupRelease(id MBID, inc ...string) (*Release, error) {
 	a := &Release{ID: id}
-	err := c.Lookup(a, inc)
+	err := c.Lookup(a, inc...)
 
 	return a, err
 }

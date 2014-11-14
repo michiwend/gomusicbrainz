@@ -58,9 +58,9 @@ func (mble *Place) id() MBID {
 }
 
 // LookupPlace performs a place lookup request for the given MBID.
-func (c *WS2Client) LookupPlace(id MBID, inc []string) (*Place, error) {
+func (c *WS2Client) LookupPlace(id MBID, inc ...string) (*Place, error) {
 	a := &Place{ID: id}
-	err := c.Lookup(a, inc)
+	err := c.Lookup(a, inc...)
 
 	return a, err
 }
