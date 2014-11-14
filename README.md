@@ -60,7 +60,7 @@ func(*WS2Client) Lookup<ETITY>(id MBID) (*<ENTITY>, error)
 or the common lookup method if you already have an entity (with MBID) that
 implements the MBLookupEntity interface:
 ```Go
-func(*WS2Client) Lookup(entity MBLookupEntity) error
+func(*MBLookupEntity) Lookup(entity MBLookupEntity, inc []string) error
 ```
 
 ### Example
