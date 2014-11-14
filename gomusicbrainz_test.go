@@ -57,6 +57,9 @@ func setupHTTPTesting() {
 		"Version",
 		"Contact",
 	)
+
+	// NOTE this fixes testing since the test server does not listen on /ws/2
+	client.WS2RootURL.Path = ""
 }
 
 // handleFunc passes response to the http client.
