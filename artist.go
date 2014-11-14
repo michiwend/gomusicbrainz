@@ -38,6 +38,9 @@ type Artist struct {
 	CountryCode    string   `xml:"country"`
 	Lifespan       Lifespan `xml:"life-span"`
 	Aliases        []*Alias `xml:"alias-list>alias"`
+
+	//RelationLists []RelationList `xml:"relation-list"`
+	Relations RelationMap `xml:"relation-list"`
 }
 
 func (mble *Artist) lookupResult() interface{} {

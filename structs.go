@@ -27,6 +27,7 @@ package gomusicbrainz
 
 import (
 	"encoding/xml"
+	"errors"
 	"strings"
 	"time"
 )
@@ -136,4 +137,90 @@ type ArtistCredit struct {
 
 type NameCredit struct {
 	Artist Artist `xml:"artist"`
+}
+
+type Relation interface {
+}
+
+type URLRelation struct {
+	RelationAbstract
+}
+
+// RelationAbstract is the common abstract type for Relations.
+type RelationAbstract struct {
+	TypeID MBID   `xml:"type-id,attr"`
+	Type   string `xml:"type,attr"`
+	Target MBID   `xml:"target"`
+}
+
+// ReleaseRelation is the Relation type for Releases.
+type ReleaseRelation struct {
+	RelationAbstract
+	Release Release `xml:"release"`
+}
+
+// ArtistRelation is the Relation type for Artists.
+type ArtistRelation struct {
+	RelationAbstract
+	Artist    Artist `xml:"artist"`
+	Direction string `xml:"direction"`
+}
+
+// RelationMap maps target-types to Relations.
+type RelationMap map[string][]Relation
+
+// UnmarshalXML is needed to implement XMLUnmarshaler for custom, value-based
+// unmarshaling of relation-list elements.
+func (r *RelationMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+
+	var targetType string
+
+	for _, v := range start.Attr {
+		if v.Name.Local == "target-type" {
+			targetType = v.Value
+			break
+		}
+	}
+
+	(*r) = make(map[string][]Relation)
+
+	switch targetType {
+	case "artist":
+		var res struct {
+			XMLName   xml.Name         `xml:"relation-list"`
+			Relations []ArtistRelation `xml:"relation"`
+		}
+		if err := d.DecodeElement(&res, &start); err != nil {
+			return err
+		}
+
+		(*r)[targetType] = make([]Relation, len(res.Relations))
+
+		for i, v := range res.Relations {
+			(*r)[targetType][i] = &v
+		}
+
+	case "release":
+		var res struct {
+			XMLName   xml.Name          `xml:"relation-list"`
+			Relations []ReleaseRelation `xml:"relation"`
+		}
+
+		if err := d.DecodeElement(&res, &start); err != nil {
+			return err
+		}
+
+		(*r)[targetType] = make([]Relation, len(res.Relations))
+
+		for i, v := range res.Relations {
+			(*r)[targetType][i] = &v
+		}
+
+	// FIXME add implement missing relations
+
+	default:
+		return errors.New("unknown target-type: " + targetType)
+	}
+
+	return nil
 }

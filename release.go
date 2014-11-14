@@ -47,6 +47,8 @@ type Release struct {
 		Label         *Label `xml:"label"`
 	} `xml:"label-info-list>label-info"`
 	Mediums []*Medium `xml:"medium-list>medium"`
+
+	Relations RelationMap `xml:"relation-list"`
 }
 
 func (mble *Release) lookupResult() interface{} {
