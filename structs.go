@@ -138,11 +138,11 @@ type NameCredit struct {
 	Artist Artist `xml:"artist"`
 }
 
+// Relation describes a relationship between different MusicBrainz entities.
+// See this link https://musicbrainz.org/relationships for a table of
+// relationships.
 type Relation interface {
-}
-
-type URLRelation struct {
-	RelationAbstract
+	TypeOf() string
 }
 
 // RelationAbstract is the common abstract type for Relations.
@@ -150,6 +150,33 @@ type RelationAbstract struct {
 	TypeID MBID   `xml:"type-id,attr"`
 	Type   string `xml:"type,attr"`
 	Target MBID   `xml:"target"`
+}
+
+func (r *RelationAbstract) TypeOf() string {
+	return r.Type
+}
+
+// RelationsOfType returns a slice of Relations for the given relType. For a
+// list of all possible relationships see https://musicbrainz.org/relationships
+func RelationsOfType(rels []Relation, relType string) []Relation {
+	// NOTE i could think about mapping the relationship types with a double map
+	// like map[string]map[string][]Relation. For that to work the Unmarshaler
+	// inferface needs to be implemented for the slice of relations (as a seperate
+	// type).
+
+	var out []Relation
+
+	for _, rel := range rels {
+		if rel.TypeOf() == relType {
+			out = append(out, rel)
+		}
+	}
+
+	return out
+}
+
+type URLRelation struct {
+	RelationAbstract
 }
 
 // ReleaseRelation is the Relation type for Releases.
