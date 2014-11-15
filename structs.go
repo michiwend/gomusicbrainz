@@ -188,8 +188,8 @@ func (r *TargetRelationsMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 	switch targetType {
 	case "artist":
 		var res struct {
-			XMLName   xml.Name         `xml:"relation-list"`
-			Relations []ArtistRelation `xml:"relation"`
+			XMLName   xml.Name          `xml:"relation-list"`
+			Relations []*ArtistRelation `xml:"relation"`
 		}
 		if err := d.DecodeElement(&res, &start); err != nil {
 			return err
@@ -198,13 +198,13 @@ func (r *TargetRelationsMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 		(*r)[targetType] = make([]Relation, len(res.Relations))
 
 		for i, v := range res.Relations {
-			(*r)[targetType][i] = &v
+			(*r)[targetType][i] = v
 		}
 
 	case "release":
 		var res struct {
-			XMLName   xml.Name          `xml:"relation-list"`
-			Relations []ReleaseRelation `xml:"relation"`
+			XMLName   xml.Name           `xml:"relation-list"`
+			Relations []*ReleaseRelation `xml:"relation"`
 		}
 
 		if err := d.DecodeElement(&res, &start); err != nil {
@@ -214,7 +214,7 @@ func (r *TargetRelationsMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 		(*r)[targetType] = make([]Relation, len(res.Relations))
 
 		for i, v := range res.Relations {
-			(*r)[targetType][i] = &v
+			(*r)[targetType][i] = v
 		}
 
 	// FIXME implement missing relations
