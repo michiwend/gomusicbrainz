@@ -156,9 +156,9 @@ func (r *RelationAbstract) TypeOf() string {
 	return r.Type
 }
 
-// RelationsOfType returns a slice of Relations for the given relType. For a
+// RelationsOfTypes returns a slice of Relations for the given relTypes. For a
 // list of all possible relationships see https://musicbrainz.org/relationships
-func RelationsOfType(rels []Relation, relType string) []Relation {
+func RelationsOfTypes(rels []Relation, relTypes ...string) []Relation {
 	// NOTE i could think about mapping the relationship types with a double map
 	// like map[string]map[string][]Relation. For that to work the Unmarshaler
 	// inferface needs to be implemented for the slice of relations (as a seperate
@@ -167,8 +167,10 @@ func RelationsOfType(rels []Relation, relType string) []Relation {
 	var out []Relation
 
 	for _, rel := range rels {
-		if rel.TypeOf() == relType {
-			out = append(out, rel)
+		for _, relType := range relTypes {
+			if rel.TypeOf() == relType {
+				out = append(out, rel)
+			}
 		}
 	}
 
