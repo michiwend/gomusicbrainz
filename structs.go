@@ -147,9 +147,10 @@ type Relation interface {
 
 // RelationAbstract is the common abstract type for Relations.
 type RelationAbstract struct {
-	TypeID MBID   `xml:"type-id,attr"`
-	Type   string `xml:"type,attr"`
-	Target MBID   `xml:"target"`
+	TypeID   MBID   `xml:"type-id,attr"`
+	Type     string `xml:"type,attr"`
+	Target   string `xml:"target"`
+	TargetID MBID   `xml:"target-id,attr"`
 }
 
 func (r *RelationAbstract) TypeOf() string {
@@ -234,6 +235,22 @@ func (r *TargetRelationsMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 		var res struct {
 			XMLName   xml.Name           `xml:"relation-list"`
 			Relations []*ReleaseRelation `xml:"relation"`
+		}
+
+		if err := d.DecodeElement(&res, &start); err != nil {
+			return err
+		}
+
+		(*r)[targetType] = make([]Relation, len(res.Relations))
+
+		for i, v := range res.Relations {
+			(*r)[targetType][i] = v
+		}
+
+	case "url":
+		var res struct {
+			XMLName   xml.Name       `xml:"relation-list"`
+			Relations []*URLRelation `xml:"relation"`
 		}
 
 		if err := d.DecodeElement(&res, &start); err != nil {
