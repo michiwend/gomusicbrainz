@@ -32,11 +32,9 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"path"
-	"strings"
 	"testing"
 
-	"github.com/aryann/difflib"
-	"github.com/davecgh/go-spew/spew"
+	"github.com/michiwend/golang-pretty"
 )
 
 var (
@@ -83,30 +81,11 @@ func serveTestFile(endpoint string, testfile string, t *testing.T) {
 
 // pretty prints a diff
 func requestDiff(want, returned interface{}) string {
-	spew.Config.SortKeys = true
-	spew.Config.ContinueOnMethod = true
-	recs := difflib.Diff(
-		// FIXME splits "strings with whitespaces" into sperate fields
-		strings.Fields(spew.Sprintf("%#v", returned)),
-		strings.Fields(spew.Sprintf("%#v", want)))
 
 	out := "\n"
-	for _, rec := range recs {
-		if rec.Delta == difflib.RightOnly {
-			out += fmt.Sprintf("%-10s%s\n", "want:", rec.Payload)
-		} else if rec.Delta == difflib.LeftOnly {
-			out += fmt.Sprintf("%-10s%s\n", "returned:", rec.Payload)
-		}
+
+	for _, diff := range pretty.Diff(want, returned) {
+		out += fmt.Sprintln("difference in", diff)
 	}
 	return out
-
-	/*
-		out := "\n"
-
-		for _, diff := range pretty.Diff(want, returned) {
-			out += fmt.Sprintln("difference in", diff)
-		}
-		return out
-	*/
-
 }
