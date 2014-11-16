@@ -46,6 +46,7 @@ func TestSearchArtist(t *testing.T) {
 				Disambiguation: "Some crazy pocket gophers",
 				SortName:       "0Gopher And Friends",
 				CountryCode:    "DE",
+				Gender:         "nogender",
 				Area: Area{
 					ID:       "some-area-id",
 					Name:     "Augsburg",

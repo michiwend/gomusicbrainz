@@ -36,6 +36,7 @@ type Artist struct {
 	Disambiguation string             `xml:"disambiguation"`
 	SortName       string             `xml:"sort-name"`
 	CountryCode    string             `xml:"country"`
+	Gender         string             `xml:"gender"`
 	Lifespan       Lifespan           `xml:"life-span"`
 	Area           Area               `xml:"area"`
 	BeginArea      Area               `xml:"begin-area"`
