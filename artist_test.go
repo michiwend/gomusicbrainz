@@ -46,6 +46,16 @@ func TestSearchArtist(t *testing.T) {
 				Disambiguation: "Some crazy pocket gophers",
 				SortName:       "0Gopher And Friends",
 				CountryCode:    "DE",
+				Area: Area{
+					ID:       "some-area-id",
+					Name:     "Augsburg",
+					SortName: "Augsburg",
+				},
+				BeginArea: Area{
+					ID:       "some-area-id",
+					Name:     "Mountain View",
+					SortName: "Mountain View",
+				},
 				Lifespan: Lifespan{
 					Ended: false,
 					Begin: BrainzTime{time.Date(2007, 9, 21, 0, 0, 0, 0, time.UTC)},
@@ -59,6 +69,16 @@ func TestSearchArtist(t *testing.T) {
 					{
 						Name:     "Mr Gopher and Friends",
 						SortName: "0Mr Gopher and Friends",
+					},
+				},
+				Tags: []Tag{
+					{
+						Count: 1,
+						Name:  "Pocket Gopher Music",
+					},
+					{
+						Count: 2,
+						Name:  "Golang",
 					},
 				},
 			},
