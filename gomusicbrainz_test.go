@@ -63,16 +63,10 @@ func setupHTTPTesting() {
 // located in ./testdata
 func serveTestFile(endpoint string, testfile string, t *testing.T) {
 
-	//TODO check request URL if it matches one of the following patterns
-	//lookup:   /<ENTITY>/<MBID>?inc=<INC>
-	//browse:   /<ENTITY>?<ENTITY>=<MBID>&limit=<LIMIT>&offset=<OFFSET>&inc=<INC>
-	//search:   /<ENTITY>?query=<QUERY>&limit=<LIMIT>&offset=<OFFSET>
-
 	t.Log("Handling endpoint", endpoint)
 	t.Log("Serving test file", testfile)
 
 	mux.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
-
 		t.Log("GET request was:", r.URL.String())
 
 		http.ServeFile(w, r, path.Join("./testdata", testfile))
