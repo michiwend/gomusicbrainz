@@ -31,6 +31,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"path"
 	"strings"
 	"testing"
 
@@ -60,31 +61,23 @@ func setupHTTPTesting() {
 	client.WS2RootURL.Path = ""
 }
 
-// handleFunc passes response to the http client.
-/*
-func handleFunc(url string, response *string, t *testing.T) {
-	mux.HandleFunc(url, func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, *response)
-	})
-}*/
-
 // serveTestFile responses to the http client with content of a test file
 // located in ./testdata
-func serveTestFile(url string, testfile string, t *testing.T) {
+func serveTestFile(endpoint string, testfile string, t *testing.T) {
 
 	//TODO check request URL if it matches one of the following patterns
 	//lookup:   /<ENTITY>/<MBID>?inc=<INC>
 	//browse:   /<ENTITY>?<ENTITY>=<MBID>&limit=<LIMIT>&offset=<OFFSET>&inc=<INC>
 	//search:   /<ENTITY>?query=<QUERY>&limit=<LIMIT>&offset=<OFFSET>
 
-	t.Log("Listening on", url)
+	t.Log("Handling endpoint", endpoint)
+	t.Log("Serving test file", testfile)
 
-	mux.HandleFunc(url, func(w http.ResponseWriter, r *http.Request) {
-		if testing.Verbose() {
-			fmt.Println("GET request:", r.URL.String())
-		}
+	mux.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
 
-		http.ServeFile(w, r, "./testdata/"+testfile)
+		t.Log("GET request was:", r.URL.String())
+
+		http.ServeFile(w, r, path.Join("./testdata", testfile))
 	})
 }
 
