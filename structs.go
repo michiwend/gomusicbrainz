@@ -147,10 +147,14 @@ type Relation interface {
 
 // RelationAbstract is the common abstract type for Relations.
 type RelationAbstract struct {
-	TypeID   MBID   `xml:"type-id,attr"`
-	Type     string `xml:"type,attr"`
-	Target   string `xml:"target"`
-	TargetID MBID   `xml:"target-id,attr"`
+	TypeID    MBID       `xml:"type-id,attr"`
+	Type      string     `xml:"type,attr"`
+	Target    string     `xml:"target"`
+	TargetID  MBID       `xml:"target-id,attr"`
+	Direction string     `xml:"direction"`
+	Begin     BrainzTime `xml:"begin"`
+	End       BrainzTime `xml:"end"`
+	Ended     bool       `xml:"ended"`
 }
 
 func (r *RelationAbstract) TypeOf() string {
@@ -191,8 +195,7 @@ type ReleaseRelation struct {
 // ArtistRelation is the Relation type for Artists.
 type ArtistRelation struct {
 	RelationAbstract
-	Artist    Artist `xml:"artist"`
-	Direction string `xml:"direction"`
+	Artist Artist `xml:"artist"`
 }
 
 // TargetRelationsMap maps target-types to Relations.
