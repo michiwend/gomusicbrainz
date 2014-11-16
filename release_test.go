@@ -63,10 +63,7 @@ func TestSearchRelease(t *testing.T) {
 				CountryCode: "us",
 				Barcode:     "075992659222",
 				Asin:        "075992659222",
-				LabelInfos: []struct {
-					CatalogNumber string `xml:"catalog-number"`
-					Label         *Label `xml:"label"`
-				}{
+				LabelInfos: []LabelInfo{
 					{
 						CatalogNumber: "9 26592-2",
 						Label: &Label{

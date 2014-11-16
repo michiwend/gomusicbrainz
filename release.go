@@ -43,13 +43,9 @@ type Release struct {
 	Barcode            string             `xml:"barcode"`
 	Asin               string             `xml:"asin"`
 	Quality            string             `xml:"quality"`
-	LabelInfos         []struct {
-		CatalogNumber string `xml:"catalog-number"`
-		Label         *Label `xml:"label"`
-	} `xml:"label-info-list>label-info"`
-	Mediums []*Medium `xml:"medium-list>medium"`
-
-	Relations TargetRelationsMap `xml:"relation-list"`
+	LabelInfos         []LabelInfo        `xml:"label-info-list>label-info"`
+	Mediums            []*Medium          `xml:"medium-list>medium"`
+	Relations          TargetRelationsMap `xml:"relation-list"`
 }
 
 func (mble *Release) lookupResult() interface{} {

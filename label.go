@@ -27,6 +27,12 @@ package gomusicbrainz
 
 import "encoding/xml"
 
+// LabelInfo contains a label and links it to a catalog number.
+type LabelInfo struct {
+	CatalogNumber string `xml:"catalog-number"`
+	Label         *Label `xml:"label"`
+}
+
 // Label represents an imprint, a record company or a music group. Labels refer
 // mainly to imprints in MusicBrainz. Visit https://musicbrainz.org/doc/Label
 // for more information.
