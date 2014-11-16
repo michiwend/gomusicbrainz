@@ -42,6 +42,7 @@ type Release struct {
 	CountryCode        string             `xml:"country"`
 	Barcode            string             `xml:"barcode"`
 	Asin               string             `xml:"asin"`
+	Quality            string             `xml:"quality"`
 	LabelInfos         []struct {
 		CatalogNumber string `xml:"catalog-number"`
 		Label         *Label `xml:"label"`
