@@ -37,13 +37,6 @@ import (
 // labels, areas, places and URLs.
 type MBID string
 
-// MBCoordinates represents a tuple of latitude,longitude values.
-type MBCoordinates struct {
-	// TODO maybe use $geolocation library and its generic type.
-	Lat string `xml:"latitude"`
-	Lng string `xml:"longitude"`
-}
-
 // MBentity is an interface implemented by all MusicBrainz entities with MBIDs.
 type MBEntity interface {
 	Id() MBID
@@ -57,13 +50,19 @@ type MBLookupEntity interface {
 	lookupResult() interface{}
 }
 
+// MBCoordinates represents a tuple of latitude,longitude values.
+type MBCoordinates struct {
+	Lat string `xml:"latitude"`
+	Lng string `xml:"longitude"`
+}
+
 // ScoreMap maps addresses of search request results to its scores.
 type ScoreMap map[interface{}]int
 
 type ISO31662Code string
 
-// BrainzTime implements XMLUnmarshaler interface and is used to unmarshal the
-// XML date fields.
+// BrainzTime implements XMLUnmarshaler interface and is only used to unmarshal
+// the XML date fields returned by WS2.
 type BrainzTime struct {
 	time.Time
 }
@@ -83,8 +82,6 @@ func (t *BrainzTime) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 		p, err = time.Parse("2006-01-02", v)
 	}
 
-	// TODO handle empty fields
-
 	if err != nil {
 		return err
 	}
@@ -92,7 +89,7 @@ func (t *BrainzTime) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 	return nil
 }
 
-// WS2ListResponse is an abstract common type that provides the Count and Offset
+// WS2ListResponse is a abstract common type that provides the Count and Offset
 // fields for ervery list response.
 type WS2ListResponse struct {
 	Count  int `xml:"count,attr"`
@@ -169,10 +166,6 @@ func (r *RelationAbstract) TypeOf() string {
 // RelationsOfTypes returns a slice of Relations for the given relTypes. For a
 // list of all possible relationships see https://musicbrainz.org/relationships
 func RelationsOfTypes(rels []Relation, relTypes ...string) []Relation {
-	// NOTE i could think about mapping the relationship types with a double map
-	// like map[string]map[string][]Relation. For that to work the Unmarshaler
-	// inferface needs to be implemented for the slice of relations (as a seperate
-	// type).
 
 	var out []Relation
 
