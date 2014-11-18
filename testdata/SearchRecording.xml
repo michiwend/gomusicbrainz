@@ -1,0 +1,54 @@
+<?xml version="1.0" standalone="yes"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ext="http://musicbrainz.org/ns/ext#-2.0" created="2014-09-16T10:28:26.860Z">
+<recording-list count="1" offset="0">
+    <recording id="07339604-c19c-4efe-9195-f9c3b127a458" ext:score="100">
+        <title>Fred</title>
+        <length>473000</length>
+        <artist-credit>
+            <name-credit>
+                <artist id="695e75b5-c6db-43ee-abeb-2f3e50d96c3e">
+                    <name>Imperiet</name>
+                    <sort-name>Imperiet</sort-name>
+                </artist>
+            </name-credit>
+        </artist-credit>
+        <release-list>
+            <release id="ae050d13-7f86-495e-9918-10d8c0ac58e8">
+                <title>Fred</title>
+                <status>Official</status>
+                <release-group id="d0e20525-9c3b-3f68-a130-bfca696526f2" type="Single">
+                    <primary-type>Single</primary-type>
+                </release-group>
+                <date>1984-12-01</date>
+                <country>SE</country>
+                <release-event-list>
+                    <release-event>
+                        <date>1984-12-01</date>
+                        <area id="23d10872-f5ae-3f0c-bf55-332788a16ecb">
+                            <name>Sweden</name>
+                            <sort-name>Sweden</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>SE</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <medium-list>
+                    <track-count>2</track-count>
+                    <medium>
+                        <position>1</position>
+                        <format>7" Vinyl</format>
+                        <track-list count="2" offset="0">
+                            <track id="e111dc12-8ff7-399f-94c9-32fc493a7fc9">
+                                <number>A</number>
+                                <title>Fred</title>
+                                <length>473000</length>
+                            </track>
+                        </track-list>
+                    </medium>
+                </medium-list>
+            </release>
+        </release-list>
+    </recording>
+</recording-list>
+</metadata>
