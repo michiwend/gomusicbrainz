@@ -38,21 +38,21 @@ type Area struct {
 	Aliases       []Alias        `xml:"alias-list>alias"`
 }
 
-func (mble *Area) lookupResult() interface{} {
+func (mbe *Area) lookupResult() interface{} {
 	var res struct {
 		XMLName xml.Name `xml:"metadata"`
 		Ptr     *Area    `xml:"area"`
 	}
-	res.Ptr = mble
+	res.Ptr = mbe
 	return &res
 }
 
-func (mble *Area) apiEndpoint() string {
+func (mbe *Area) apiEndpoint() string {
 	return "/area"
 }
 
-func (mble *Area) id() MBID {
-	return mble.ID
+func (mbe *Area) Id() MBID {
+	return mbe.ID
 }
 
 // LookupArea performs an area lookup request for the given MBID.

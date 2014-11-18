@@ -45,21 +45,21 @@ type Artist struct {
 	Relations      TargetRelationsMap `xml:"relation-list"`
 }
 
-func (mble *Artist) lookupResult() interface{} {
+func (mbe *Artist) lookupResult() interface{} {
 	var res struct {
 		XMLName xml.Name `xml:"metadata"`
 		Ptr     *Artist  `xml:"artist"`
 	}
-	res.Ptr = mble
+	res.Ptr = mbe
 	return &res
 }
 
-func (mble *Artist) apiEndpoint() string {
+func (mbe *Artist) apiEndpoint() string {
 	return "/artist"
 }
 
-func (mble *Artist) id() MBID {
-	return mble.ID
+func (mbe *Artist) Id() MBID {
+	return mbe.ID
 }
 
 // LookupArtist performs an artist lookup request for the given MBID.

@@ -171,14 +171,14 @@ func encodeInc(inc []string) url.Values {
 // Lookup performs a WS2 lookup request for the given entity (e.g. Artist,
 // Label, ...)
 func (c *WS2Client) Lookup(entity MBLookupEntity, inc ...string) error {
-	if entity.id() == "" {
+	if entity.Id() == "" {
 		return errors.New("can't perform lookup without ID.")
 	}
 
 	return c.getReqeust(entity.lookupResult(), encodeInc(inc),
 		path.Join(
 			entity.apiEndpoint(),
-			string(entity.id()),
+			string(entity.Id()),
 		),
 	)
 }

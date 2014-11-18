@@ -31,7 +31,10 @@ import (
 	"time"
 )
 
-// MBID represents a MusicBrainz ID.
+// MBID represents a MusicBrainz Identifier. A MBID is a 36 character
+// Universally Unique Identifier that is permanently assigned to each entity in
+// the database, i.e. artists, release groups, releases, recordings, works,
+// labels, areas, places and URLs.
 type MBID string
 
 // MBCoordinates represents a tuple of latitude,longitude values.
@@ -41,8 +44,9 @@ type MBCoordinates struct {
 	Lng string `xml:"longitude"`
 }
 
+// MBentity is an interface implemented by all MusicBrainz entities with MBIDs.
 type MBEntity interface {
-	id() MBID
+	Id() MBID
 	apiEndpoint() string
 }
 

@@ -40,21 +40,21 @@ type ReleaseGroup struct {
 	Tags         []*Tag       `xml:"tag-list>tag"`
 }
 
-func (mble *ReleaseGroup) lookupResult() interface{} {
+func (mbe *ReleaseGroup) lookupResult() interface{} {
 	var res struct {
 		XMLName xml.Name      `xml:"metadata"`
 		Ptr     *ReleaseGroup `xml:"release-group"`
 	}
-	res.Ptr = mble
+	res.Ptr = mbe
 	return &res
 }
 
-func (mble *ReleaseGroup) apiEndpoint() string {
+func (mbe *ReleaseGroup) apiEndpoint() string {
 	return "/release-group"
 }
 
-func (mble *ReleaseGroup) id() MBID {
-	return mble.ID
+func (mbe *ReleaseGroup) Id() MBID {
+	return mbe.ID
 }
 
 // LookupReleaseGroup performs a release-group lookup request for the given MBID.

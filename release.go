@@ -48,21 +48,21 @@ type Release struct {
 	Relations          TargetRelationsMap `xml:"relation-list"`
 }
 
-func (mble *Release) lookupResult() interface{} {
+func (mbe *Release) lookupResult() interface{} {
 	var res struct {
 		XMLName xml.Name `xml:"metadata"`
 		Ptr     *Release `xml:"release"`
 	}
-	res.Ptr = mble
+	res.Ptr = mbe
 	return &res
 }
 
-func (mble *Release) apiEndpoint() string {
+func (mbe *Release) apiEndpoint() string {
 	return "/release"
 }
 
-func (mble *Release) id() MBID {
-	return mble.ID
+func (mbe *Release) Id() MBID {
+	return mbe.ID
 }
 
 // LookupRelease performs a release lookup request for the given MBID.

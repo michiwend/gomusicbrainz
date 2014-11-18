@@ -40,21 +40,21 @@ type Place struct {
 	Aliases     []*Alias      `xml:"alias-list>alias"`
 }
 
-func (mble *Place) lookupResult() interface{} {
+func (mbe *Place) lookupResult() interface{} {
 	var res struct {
 		XMLName xml.Name `xml:"metadata"`
 		Ptr     *Place   `xml:"place"`
 	}
-	res.Ptr = mble
+	res.Ptr = mbe
 	return &res
 }
 
-func (mble *Place) apiEndpoint() string {
+func (mbe *Place) apiEndpoint() string {
 	return "/place"
 }
 
-func (mble *Place) id() MBID {
-	return mble.ID
+func (mbe *Place) Id() MBID {
+	return mbe.ID
 }
 
 // LookupPlace performs a place lookup request for the given MBID.

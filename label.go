@@ -49,21 +49,21 @@ type Label struct {
 	Aliases        []*Alias `xml:"alias-list>alias"`
 }
 
-func (mble *Label) lookupResult() interface{} {
+func (mbe *Label) lookupResult() interface{} {
 	var res struct {
 		XMLName xml.Name `xml:"metadata"`
 		Ptr     *Label   `xml:"label"`
 	}
-	res.Ptr = mble
+	res.Ptr = mbe
 	return &res
 }
 
-func (mble *Label) apiEndpoint() string {
+func (mbe *Label) apiEndpoint() string {
 	return "/label"
 }
 
-func (mble *Label) id() MBID {
-	return mble.ID
+func (mbe *Label) Id() MBID {
+	return mbe.ID
 }
 
 // LookupLabel performs a label lookup request for the given MBID.
