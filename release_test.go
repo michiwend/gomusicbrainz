@@ -59,7 +59,10 @@ func TestSearchRelease(t *testing.T) {
 				ReleaseGroup: ReleaseGroup{
 					Type: "Album",
 				},
-				Date:        BrainzTime{time.Date(1991, 4, 30, 0, 0, 0, 0, time.UTC)},
+				Date: BrainzTime{
+					Time:     time.Date(1991, 4, 30, 0, 0, 0, 0, time.UTC),
+					Accuracy: Day,
+				},
 				CountryCode: "us",
 				Barcode:     "075992659222",
 				Asin:        "075992659222",

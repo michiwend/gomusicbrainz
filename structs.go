@@ -61,32 +61,40 @@ type ScoreMap map[interface{}]int
 
 type ISO31662Code string
 
-// BrainzTime implements XMLUnmarshaler interface and is only used to unmarshal
-// the XML date fields returned by WS2.
+// BrainzTimeAccuracy specifies the accuracy for the corresponding BrainzTime.
+type BrainzTimeAccuracy int
+
+const (
+	Year BrainzTimeAccuracy = iota
+	Month
+	Day
+)
+
+// BrainzTime implements the XMLUnmarshaler interface and is used to directly
+// unmarshal the XML date fields returned by WS2.
 type BrainzTime struct {
 	time.Time
+	Accuracy BrainzTimeAccuracy
 }
 
 func (t *BrainzTime) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	var v string
-	var p time.Time
 	var err error
 	d.DecodeElement(&v, &start)
 
 	switch strings.Count(v, "-") {
 	case 0:
-		p, err = time.Parse("2006", v)
+		t.Time, err = time.Parse("2006", v)
+		t.Accuracy = Year
 	case 1:
-		p, err = time.Parse("2006-01", v)
+		t.Time, err = time.Parse("2006-01", v)
+		t.Accuracy = Month
 	case 2:
-		p, err = time.Parse("2006-01-02", v)
+		t.Time, err = time.Parse("2006-01-02", v)
+		t.Accuracy = Day
 	}
 
-	if err != nil {
-		return err
-	}
-	*t = BrainzTime{p}
-	return nil
+	return err
 }
 
 // WS2ListResponse is a abstract common type that provides the Count and Offset

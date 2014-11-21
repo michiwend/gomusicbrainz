@@ -59,8 +59,11 @@ func TestSearchArtist(t *testing.T) {
 				},
 				Lifespan: Lifespan{
 					Ended: false,
-					Begin: BrainzTime{time.Date(2007, 9, 21, 0, 0, 0, 0, time.UTC)},
-					End:   BrainzTime{time.Time{}},
+					Begin: BrainzTime{
+						Time:     time.Date(2007, 9, 21, 0, 0, 0, 0, time.UTC),
+						Accuracy: Day,
+					},
+					End: BrainzTime{Time: time.Time{}},
 				},
 				Aliases: []*Alias{
 					{
@@ -131,8 +134,11 @@ func TestLookupArtist(t *testing.T) {
 		},
 		Lifespan: Lifespan{
 			Ended: false,
-			Begin: BrainzTime{time.Date(1987, 1, 1, 0, 0, 0, 0, time.UTC)},
-			End:   BrainzTime{time.Time{}},
+			Begin: BrainzTime{
+				Time:     time.Date(1987, 1, 1, 0, 0, 0, 0, time.UTC),
+				Accuracy: Year,
+			},
+			End: BrainzTime{Time: time.Time{}},
 		},
 		Relations: TargetRelationsMap{
 			"artist": []Relation{
@@ -142,9 +148,15 @@ func TestLookupArtist(t *testing.T) {
 						Type:      "member of band",
 						Target:    "54912e02-166c-49fe-ba95-cd77ef182390",
 						Direction: "backward",
-						Begin:     BrainzTime{time.Date(1987, 1, 1, 0, 0, 0, 0, time.UTC)},
-						End:       BrainzTime{time.Date(1998, 1, 1, 0, 0, 0, 0, time.UTC)},
-						Ended:     true,
+						Begin: BrainzTime{
+							Time:     time.Date(1987, 1, 1, 0, 0, 0, 0, time.UTC),
+							Accuracy: Year,
+						},
+						End: BrainzTime{
+							Time:     time.Date(1998, 1, 1, 0, 0, 0, 0, time.UTC),
+							Accuracy: Year,
+						},
+						Ended: true,
 					},
 					// TODO Attribute list
 					Artist: Artist{
@@ -163,10 +175,13 @@ func TestLookupArtist(t *testing.T) {
 						Target: "07832b54-8266-47d5-bb0e-62c7f2cf5da5",
 					},
 					Release: Release{
-						ID:          "07832b54-8266-47d5-bb0e-62c7f2cf5da5",
-						Title:       "Protection",
-						Quality:     "normal",
-						Date:        BrainzTime{time.Date(1995, 1, 24, 0, 0, 0, 0, time.UTC)},
+						ID:      "07832b54-8266-47d5-bb0e-62c7f2cf5da5",
+						Title:   "Protection",
+						Quality: "normal",
+						Date: BrainzTime{
+							Time:     time.Date(1995, 1, 24, 0, 0, 0, 0, time.UTC),
+							Accuracy: Day,
+						},
 						CountryCode: "US",
 						Barcode:     "724383988327",
 					},

@@ -51,8 +51,14 @@ func TestSearchPlace(t *testing.T) {
 					SortName: "Oxfordshire",
 				},
 				Lifespan: Lifespan{
-					Begin: BrainzTime{time.Date(1971, 1, 1, 0, 0, 0, 0, time.UTC)},
-					End:   BrainzTime{time.Date(1999, 10, 1, 0, 0, 0, 0, time.UTC)},
+					Begin: BrainzTime{
+						Time:     time.Date(1971, 1, 1, 0, 0, 0, 0, time.UTC),
+						Accuracy: Year,
+					},
+					End: BrainzTime{
+						Time:     time.Date(1999, 10, 1, 0, 0, 0, 0, time.UTC),
+						Accuracy: Month,
+					},
 					Ended: true,
 				},
 				// TODO Aliases: []*Alias
