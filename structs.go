@@ -127,9 +127,20 @@ type Alias struct {
 // always included in a release. For more information visit
 // https://musicbrainz.org/doc/Medium
 type Medium struct {
-	Format string `xml:"format"`
+	Format   string `xml:"format"`
+	Position int    `xml:"position"`
 	//DiscList TODO implement type
-	//TrackList TODO implement type
+	Tracks []*Track `xml:"track-list>track"`
+}
+
+// Track represents a recording on a particular release (or, more exactly, on
+// a particular medium). See https://musicbrainz.org/doc/Track
+type Track struct {
+	ID        MBID      `xml:"id,attr"`
+	Position  int       `xml:"position"`
+	Number    int       `xml:"number"`
+	Length    int       `xml:"length"`
+	Recording Recording `xml:"recording"`
 }
 
 type TextRepresentation struct {

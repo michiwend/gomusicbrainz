@@ -100,3 +100,5 @@ func TestSearchRelease(t *testing.T) {
 		t.Error(requestDiff(&want, returned))
 	}
 }
+
+//TODO implement Lookup test with mediums and tracks
