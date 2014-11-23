@@ -74,8 +74,43 @@ func (c *WS2Client) LookupRelease(id MBID, inc ...string) (*Release, error) {
 }
 
 // SearchRelease queries MusicBrainz´ Search Server for Releases.
-// With no fields specified searchTerm searches the release field only. For a
-// list of all valid fields visit
+//
+// Possible search fields to provide in searchTerm are:
+//
+//	arid           artist id
+//	artist         complete artist name(s) as it appears on the release
+//	artistname     an artist on the release, each artist added as a separate field
+//	asin           the Amazon ASIN for this release
+//	barcode        The barcode of this release
+//	catno          The catalog number for this release, can have multiples when major using an imprint
+//	comment        Disambiguation comment
+//	country        The two letter country code for the release country
+//	creditname     name credit on the release, each artist added as a separate field
+//	date           The release date (format: YYYY-MM-DD)
+//	discids        total number of cd ids over all mediums for the release
+//	discidsmedium  number of cd ids for the release on a medium in the release
+//	format         release format
+//	laid           The label id for this release, a release can have multiples when major using an imprint
+//	label          The name of the label for this release, can have multiples when major using an imprint
+//	lang           The language for this release. Use the three character ISO 639 codes to search for a specific language. (e.g. lang:eng)
+//	mediums        number of mediums in the release
+//	primarytype    primary type of the release group (album, single, ep, other)
+//	puid           The release contains recordings with these puids
+//	quality        The quality of the release (low, normal, high)
+//	reid           release id
+//	release        release name
+//	releaseaccent  name of the release with any accent characters retained
+//	rgid           release group id
+//	script         The 4 character script code (e.g. latn) used for this release
+//	secondarytype  secondary type of the release group (audiobook, compilation, interview, live, remix, soundtrack, spokenword)
+//	status         release status (e.g official)
+//	tag            a tag that appears on the release
+//	tracks         total number of tracks over all mediums on the release
+//	tracksmedium   number of tracks on a medium in the release
+//	type           type of the release group, old type mapping for when we did not have separate primary and secondary types
+//
+// With no fields specified searchTerm searches the release field only. For
+// more information visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release
 func (c *WS2Client) SearchRelease(searchTerm string, limit, offset int) (*ReleaseSearchResponse, error) {
 

@@ -66,8 +66,24 @@ func (c *WS2Client) LookupPlace(id MBID, inc ...string) (*Place, error) {
 }
 
 // SearchPlace queries MusicBrainz´ Search Server for Places.
+//
+// Possible search fields to provide in searchTerm are:
+//
+//	pid       the place ID
+//	address   the address of this place
+//	alias     the aliases/misspellings for this area
+//	area      area name
+//	begin     place begin date
+//	comment   disambiguation comment
+//	end       place end date
+//	ended     place ended
+//	lat       place latitude
+//	long      place longitude
+//	sortname  place sort name
+//	type      the aliases/misspellings for this place
+//
 // With no fields specified searchTerm searches the place, alias, address and
-// area fields. For a list of all valid fields visit
+// area fields. For more information visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Place
 func (c *WS2Client) SearchPlace(searchTerm string, limit, offset int) (*PlaceSearchResponse, error) {
 

@@ -36,8 +36,15 @@ type Annotation struct {
 }
 
 // SearchAnnotation queries MusicBrainz´ Search Server for Annotations.
-// With no fields specified searchTerm searches TODO. For a list of all valid
-// search fields visit
+//
+// Possible search fields to provide in searchTerm are:
+//
+//	text    The content of the annotation
+//	type    The entity type (artist, releasegroup, release, recording, work, label)
+//	name    The name of the entity
+//	entity  The entity's MBID
+//
+// For more information visit
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Annotation
 func (c *WS2Client) SearchAnnotation(searchTerm string, limit, offset int) (*AnnotationSearchResponse, error) {
 

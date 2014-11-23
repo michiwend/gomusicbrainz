@@ -63,8 +63,42 @@ func (c *WS2Client) LookupRecording(id MBID, inc ...string) (*Recording, error) 
 }
 
 // SearchRecording queries MusicBrainz´ Search Server for Recordings.
-// With no fields specified searchTerm searches the recording field only. For a
-// list of all valid fields visit
+//
+// Possible search fields to provide in searchTerm are:
+//
+//	arid             artist id
+//	artist           artist name is name(s) as it appears on the recording
+//	artistname       an artist on the recording, each artist added as a separate field
+//	creditname       name credit on the recording, each artist added as a separate field
+//	comment          recording disambiguation comment
+//	country          recording release country
+//	date             recording release date
+//	dur              duration of track in milliseconds
+//	format           recording release format
+//	isrc             ISRC of recording
+//	number           free text track number
+//	position         the medium that the recording should be found on, first medium is position 1
+//	primarytype      primary type of the release group (album, single, ep, other)
+//	puid             PUID of recording
+//	qdur             quantized duration (duration / 2000)
+//	recording        name of recording or a track associated with the recording
+//	recordingaccent  name of the recording with any accent characters retained
+//	reid             release id
+//	release          release name
+//	rgid             release group id
+//	rid              recording id
+//	secondarytype    secondary type of the release group (audiobook, compilation, interview, live, remix soundtrack, spokenword)
+//	status           Release status (official, promotion, Bootleg, Pseudo-Release)
+//	tid              track id
+//	tnum             track number on medium
+//	tracks           number of tracks in the medium on release
+//	tracksrelease    number of tracks on release as a whole
+//	tag              folksonomy tag
+//	type             type of the release group, old type mapping for when we did not have separate primary and secondary types or use standalone for standalone recordings
+//	video            true to only show video tracks
+//
+// With no fields specified searchTerm searches the recording field only. For
+// more information visit
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Recording
 func (c *WS2Client) SearchRecording(searchTerm string, limit, offset int) (*RecordingSearchResponse, error) {
 

@@ -38,8 +38,18 @@ type CDStub struct {
 }
 
 // SearchCDStub queries MusicBrainz´ Search Server for CDStubs.
-// With no fields specified searchTerm searches only the artist Field. For a
-// list of all valid fields visit
+//
+// Possible search fields to provide in searchTerm are:
+//
+//	artist   artist name
+//	title    release name
+//	barcode  release barcode
+//	comment  general comments about the release
+//	tracks   number of tracks on the CD stub
+//	discid   disc ID of the CD
+//
+// With no fields specified searchTerm searches only the artist Field. For more
+// information visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#CDStubs
 func (c *WS2Client) SearchCDStub(searchTerm string, limit, offset int) (*CDStubSearchResponse, error) {
 

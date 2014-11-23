@@ -75,8 +75,27 @@ func (c *WS2Client) LookupLabel(id MBID, inc ...string) (*Label, error) {
 }
 
 // SearchLabel queries MusicBrainz´ Search Server for Labels.
+//
+// Possible search fields to provide in searchTerm are:
+//
+//	alias        the aliases/misspellings for this label
+//	area         label area
+//	begin        label founding date
+//	code         label code (only the figures part, i.e. without "LC")
+//	comment      label comment to differentiate similar labels
+//	country      The two letter country code of the label country
+//	end          label dissolution date
+//	ended        true if know ended even if do not know end date
+//	ipi          ipi
+//	label        label name
+//	labelaccent  name of the label with any accent characters retained
+//	laid         MBID of the label
+//	sortname     label sortname
+//	type         label type
+//	tag          folksonomy tag
+//
 // With no fields specified searchTerm searches the label, sortname and alias
-// fields. For a list of all valid fields visit
+// fields. For more information visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Label
 func (c *WS2Client) SearchLabel(searchTerm string, limit, offset int) (*LabelSearchResponse, error) {
 

@@ -70,8 +70,16 @@ const (
 	Day
 )
 
-// BrainzTime implements the XMLUnmarshaler interface and is used to directly
-// unmarshal the XML date fields returned by WS2.
+// BrainzTime represents a MusicBrainz date by combining time.Time with a
+// Accuracy field to distinguish between different date accuracies e.g. "2006"
+// and "2006-01".
+//
+// You can compare the accuracy of a BrainzTime type simply by using operators:
+//
+//	// time1 represents "2006-01"
+//	// time2 represents "2006"
+//
+//	time1.Accuracy > time2.Accuray // true
 type BrainzTime struct {
 	time.Time
 	Accuracy BrainzTimeAccuracy
@@ -107,9 +115,9 @@ type WS2ListResponse struct {
 // Lifespan represents either the life span of a natural person or more
 // generally the period of time in which an entity e.g. a Label existed.
 type Lifespan struct {
-	Ended bool       `xml:"ended"`
 	Begin BrainzTime `xml:"begin"`
 	End   BrainzTime `xml:"end"`
+	Ended bool       `xml:"ended"`
 }
 
 // Alias is a type for aliases/misspellings of artists, works, areas, labels
@@ -168,14 +176,15 @@ type Relation interface {
 
 // RelationAbstract is the common abstract type for Relations.
 type RelationAbstract struct {
-	TypeID    MBID       `xml:"type-id,attr"`
-	Type      string     `xml:"type,attr"`
-	Target    string     `xml:"target"`
-	TargetID  MBID       `xml:"target-id,attr"`
-	Direction string     `xml:"direction"`
-	Begin     BrainzTime `xml:"begin"`
-	End       BrainzTime `xml:"end"`
-	Ended     bool       `xml:"ended"`
+	Type        string     `xml:"type,attr"`
+	TypeID      MBID       `xml:"type-id,attr"`
+	Target      string     `xml:"target"`
+	TargetID    MBID       `xml:"target-id,attr"`
+	OrderingKey int        `xml:"ordering-key"`
+	Direction   string     `xml:"direction"`
+	Begin       BrainzTime `xml:"begin"`
+	End         BrainzTime `xml:"end"`
+	Ended       bool       `xml:"ended"`
 }
 
 func (r *RelationAbstract) TypeOf() string {

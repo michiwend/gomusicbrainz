@@ -66,8 +66,28 @@ func (c *WS2Client) LookupReleaseGroup(id MBID, inc ...string) (*ReleaseGroup, e
 }
 
 // SearchReleaseGroup queries MusicBrainz´ Search Server for ReleaseGroups.
+//
+// Possible search fields to provide in searchTerm are:
+//
+//	arid                MBID of the release group’s artist
+//	artist              release group artist as it appears on the cover (Artist Credit)
+//	artistname          “real name” of any artist that is included in the release group’s artist credit
+//	comment             release group comment to differentiate similar release groups
+//	creditname          name of any artist in multi-artist credits, as it appears on the cover.
+//	primarytype         primary type of the release group (album, single, ep, other)
+//	rgid                MBID of the release group
+//	releasegroup        name of the release group
+//	releasegroupaccent  name of the releasegroup with any accent characters retained
+//	releases            number of releases in this release group
+//	release             name of a release that appears in the release group
+//	reid                MBID of a release that appears in the release group
+//	secondarytype       secondary type of the release group (audiobook, compilation, interview, live, remix soundtrack, spokenword)
+//	status              status of a release that appears within the release group
+//	tag                 a tag that appears on the release group
+//	type                type of the release group, old type mapping for when we did not have separate primary and secondary types
+//
 // With no fields specified searchTerm searches the releasgroup field only. For
-// a list of all valid fields visit
+// more information visit
 // https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Release_Group
 func (c *WS2Client) SearchReleaseGroup(searchTerm string, limit, offset int) (*ReleaseGroupSearchResponse, error) {
 

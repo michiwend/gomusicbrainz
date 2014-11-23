@@ -71,8 +71,29 @@ func (c *WS2Client) LookupArtist(id MBID, inc ...string) (*Artist, error) {
 }
 
 // SearchArtist queries MusicBrainz´ Search Server for Artists.
+//
+// Possible search fields to provide in searchTerm are:
+//
+//	area          artist area
+//	beginarea     artist begin area
+//	endarea       artist end area
+//	arid          MBID of the artist
+//	artist        name of the artist
+//	artistaccent  name of the artist with any accent characters retained
+//	alias         the aliases/misspellings for the artist
+//	begin         artist birth date/band founding date
+//	comment       artist comment to differentiate similar artists
+//	country       the two letter country code for the artist country or 'unknown'
+//	end           artist death date/band dissolution date
+//	ended         true if know ended even if do not know end date
+//	gender        gender of the artist (“male”, “female”, “other”)
+//	ipi           IPI code for the artist
+//	sortname      artist sortname
+//	tag           a tag applied to the artist
+//	type          artist type (“person”, “group”, "other" or “unknown”)
+//
 // With no fields specified searchTerm searches the artist, sortname and alias
-// fields. For a list of all valid fields visit
+// fields. For more information visit
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Artist
 func (c *WS2Client) SearchArtist(searchTerm string, limit, offset int) (*ArtistSearchResponse, error) {
 

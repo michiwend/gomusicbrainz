@@ -64,8 +64,25 @@ func (c *WS2Client) LookupArea(id MBID, inc ...string) (*Area, error) {
 }
 
 // SearchArea queries MusicBrainz´ Search Server for Areas.
+//
+// Possible search fields to provide in searchTerm are:
+//
+//	aid       the area ID
+//	alias     the aliases/misspellings for this area
+//	area      area name
+//	begin     area begin date
+//	comment   disambugation comment
+//	end 	  area end date
+//	ended 	  area ended
+//	sortname  area sort name
+//	iso       area iso1, iso2 or iso3 codes
+//	iso1      area iso1 codes
+//	iso2      area iso3 codes
+//	iso3      area iso3 codes
+//	type      the aliases/misspellings for this label
+//
 // With no fields specified searchTerm searches the area and sortname fields.
-// For a list of all valid search fields visit
+// For more information visit
 // http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2/Search#Area
 func (c *WS2Client) SearchArea(searchTerm string, limit, offset int) (*AreaSearchResponse, error) {
 
