@@ -138,7 +138,7 @@ type Medium struct {
 type Track struct {
 	ID        MBID      `xml:"id,attr"`
 	Position  int       `xml:"position"`
-	Number    int       `xml:"number"`
+	Number    string    `xml:"number"`
 	Length    int       `xml:"length"`
 	Recording Recording `xml:"recording"`
 }
