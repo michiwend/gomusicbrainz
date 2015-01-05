@@ -74,6 +74,7 @@ package gomusicbrainz
 import (
 	"encoding/xml"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"net/url"
@@ -110,6 +111,25 @@ type WS2Client struct {
 func (c *WS2Client) getReqeust(data interface{}, params url.Values, endpoint string) error {
 
 	client := &http.Client{}
+
+	defaultRedirectLimit := 30
+
+	// Preserve headers on redirect
+	// See: https://github.com/golang/go/issues/4800
+	client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
+		if len(via) > defaultRedirectLimit {
+			return fmt.Errorf("%d consecutive requests(redirects)", len(via))
+		}
+		if len(via) == 0 {
+			// No redirects
+			return nil
+		}
+		// mutate the subsequent redirect requests with the first Header
+		for key, val := range via[0].Header {
+			req.Header[key] = val
+		}
+		return nil
+	}
 
 	reqUrl := *c.WS2RootURL
 	reqUrl.Path = path.Join(reqUrl.Path, endpoint)
