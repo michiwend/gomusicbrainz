@@ -107,7 +107,7 @@ type WS2Client struct {
 	userAgentHeader string
 }
 
-func (c *WS2Client) getReqeust(data interface{}, params url.Values, endpoint string) error {
+func (c *WS2Client) getRequest(data interface{}, params url.Values, endpoint string) error {
 
 	client := &http.Client{}
 
@@ -152,7 +152,7 @@ func (c *WS2Client) searchRequest(endpoint string, result interface{}, searchTer
 		"offset": {intParamToString(offset)},
 	}
 
-	if err := c.getReqeust(result, params, endpoint); err != nil {
+	if err := c.getRequest(result, params, endpoint); err != nil {
 		return err
 	}
 
@@ -175,7 +175,7 @@ func (c *WS2Client) Lookup(entity MBLookupEntity, inc ...string) error {
 		return errors.New("can't perform lookup without ID.")
 	}
 
-	return c.getReqeust(entity.lookupResult(), encodeInc(inc),
+	return c.getRequest(entity.lookupResult(), encodeInc(inc),
 		path.Join(
 			entity.apiEndpoint(),
 			string(entity.Id()),
