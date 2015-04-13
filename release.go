@@ -147,6 +147,42 @@ func (r *ReleaseSearchResponse) ResultsWithScore(score int) []*Release {
 	return res
 }
 
+// OriginalRelease is a helper function that returns the earliest release of
+// a release array with the most accurate date. It can be used to determine
+// the original/first release from releases of a release group.
+func OriginalRelease(releases []*Release) *Release {
+
+	original := releases[0] // fall back on the first item
+
+	for _, release := range releases {
+
+		if !release.Date.IsZero() {
+
+			if release.Date.Year() < original.Date.Year() {
+				original = release
+			} else if release.Date.Year() == original.Date.Year() &&
+				release.Date.Accuracy > Year {
+
+				if original.Date.Accuracy == Year ||
+					release.Date.Month() < original.Date.Month() {
+
+					original = release
+
+				} else if release.Date.Month() == original.Date.Month() &&
+					release.Date.Accuracy > Month {
+
+					if original.Date.Accuracy == Month ||
+						release.Date.Day() < original.Date.Day() {
+						original = release
+					}
+				}
+			}
+		}
+	}
+
+	return original
+}
+
 type releaseListResult struct {
 	ReleaseList struct {
 		WS2ListResponse
