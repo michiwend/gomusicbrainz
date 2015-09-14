@@ -117,9 +117,9 @@ type ReleaseGroupSearchResponse struct {
 // ResultsWithScore returns a slice of ReleaseGroups with a specific score.
 func (r *ReleaseGroupSearchResponse) ResultsWithScore(score int) []*ReleaseGroup {
 	var res []*ReleaseGroup
-	for k, v := range r.Scores {
-		if v == score {
-			res = append(res, k.(*ReleaseGroup))
+	for _, v := range r.ReleaseGroups {
+		if r.Scores[v] == score {
+			res = append(res, v)
 		}
 	}
 	return res

@@ -112,9 +112,9 @@ type PlaceSearchResponse struct {
 // ResultsWithScore returns a slice of Places with a specific score.
 func (r *PlaceSearchResponse) ResultsWithScore(score int) []*Place {
 	var res []*Place
-	for k, v := range r.Scores {
-		if v == score {
-			res = append(res, k.(*Place))
+	for _, v := range r.Places {
+		if r.Scores[v] == score {
+			res = append(res, v)
 		}
 	}
 	return res

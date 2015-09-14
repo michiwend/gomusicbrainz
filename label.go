@@ -124,9 +124,9 @@ type LabelSearchResponse struct {
 // ResultsWithScore returns a slice of Labels with a specific score.
 func (r *LabelSearchResponse) ResultsWithScore(score int) []*Label {
 	var res []*Label
-	for k, v := range r.Scores {
-		if v == score {
-			res = append(res, k.(*Label))
+	for _, v := range r.Labels {
+		if r.Scores[v] == score {
+			res = append(res, v)
 		}
 	}
 	return res

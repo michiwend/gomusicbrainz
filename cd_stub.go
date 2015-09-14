@@ -78,9 +78,9 @@ type CDStubSearchResponse struct {
 // ResultsWithScore returns a slice of CDStubs with a specific score.
 func (r *CDStubSearchResponse) ResultsWithScore(score int) []*CDStub {
 	var res []*CDStub
-	for k, v := range r.Scores {
-		if v == score {
-			res = append(res, k.(*CDStub))
+	for _, v := range r.CDStubs {
+		if r.Scores[v] == score {
+			res = append(res, v)
 		}
 	}
 	return res

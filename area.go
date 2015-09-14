@@ -111,9 +111,9 @@ type AreaSearchResponse struct {
 // ResultsWithScore returns a slice of Areas with a specific score.
 func (r *AreaSearchResponse) ResultsWithScore(score int) []*Area {
 	var res []*Area
-	for k, v := range r.Scores {
-		if v == score {
-			res = append(res, k.(*Area))
+	for _, v := range r.Areas {
+		if r.Scores[v] == score {
+			res = append(res, v)
 		}
 	}
 	return res

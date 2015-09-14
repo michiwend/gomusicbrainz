@@ -74,9 +74,9 @@ type AnnotationSearchResponse struct {
 // ResultsWithScore returns a slice of Annotations with a specific score.
 func (r *AnnotationSearchResponse) ResultsWithScore(score int) []*Annotation {
 	var res []*Annotation
-	for k, v := range r.Scores {
-		if v == score {
-			res = append(res, k.(*Annotation))
+	for _, v := range r.Annotations {
+		if r.Scores[v] == score {
+			res = append(res, v)
 		}
 	}
 	return res

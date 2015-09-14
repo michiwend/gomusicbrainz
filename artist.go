@@ -122,9 +122,9 @@ type ArtistSearchResponse struct {
 // ResultsWithScore returns a slice of Artists with a specific score.
 func (r *ArtistSearchResponse) ResultsWithScore(score int) []*Artist {
 	var res []*Artist
-	for k, v := range r.Scores {
-		if v == score {
-			res = append(res, k.(*Artist))
+	for _, v := range r.Artists {
+		if r.Scores[v] == score {
+			res = append(res, v)
 		}
 	}
 	return res

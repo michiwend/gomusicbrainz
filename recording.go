@@ -128,9 +128,9 @@ type RecordingSearchResponse struct {
 // ResultsWithScore returns a slice of Recordings with a specific score.
 func (r *RecordingSearchResponse) ResultsWithScore(score int) []*Recording {
 	var res []*Recording
-	for k, v := range r.Scores {
-		if v == score {
-			res = append(res, k.(*Recording))
+	for _, v := range r.Recordings {
+		if r.Scores[v] == score {
+			res = append(res, v)
 		}
 	}
 	return res

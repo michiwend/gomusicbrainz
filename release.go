@@ -139,9 +139,9 @@ type ReleaseSearchResponse struct {
 // ResultsWithScore returns a slice of Releases with a specific score.
 func (r *ReleaseSearchResponse) ResultsWithScore(score int) []*Release {
 	var res []*Release
-	for k, v := range r.Scores {
-		if v == score {
-			res = append(res, k.(*Release))
+	for _, v := range r.Releases {
+		if r.Scores[v] == score {
+			res = append(res, v)
 		}
 	}
 	return res
