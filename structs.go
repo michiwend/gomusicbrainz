@@ -160,7 +160,7 @@ type TextRepresentation struct {
 // release/recording or to credit an artist with a different name.
 // Visist https://musicbrainz.org/doc/Artist_Credit for more information.
 type ArtistCredit struct {
-	NameCredit NameCredit `xml:"name-credit"`
+	NameCredits []NameCredit `xml:"name-credit"`
 }
 
 type NameCredit struct {

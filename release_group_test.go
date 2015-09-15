@@ -44,12 +44,14 @@ func TestSearchReleaseGroup(t *testing.T) {
 				Title:       "Main Tenance",
 				PrimaryType: "Single",
 				ArtistCredit: ArtistCredit{
-					NameCredit{
-						Artist{
-							ID:             "a8fa58d8-f60b-4b83-be7c-aea1af11596b",
-							Name:           "Fred Giannelli",
-							SortName:       "Giannelli, Fred",
-							Disambiguation: "US electronic artist",
+					NameCredits: []NameCredit{
+						NameCredit{
+							Artist{
+								ID:             "a8fa58d8-f60b-4b83-be7c-aea1af11596b",
+								Name:           "Fred Giannelli",
+								SortName:       "Giannelli, Fred",
+								Disambiguation: "US electronic artist",
+							},
 						},
 					},
 				},

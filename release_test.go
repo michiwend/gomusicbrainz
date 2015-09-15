@@ -48,11 +48,13 @@ func TestSearchRelease(t *testing.T) {
 					Script:   "latn",
 				},
 				ArtistCredit: ArtistCredit{
-					NameCredit{
-						Artist{
-							ID:       "43bcca8b-9edc-4997-8343-122350e790bf",
-							Name:     "Fred Schneider",
-							SortName: "Schneider, Fred",
+					NameCredits: []NameCredit{
+						NameCredit{
+							Artist{
+								ID:       "43bcca8b-9edc-4997-8343-122350e790bf",
+								Name:     "Fred Schneider",
+								SortName: "Schneider, Fred",
+							},
 						},
 					},
 				},
