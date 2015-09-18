@@ -152,6 +152,9 @@ func (r *ReleaseSearchResponse) ResultsWithScore(score int) []*Release {
 // the original/first release from releases of a release group.
 func OriginalRelease(releases []*Release) *Release {
 
+	if len(releases) == 0 {
+		return nil
+	}
 	original := releases[0] // fall back on the first item
 
 	for _, release := range releases {
