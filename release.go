@@ -161,7 +161,7 @@ func OriginalRelease(releases []*Release) *Release {
 
 		if !release.Date.IsZero() {
 
-			if release.Date.Year() < original.Date.Year() {
+			if release.Date.Year() < original.Date.Year() || original.Date.IsZero() {
 				original = release
 			} else if release.Date.Year() == original.Date.Year() &&
 				release.Date.Accuracy > Year {
