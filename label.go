@@ -121,11 +121,11 @@ type LabelSearchResponse struct {
 	Scores ScoreMap
 }
 
-// ResultsWithScore returns a slice of Labels with a specific score.
+// ResultsWithScore returns a slice of Labels with a min score.
 func (r *LabelSearchResponse) ResultsWithScore(score int) []*Label {
 	var res []*Label
 	for _, v := range r.Labels {
-		if r.Scores[v] == score {
+		if r.Scores[v] >= score {
 			res = append(res, v)
 		}
 	}

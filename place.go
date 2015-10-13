@@ -109,11 +109,11 @@ type PlaceSearchResponse struct {
 	Scores ScoreMap
 }
 
-// ResultsWithScore returns a slice of Places with a specific score.
+// ResultsWithScore returns a slice of Places with a min score.
 func (r *PlaceSearchResponse) ResultsWithScore(score int) []*Place {
 	var res []*Place
 	for _, v := range r.Places {
-		if r.Scores[v] == score {
+		if r.Scores[v] >= score {
 			res = append(res, v)
 		}
 	}

@@ -75,11 +75,11 @@ type CDStubSearchResponse struct {
 	Scores  ScoreMap
 }
 
-// ResultsWithScore returns a slice of CDStubs with a specific score.
+// ResultsWithScore returns a slice of CDStubs with a min score.
 func (r *CDStubSearchResponse) ResultsWithScore(score int) []*CDStub {
 	var res []*CDStub
 	for _, v := range r.CDStubs {
-		if r.Scores[v] == score {
+		if r.Scores[v] >= score {
 			res = append(res, v)
 		}
 	}

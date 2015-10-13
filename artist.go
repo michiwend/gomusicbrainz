@@ -119,11 +119,11 @@ type ArtistSearchResponse struct {
 	Scores  ScoreMap
 }
 
-// ResultsWithScore returns a slice of Artists with a specific score.
+// ResultsWithScore returns a slice of Artists with a min score.
 func (r *ArtistSearchResponse) ResultsWithScore(score int) []*Artist {
 	var res []*Artist
 	for _, v := range r.Artists {
-		if r.Scores[v] == score {
+		if r.Scores[v] >= score {
 			res = append(res, v)
 		}
 	}

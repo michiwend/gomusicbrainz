@@ -71,11 +71,11 @@ type AnnotationSearchResponse struct {
 	Scores      ScoreMap
 }
 
-// ResultsWithScore returns a slice of Annotations with a specific score.
+// ResultsWithScore returns a slice of Annotations with a min score.
 func (r *AnnotationSearchResponse) ResultsWithScore(score int) []*Annotation {
 	var res []*Annotation
 	for _, v := range r.Annotations {
-		if r.Scores[v] == score {
+		if r.Scores[v] >= score {
 			res = append(res, v)
 		}
 	}

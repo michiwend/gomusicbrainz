@@ -125,11 +125,11 @@ type RecordingSearchResponse struct {
 	Scores     ScoreMap
 }
 
-// ResultsWithScore returns a slice of Recordings with a specific score.
+// ResultsWithScore returns a slice of Recordings with a min score.
 func (r *RecordingSearchResponse) ResultsWithScore(score int) []*Recording {
 	var res []*Recording
 	for _, v := range r.Recordings {
-		if r.Scores[v] == score {
+		if r.Scores[v] >= score {
 			res = append(res, v)
 		}
 	}

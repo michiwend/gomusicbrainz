@@ -108,11 +108,11 @@ type AreaSearchResponse struct {
 	Scores ScoreMap
 }
 
-// ResultsWithScore returns a slice of Areas with a specific score.
+// ResultsWithScore returns a slice of Areas with a min score.
 func (r *AreaSearchResponse) ResultsWithScore(score int) []*Area {
 	var res []*Area
 	for _, v := range r.Areas {
-		if r.Scores[v] == score {
+		if r.Scores[v] >= score {
 			res = append(res, v)
 		}
 	}

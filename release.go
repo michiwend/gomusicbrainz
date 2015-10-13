@@ -136,11 +136,11 @@ type ReleaseSearchResponse struct {
 	Scores   ScoreMap
 }
 
-// ResultsWithScore returns a slice of Releases with a specific score.
+// ResultsWithScore returns a slice of Releases with a min score.
 func (r *ReleaseSearchResponse) ResultsWithScore(score int) []*Release {
 	var res []*Release
 	for _, v := range r.Releases {
-		if r.Scores[v] == score {
+		if r.Scores[v] >= score {
 			res = append(res, v)
 		}
 	}
