@@ -75,7 +75,6 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"net/url"
 	"path"
@@ -137,14 +136,14 @@ func (c *WS2Client) getRequest(data interface{}, params url.Values, endpoint str
 
 	req, err := http.NewRequest("GET", reqUrl.String(), nil)
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 
 	req.Header.Set("User-Agent", c.userAgentHeader)
 
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 	defer resp.Body.Close()
 
