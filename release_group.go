@@ -31,13 +31,14 @@ import "encoding/xml"
 // Every release belongs to one, and only one release group. More informations
 // at https://musicbrainz.org/doc/Release_Group
 type ReleaseGroup struct {
-	ID           MBID         `xml:"id,attr"`
-	Type         string       `xml:"type,attr"`
-	PrimaryType  string       `xml:"primary-type"`
-	Title        string       `xml:"title"`
-	ArtistCredit ArtistCredit `xml:"artist-credit"`
-	Releases     []*Release   `xml:"release-list>release"` // FIXME if important unmarshal count,attr
-	Tags         []*Tag       `xml:"tag-list>tag"`
+	ID               MBID         `xml:"id,attr"`
+	Type             string       `xml:"type,attr"`
+	PrimaryType      string       `xml:"primary-type"`
+	Title            string       `xml:"title"`
+	FirstReleaseDate BrainzTime   `xml:"first-release-date"`
+	ArtistCredit     ArtistCredit `xml:"artist-credit"`
+	Releases         []*Release   `xml:"release-list>release"` // FIXME if important unmarshal count,attr
+	Tags             []*Tag       `xml:"tag-list>tag"`
 }
 
 func (mbe *ReleaseGroup) lookupResult() interface{} {
