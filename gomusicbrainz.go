@@ -104,7 +104,7 @@ func NewWS2Client(wsurl, appname, version, contact string) (*WS2Client, error) {
 // WS2Client defines a Go client for the MusicBrainz Web Service 2.
 type WS2Client struct {
 	WS2RootURL      *url.URL // The API root URL
-	RequestFilter   func(*http.Request)
+	DoRequest       func(*http.Request) (*http.Response, error)
 	userAgentHeader string
 }
 
@@ -142,11 +142,12 @@ func (c *WS2Client) getRequest(data interface{}, params url.Values, endpoint str
 
 	req.Header.Set("User-Agent", c.userAgentHeader)
 
-	if c.RequestFilter != nil {
-		c.RequestFilter(req)
+	var resp *http.Response
+	if c.DoRequest != nil {
+		resp, err = c.DoRequest(req)
+	} else {
+		resp, err = client.Do(req)
 	}
-
-	resp, err := client.Do(req)
 	if err != nil {
 		return err
 	}
