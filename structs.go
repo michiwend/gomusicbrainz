@@ -90,16 +90,18 @@ func (t *BrainzTime) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 	var err error
 	d.DecodeElement(&v, &start)
 
-	switch strings.Count(v, "-") {
-	case 0:
-		t.Time, err = time.Parse("2006", v)
-		t.Accuracy = Year
-	case 1:
-		t.Time, err = time.Parse("2006-01", v)
-		t.Accuracy = Month
-	case 2:
-		t.Time, err = time.Parse("2006-01-02", v)
-		t.Accuracy = Day
+	if v != "" {
+		switch strings.Count(v, "-") {
+		case 0:
+			t.Time, err = time.Parse("2006", v)
+			t.Accuracy = Year
+		case 1:
+			t.Time, err = time.Parse("2006-01", v)
+			t.Accuracy = Month
+		case 2:
+			t.Time, err = time.Parse("2006-01-02", v)
+			t.Accuracy = Day
+		}
 	}
 
 	return err
