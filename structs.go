@@ -132,6 +132,15 @@ type Alias struct {
 	Primary  string `xml:"primary,attr"`
 }
 
+type TrackList struct {
+	Count int `xml:"count,attr"`
+	Tracks []*Track `xml:">track"`
+}
+
+type DiscList struct {
+	Count int `xml:"count,attr"`
+}
+
 // Medium represents one of the physical, separate things you would get when
 // you buy something in a record store e.g. CDs, vinyls, etc. Mediums are
 // always included in a release. For more information visit
@@ -139,8 +148,8 @@ type Alias struct {
 type Medium struct {
 	Format   string `xml:"format"`
 	Position int    `xml:"position"`
-	//DiscList TODO implement type
-	Tracks []*Track `xml:"track-list>track"`
+	DiscList DiscList `xml:"disc-list"`
+	TrackList TrackList `xml:"track-list"`
 }
 
 // Track represents a recording on a particular release (or, more exactly, on
