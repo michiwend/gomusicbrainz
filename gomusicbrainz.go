@@ -133,6 +133,7 @@ func (c *WS2Client) getRequest(data interface{}, params url.Values, endpoint str
 	reqUrl := *c.WS2RootURL
 	reqUrl.Path = path.Join(reqUrl.Path, endpoint)
 	reqUrl.RawQuery = params.Encode()
+	println(reqUrl.String())
 
 	req, err := http.NewRequest("GET", reqUrl.String(), nil)
 	if err != nil {
@@ -148,10 +149,11 @@ func (c *WS2Client) getRequest(data interface{}, params url.Values, endpoint str
 	defer resp.Body.Close()
 
 	decoder := xml.NewDecoder(resp.Body)
-
-	if err = decoder.Decode(data); err != nil {
+	newData := &LookupDiscIdResponse{}
+	if err = decoder.Decode(newData); err != nil {
 		return err
 	}
+	println(&newData)
 	return nil
 }
 

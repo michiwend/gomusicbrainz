@@ -25,7 +25,11 @@
 
 package gomusicbrainz
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+	"net/url"
+	"path"
+)
 
 // Release represents a unique release (i.e. issuing) of a product on a
 // specific date with specific release information such as the country, label,
@@ -48,6 +52,10 @@ type Release struct {
 	Relations          TargetRelationsMap `xml:"relation-list"`
 }
 
+type DiscIdRelease struct {
+	Release
+}
+
 func (mbe *Release) lookupResult() interface{} {
 	var res struct {
 		XMLName xml.Name `xml:"metadata"`
@@ -57,6 +65,40 @@ func (mbe *Release) lookupResult() interface{} {
 	return &res
 }
 
+type LookupDiscIdResponse struct {
+	XMLName xml.Name `xml:"metadata"`
+	id MBID
+	Releases []*Release `xml:"release-list>release"`
+}
+
+func (l LookupDiscIdResponse) Id() MBID {
+	return l.id
+}
+
+func (LookupDiscIdResponse) apiEndpoint() string {
+	return "discid"
+}
+
+func (d *LookupDiscIdResponse) lookupResult() interface{} {
+	var res struct {
+		XMLName xml.Name `xml:"metadata"`
+		Ptr []*Release `xml:"release-list>release"`
+	}
+	res.Ptr = d.Releases
+	return &res
+}
+
+func (c *WS2Client) LookupDiscId(toc string, inc ...string) ([]*Release, error) {
+	result := &LookupDiscIdResponse{id:"-"}
+	err := c.getRequest(result.lookupResult(), url.Values{"toc": []string{toc}, "cdstubs": []string{"no"}},
+		path.Join(
+			result.apiEndpoint(),
+			string(result.Id()),
+		),
+	)
+	return result.Releases, err
+}
+
 func (mbe *Release) apiEndpoint() string {
 	return "/release"
 }
@@ -64,6 +106,8 @@ func (mbe *Release) apiEndpoint() string {
 func (mbe *Release) Id() MBID {
 	return mbe.ID
 }
+
+
 
 // LookupRelease performs a release lookup request for the given MBID.
 func (c *WS2Client) LookupRelease(id MBID, inc ...string) (*Release, error) {
