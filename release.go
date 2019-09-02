@@ -66,8 +66,8 @@ func (mbe *Release) lookupResult() interface{} {
 }
 
 type LookupDiscIdResponse struct {
-	XMLName xml.Name `xml:"metadata"`
-	id MBID
+	XMLName  xml.Name `xml:"metadata"`
+	id       MBID
 	Releases []*Release `xml:"release-list>release"`
 }
 
@@ -81,15 +81,15 @@ func (LookupDiscIdResponse) apiEndpoint() string {
 
 func (d *LookupDiscIdResponse) lookupResult() interface{} {
 	var res struct {
-		XMLName xml.Name `xml:"metadata"`
-		Ptr *[]*Release `xml:"release-list>release"`
+		XMLName xml.Name    `xml:"metadata"`
+		Ptr     *[]*Release `xml:"release-list>release"`
 	}
 	res.Ptr = &d.Releases
 	return &res
 }
 
 func (c *WS2Client) LookupDiscId(toc string, inc ...string) ([]*Release, error) {
-	result := &LookupDiscIdResponse{id:"-"}
+	result := &LookupDiscIdResponse{id: "-"}
 	err := c.getRequest(result.lookupResult(), url.Values{"toc": []string{toc}, "cdstubs": []string{"no"}},
 		path.Join(
 			result.apiEndpoint(),
@@ -106,8 +106,6 @@ func (mbe *Release) apiEndpoint() string {
 func (mbe *Release) Id() MBID {
 	return mbe.ID
 }
-
-
 
 // LookupRelease performs a release lookup request for the given MBID.
 func (c *WS2Client) LookupRelease(id MBID, inc ...string) (*Release, error) {

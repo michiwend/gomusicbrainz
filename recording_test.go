@@ -53,6 +53,8 @@ func TestSearchRecording(t *testing.T) {
 						},
 					},
 				},
+				IsrcList: []Isrc{{Id: "USDJ20400074"}},
+
 				//TODO add missing fields
 			},
 		},

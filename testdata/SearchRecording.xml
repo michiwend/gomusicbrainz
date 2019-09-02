@@ -12,6 +12,9 @@
                 </artist>
             </name-credit>
         </artist-credit>
+        <isrc-list count="1">
+            <isrc id="USDJ20400074"/>
+        </isrc-list>
         <release-list>
             <release id="ae050d13-7f86-495e-9918-10d8c0ac58e8">
                 <title>Fred</title>

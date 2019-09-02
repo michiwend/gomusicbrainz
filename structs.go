@@ -133,7 +133,7 @@ type Alias struct {
 }
 
 type TrackList struct {
-	Count int `xml:"count,attr"`
+	Count  int      `xml:"count,attr"`
 	Tracks []*Track `xml:"track"`
 }
 
@@ -146,9 +146,9 @@ type DiscList struct {
 // always included in a release. For more information visit
 // https://musicbrainz.org/doc/Medium
 type Medium struct {
-	Format   string `xml:"format"`
-	Position int    `xml:"position"`
-	DiscList DiscList `xml:"disc-list"`
+	Format    string    `xml:"format"`
+	Position  int       `xml:"position"`
+	DiscList  DiscList  `xml:"disc-list"`
 	TrackList TrackList `xml:"track-list"`
 }
 
@@ -176,6 +176,10 @@ type ArtistCredit struct {
 
 type NameCredit struct {
 	Artist Artist `xml:"artist"`
+}
+
+type Isrc struct {
+	Id string `xml:"id,attr"`
 }
 
 // Relation describes a relationship between different MusicBrainz entities.
