@@ -134,7 +134,7 @@ type Alias struct {
 
 type TrackList struct {
 	Count int `xml:"count,attr"`
-	Tracks []*Track `xml:">track"`
+	Tracks []*Track `xml:"track"`
 }
 
 type DiscList struct {

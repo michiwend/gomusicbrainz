@@ -149,11 +149,9 @@ func (c *WS2Client) getRequest(data interface{}, params url.Values, endpoint str
 	defer resp.Body.Close()
 
 	decoder := xml.NewDecoder(resp.Body)
-	newData := &LookupDiscIdResponse{}
-	if err = decoder.Decode(newData); err != nil {
+	if err = decoder.Decode(data); err != nil {
 		return err
 	}
-	println(&newData)
 	return nil
 }
 

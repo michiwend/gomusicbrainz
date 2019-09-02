@@ -82,9 +82,9 @@ func (LookupDiscIdResponse) apiEndpoint() string {
 func (d *LookupDiscIdResponse) lookupResult() interface{} {
 	var res struct {
 		XMLName xml.Name `xml:"metadata"`
-		Ptr []*Release `xml:"release-list>release"`
+		Ptr *[]*Release `xml:"release-list>release"`
 	}
-	res.Ptr = d.Releases
+	res.Ptr = &d.Releases
 	return &res
 }
 
