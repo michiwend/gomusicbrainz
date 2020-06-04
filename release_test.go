@@ -78,7 +78,7 @@ func TestSearchRelease(t *testing.T) {
 				},
 				Mediums: []*Medium{
 					{
-						Format:    "cd",
+						Format:    Format{Id:"",Name:"cd"},
 						TrackList: TrackList{Count: 9},
 						DiscList:  DiscList{Count: 2},
 					},

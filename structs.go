@@ -181,6 +181,7 @@ type ArtistCredit struct {
 
 type NameCredit struct {
 	Artist Artist `xml:"artist"`
+	JoinPhrase string `xml:"joinphrase,attr"`
 }
 
 type Isrc struct {
