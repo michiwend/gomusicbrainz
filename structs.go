@@ -141,12 +141,17 @@ type DiscList struct {
 	Count int `xml:"count,attr"`
 }
 
+type Format struct {
+	Id       string `xml:"id,attr"`
+	Name     string `xml:",chardata"`
+}
+
 // Medium represents one of the physical, separate things you would get when
 // you buy something in a record store e.g. CDs, vinyls, etc. Mediums are
 // always included in a release. For more information visit
 // https://musicbrainz.org/doc/Medium
 type Medium struct {
-	Format    string    `xml:"format"`
+	Format    Format    `xml:"format"`
 	Position  int       `xml:"position"`
 	DiscList  DiscList  `xml:"disc-list"`
 	TrackList TrackList `xml:"track-list"`
