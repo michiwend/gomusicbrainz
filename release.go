@@ -37,12 +37,12 @@ import (
 type Release struct {
 	ID                 MBID               `xml:"id,attr"`
 	Title              string             `xml:"title"`
-	Status             Status             `xml:"status"`
+	Status             *Status             `xml:"status"`
 	Disambiguation     string             `xml:"disambiguation"`
-	TextRepresentation TextRepresentation `xml:"text-representation"`
-	ArtistCredit       ArtistCredit       `xml:"artist-credit"`
-	ReleaseGroup       ReleaseGroup       `xml:"release-group"`
-	Date               BrainzTime         `xml:"date"`
+	TextRepresentation *TextRepresentation `xml:"text-representation"`
+	ArtistCredit       *ArtistCredit       `xml:"artist-credit"`
+	ReleaseGroup       *ReleaseGroup       `xml:"release-group"`
+	Date               *BrainzTime         `xml:"date"`
 	CountryCode        string             `xml:"country"`
 	Barcode            string             `xml:"barcode"`
 	Asin               string             `xml:"asin"`
@@ -50,7 +50,7 @@ type Release struct {
 	LabelInfos         []LabelInfo        `xml:"label-info-list>label-info"`
 	Mediums            []*Medium          `xml:"medium-list>medium"`
 	Relations          TargetRelationsMap `xml:"relation-list"`
-	Packaging          Packaging          `xml:"packaging"`
+	Packaging          *Packaging          `xml:"packaging"`
 	ReleaseEvents      *ReleaseEventList  `xml:"release-event-list"`
 }
 

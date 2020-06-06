@@ -44,7 +44,7 @@ func TestSearchRecording(t *testing.T) {
 				Length: 473000,
 				ArtistCredit: ArtistCredit{
 					NameCredits: []NameCredit{
-						NameCredit{
+						{
 							Artist{
 								ID:       "695e75b5-c6db-43ee-abeb-2f3e50d96c3e",
 								Name:     "Imperiet",

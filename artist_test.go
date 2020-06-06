@@ -47,23 +47,23 @@ func TestSearchArtist(t *testing.T) {
 				SortName:       "0Gopher And Friends",
 				CountryCode:    "DE",
 				Gender:         "nogender",
-				Area: Area{
+				Area: &Area{
 					ID:       "some-area-id",
 					Name:     "Augsburg",
 					SortName: "Augsburg",
 				},
-				BeginArea: Area{
+				BeginArea: &Area{
 					ID:       "some-area-id",
 					Name:     "Mountain View",
 					SortName: "Mountain View",
 				},
-				Lifespan: Lifespan{
+				Lifespan: &Lifespan{
 					Ended: false,
-					Begin: BrainzTime{
+					Begin: &BrainzTime{
 						Time:     time.Date(2007, 9, 21, 0, 0, 0, 0, time.UTC),
 						Accuracy: Day,
 					},
-					End: BrainzTime{Time: time.Time{}},
+					End: &BrainzTime{Time: time.Time{}},
 				},
 				Aliases: []*Alias{
 					{
@@ -116,7 +116,7 @@ func TestLookupArtist(t *testing.T) {
 		Disambiguation: "",
 		SortName:       "Massive Attack",
 		CountryCode:    "",
-		Area: Area{
+		Area: &Area{
 			ID:       "40d758a4-b7c2-40f3-b439-5efbd2a3b038",
 			Name:     "Bristol",
 			SortName: "Bristol",
@@ -124,7 +124,7 @@ func TestLookupArtist(t *testing.T) {
 				"GB",
 			},
 		},
-		BeginArea: Area{
+		BeginArea: &Area{
 			ID:       "40d758a4-b7c2-40f3-b439-5efbd2a3b038",
 			Name:     "Bristol",
 			SortName: "Bristol",
@@ -132,13 +132,13 @@ func TestLookupArtist(t *testing.T) {
 				"GB",
 			},
 		},
-		Lifespan: Lifespan{
+		Lifespan: &Lifespan{
 			Ended: false,
-			Begin: BrainzTime{
+			Begin: &BrainzTime{
 				Time:     time.Date(1987, 1, 1, 0, 0, 0, 0, time.UTC),
 				Accuracy: Year,
 			},
-			End: BrainzTime{Time: time.Time{}},
+			End: &BrainzTime{Time: time.Time{}},
 		},
 		Relations: TargetRelationsMap{
 			"artist": []Relation{
@@ -178,7 +178,7 @@ func TestLookupArtist(t *testing.T) {
 						ID:      "07832b54-8266-47d5-bb0e-62c7f2cf5da5",
 						Title:   "Protection",
 						Quality: "normal",
-						Date: BrainzTime{
+						Date: &BrainzTime{
 							Time:     time.Date(1995, 1, 24, 0, 0, 0, 0, time.UTC),
 							Accuracy: Day,
 						},

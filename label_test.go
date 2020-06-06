@@ -53,7 +53,7 @@ func TestSearchLabel(t *testing.T) {
 					SortName: "Germany",
 				},
 				Lifespan: Lifespan{
-					Begin: BrainzTime{
+					Begin: &BrainzTime{
 						Time:     time.Date(1994, 1, 1, 0, 0, 0, 0, time.UTC),
 						Accuracy: Year,
 					},
