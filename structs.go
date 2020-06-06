@@ -117,8 +117,8 @@ type WS2ListResponse struct {
 // Lifespan represents either the life span of a natural person or more
 // generally the period of time in which an entity e.g. a Label existed.
 type Lifespan struct {
-	Begin BrainzTime `xml:"begin"`
-	End   BrainzTime `xml:"end"`
+	Begin *BrainzTime `xml:"begin"`
+	End   *BrainzTime `xml:"end"`
 	Ended bool       `xml:"ended"`
 }
 
