@@ -41,6 +41,11 @@ type ReleaseGroup struct {
 	Tags             []*Tag       `xml:"tag-list>tag"`
 }
 
+type ReleaseGroupList struct {
+	Count int `xml:"count,attr"`
+	ReleaseGroups []*ReleaseGroup `xml:"release-group"`
+}
+
 func (mbe *ReleaseGroup) lookupResult() interface{} {
 	var res struct {
 		XMLName xml.Name      `xml:"metadata"`
