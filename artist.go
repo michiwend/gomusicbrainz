@@ -43,6 +43,7 @@ type Artist struct {
 	Aliases        []*Alias           `xml:"alias-list>alias"`
 	Tags           []Tag              `xml:"tag-list>tag"`
 	Relations      TargetRelationsMap `xml:"relation-list"`
+	Releases       *ReleaseList       `xml:"release-list"`
 }
 
 func (mbe *Artist) lookupResult() interface{} {

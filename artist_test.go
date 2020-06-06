@@ -120,16 +120,16 @@ func TestLookupArtist(t *testing.T) {
 			ID:       "40d758a4-b7c2-40f3-b439-5efbd2a3b038",
 			Name:     "Bristol",
 			SortName: "Bristol",
-			ISO31662Codes: []ISO31662Code{
-				"GB-BST",
+			ISO31661Codes: []ISO31661Code{
+				"GB",
 			},
 		},
 		BeginArea: Area{
 			ID:       "40d758a4-b7c2-40f3-b439-5efbd2a3b038",
 			Name:     "Bristol",
 			SortName: "Bristol",
-			ISO31662Codes: []ISO31662Code{
-				"GB-BST",
+			ISO31661Codes: []ISO31661Code{
+				"GB",
 			},
 		},
 		Lifespan: Lifespan{

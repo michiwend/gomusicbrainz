@@ -59,6 +59,11 @@ type ReleaseEventList struct {
 	Events []*ReleaseEvent `xml:"release-event"`
 }
 
+type ReleaseList struct {
+	Count int `xml:"count,attr"`
+	Releases []*Release `xml:"release"`
+}
+
 type ReleaseEvent struct {
 	Date string `xml:"date"`
 	Area *Area `xml:"area"`
@@ -104,9 +109,9 @@ func (LookupDiscIdResponse) apiEndpoint() string {
 func (d *LookupDiscIdResponse) lookupResult() interface{} {
 	var res struct {
 		XMLName xml.Name    `xml:"metadata"`
-		Ptr     *[]*Release `xml:"release-list>release"`
+		Ptr     *ReleaseList `xml:"release-list"`
 	}
-	res.Ptr = &d.Releases
+	res.Ptr = &ReleaseList{Count: len(d.Releases),Releases:d.Releases}
 	return &res
 }
 
