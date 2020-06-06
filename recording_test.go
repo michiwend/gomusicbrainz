@@ -50,6 +50,7 @@ func TestSearchRecording(t *testing.T) {
 								Name:     "Imperiet",
 								SortName: "Imperiet",
 							},
+							"",
 						},
 					},
 				},

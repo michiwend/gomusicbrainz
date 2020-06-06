@@ -42,19 +42,23 @@ func TestSearchRelease(t *testing.T) {
 			{
 				ID:     "9ab1b03e-6722-4ab8-bc7f-a8722f0d34c1",
 				Title:  "Fred Schneider & The Shake Society",
-				Status: "official",
+				Status: Status{
+					ID:     "",
+					Status: "official",
+				},
 				TextRepresentation: TextRepresentation{
 					Language: "eng",
 					Script:   "latn",
 				},
 				ArtistCredit: ArtistCredit{
 					NameCredits: []NameCredit{
-						NameCredit{
-							Artist{
+						{
+							Artist:Artist{
 								ID:       "43bcca8b-9edc-4997-8343-122350e790bf",
 								Name:     "Fred Schneider",
 								SortName: "Schneider, Fred",
 							},
+							JoinPhrase:"",
 						},
 					},
 				},

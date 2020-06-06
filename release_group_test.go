@@ -52,6 +52,7 @@ func TestSearchReleaseGroup(t *testing.T) {
 								SortName:       "Giannelli, Fred",
 								Disambiguation: "US electronic artist",
 							},
+							"",
 						},
 					},
 				},

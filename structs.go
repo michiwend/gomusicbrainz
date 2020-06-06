@@ -137,8 +137,24 @@ type TrackList struct {
 	Tracks []*Track `xml:"track"`
 }
 
+type OffsetRecord struct {
+	Position int `xml:"position,attr"`
+	Offset int `xml:",chardata"`
+}
+
+type OffsetList struct {
+	Count int `xml:"count,attr"`
+	Offsets []*OffsetRecord `xml:"offset"`
+}
+
+type Disc struct {
+	Id       string `xml:"id,attr"`
+	Sectors  int    `xml:"sectors"`
+}
+
 type DiscList struct {
 	Count int `xml:"count,attr"`
+	Discs []*Disc `xml:"disc"`
 }
 
 type Format struct {

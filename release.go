@@ -37,7 +37,7 @@ import (
 type Release struct {
 	ID                 MBID               `xml:"id,attr"`
 	Title              string             `xml:"title"`
-	Status             string             `xml:"status"`
+	Status             Status             `xml:"status"`
 	Disambiguation     string             `xml:"disambiguation"`
 	TextRepresentation TextRepresentation `xml:"text-representation"`
 	ArtistCredit       ArtistCredit       `xml:"artist-credit"`
@@ -50,6 +50,27 @@ type Release struct {
 	LabelInfos         []LabelInfo        `xml:"label-info-list>label-info"`
 	Mediums            []*Medium          `xml:"medium-list>medium"`
 	Relations          TargetRelationsMap `xml:"relation-list"`
+	Packaging          Packaging          `xml:"packaging"`
+	ReleaseEvents      *ReleaseEventList  `xml:"release-event-list"`
+}
+
+type ReleaseEventList struct {
+	Count int `xml:"count,attr"`
+}
+
+type ReleaseEvent struct {
+	Date string `xml:"date"`
+	Area *Area `xml:"area"`
+}
+
+type Status struct {
+	ID MBID `xml:"id,attr"`
+	Status string `xml:",chardata"`
+}
+
+type Packaging struct {
+	ID  MBID `xml:"id,attr"`
+	Name string `xml:",chardata"`
 }
 
 type DiscIdRelease struct {
