@@ -56,6 +56,7 @@ type Release struct {
 
 type ReleaseEventList struct {
 	Count int `xml:"count,attr"`
+	Events []*ReleaseEvent `xml:"release-event"`
 }
 
 type ReleaseEvent struct {
