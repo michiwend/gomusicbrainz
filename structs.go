@@ -177,6 +177,7 @@ type Medium struct {
 // a particular medium). See https://musicbrainz.org/doc/Track
 type Track struct {
 	ID        MBID      `xml:"id,attr"`
+        Title     string    `xml:"title"`
 	Position  int       `xml:"position"`
 	Number    string    `xml:"number"`
 	Length    int       `xml:"length"`
