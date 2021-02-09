@@ -216,8 +216,10 @@ type Relation interface {
 type RelationAbstract struct {
 	Type        string     `xml:"type,attr"`
 	TypeID      MBID       `xml:"type-id,attr"`
-	Target      string     `xml:"target"`
-	TargetID    MBID       `xml:"target-id,attr"`
+	Target      struct{
+		Value string `xml:",chardata"`
+		ID    MBID   `xml:"id,attr"`
+	}
 	OrderingKey int        `xml:"ordering-key"`
 	Direction   string     `xml:"direction"`
 	Begin       BrainzTime `xml:"begin"`
