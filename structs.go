@@ -219,7 +219,7 @@ type RelationAbstract struct {
 	Target      struct{
 		Value string `xml:",chardata"`
 		ID    MBID   `xml:"id,attr"`
-	}
+	} `xml:"target"`
 	OrderingKey int        `xml:"ordering-key"`
 	Direction   string     `xml:"direction"`
 	Begin       BrainzTime `xml:"begin"`
