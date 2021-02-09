@@ -32,17 +32,20 @@ import "encoding/xml"
 type Artist struct {
 	ID             MBID               `xml:"id,attr"`
 	Type           string             `xml:"type,attr"`
+	TypeID         MBID               `xml:"type-id,attr"`
 	Name           string             `xml:"name"`
 	Disambiguation string             `xml:"disambiguation"`
 	SortName       string             `xml:"sort-name"`
 	CountryCode    string             `xml:"country"`
 	Gender         string             `xml:"gender"`
-	Lifespan       Lifespan           `xml:"life-span"`
-	Area           Area               `xml:"area"`
-	BeginArea      Area               `xml:"begin-area"`
+	Lifespan       *Lifespan           `xml:"life-span"`
+	Area           *Area               `xml:"area"`
+	BeginArea      *Area               `xml:"begin-area"`
 	Aliases        []*Alias           `xml:"alias-list>alias"`
 	Tags           []Tag              `xml:"tag-list>tag"`
 	Relations      TargetRelationsMap `xml:"relation-list"`
+	Releases       *ReleaseList       `xml:"release-list"`
+	ReleaseGroups  *ReleaseGroupList  `xml:"release-group-list"`
 }
 
 func (mbe *Artist) lookupResult() interface{} {

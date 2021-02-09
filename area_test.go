@@ -43,8 +43,8 @@ func TestSearchArea(t *testing.T) {
 				Type:     "Subdivision",
 				Name:     "Île-de-France",
 				SortName: "Île-de-France",
-				ISO31662Codes: []ISO31662Code{
-					"FR-J",
+				ISO31661Codes: []ISO31661Code{
+					"FR",
 				},
 				Lifespan: Lifespan{
 					Ended: false,

@@ -37,8 +37,13 @@ type ReleaseGroup struct {
 	Title            string       `xml:"title"`
 	FirstReleaseDate BrainzTime   `xml:"first-release-date"`
 	ArtistCredit     ArtistCredit `xml:"artist-credit"`
-	Releases         []*Release   `xml:"release-list>release"` // FIXME if important unmarshal count,attr
+	Releases         *ReleaseList `xml:"release-list"` // FIXME if important unmarshal count,attr
 	Tags             []*Tag       `xml:"tag-list>tag"`
+}
+
+type ReleaseGroupList struct {
+	Count int `xml:"count,attr"`
+	ReleaseGroups []*ReleaseGroup `xml:"release-group"`
 }
 
 func (mbe *ReleaseGroup) lookupResult() interface{} {

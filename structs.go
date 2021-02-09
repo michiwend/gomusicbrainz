@@ -117,8 +117,8 @@ type WS2ListResponse struct {
 // Lifespan represents either the life span of a natural person or more
 // generally the period of time in which an entity e.g. a Label existed.
 type Lifespan struct {
-	Begin BrainzTime `xml:"begin"`
-	End   BrainzTime `xml:"end"`
+	Begin *BrainzTime `xml:"begin"`
+	End   *BrainzTime `xml:"end"`
 	Ended bool       `xml:"ended"`
 }
 
@@ -132,21 +132,52 @@ type Alias struct {
 	Primary  string `xml:"primary,attr"`
 }
 
+type TrackList struct {
+	Count  int      `xml:"count,attr"`
+	Tracks []*Track `xml:"track"`
+}
+
+type OffsetRecord struct {
+	Position int `xml:"position,attr"`
+	Offset int `xml:",chardata"`
+}
+
+type OffsetList struct {
+	Count int `xml:"count,attr"`
+	Offsets []*OffsetRecord `xml:"offset"`
+}
+
+type Disc struct {
+	Id       string `xml:"id,attr"`
+	Sectors  int    `xml:"sectors"`
+}
+
+type DiscList struct {
+	Count int `xml:"count,attr"`
+	Discs []*Disc `xml:"disc"`
+}
+
+type Format struct {
+	Id       string `xml:"id,attr"`
+	Name     string `xml:",chardata"`
+}
+
 // Medium represents one of the physical, separate things you would get when
 // you buy something in a record store e.g. CDs, vinyls, etc. Mediums are
 // always included in a release. For more information visit
 // https://musicbrainz.org/doc/Medium
 type Medium struct {
-	Format   string `xml:"format"`
-	Position int    `xml:"position"`
-	//DiscList TODO implement type
-	Tracks []*Track `xml:"track-list>track"`
+	Format    Format    `xml:"format"`
+	Position  int       `xml:"position"`
+	DiscList  DiscList  `xml:"disc-list"`
+	TrackList TrackList `xml:"track-list"`
 }
 
 // Track represents a recording on a particular release (or, more exactly, on
 // a particular medium). See https://musicbrainz.org/doc/Track
 type Track struct {
 	ID        MBID      `xml:"id,attr"`
+        Title     string    `xml:"title"`
 	Position  int       `xml:"position"`
 	Number    string    `xml:"number"`
 	Length    int       `xml:"length"`
@@ -167,6 +198,11 @@ type ArtistCredit struct {
 
 type NameCredit struct {
 	Artist Artist `xml:"artist"`
+	JoinPhrase string `xml:"joinphrase,attr"`
+}
+
+type Isrc struct {
+	Id string `xml:"id,attr"`
 }
 
 // Relation describes a relationship between different MusicBrainz entities.
@@ -180,8 +216,10 @@ type Relation interface {
 type RelationAbstract struct {
 	Type        string     `xml:"type,attr"`
 	TypeID      MBID       `xml:"type-id,attr"`
-	Target      string     `xml:"target"`
-	TargetID    MBID       `xml:"target-id,attr"`
+	Target      struct{
+		Value string `xml:",chardata"`
+		ID    MBID   `xml:"id,attr"`
+	} `xml:"target"`
 	OrderingKey int        `xml:"ordering-key"`
 	Direction   string     `xml:"direction"`
 	Begin       BrainzTime `xml:"begin"`

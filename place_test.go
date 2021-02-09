@@ -51,11 +51,11 @@ func TestSearchPlace(t *testing.T) {
 					SortName: "Oxfordshire",
 				},
 				Lifespan: Lifespan{
-					Begin: BrainzTime{
+					Begin: &BrainzTime{
 						Time:     time.Date(1971, 1, 1, 0, 0, 0, 0, time.UTC),
 						Accuracy: Year,
 					},
-					End: BrainzTime{
+					End: &BrainzTime{
 						Time:     time.Date(1999, 10, 1, 0, 0, 0, 0, time.UTC),
 						Accuracy: Month,
 					},

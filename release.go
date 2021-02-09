@@ -25,7 +25,11 @@
 
 package gomusicbrainz
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+	"net/url"
+	"path"
+)
 
 // Release represents a unique release (i.e. issuing) of a product on a
 // specific date with specific release information such as the country, label,
@@ -33,12 +37,12 @@ import "encoding/xml"
 type Release struct {
 	ID                 MBID               `xml:"id,attr"`
 	Title              string             `xml:"title"`
-	Status             string             `xml:"status"`
+	Status             *Status             `xml:"status"`
 	Disambiguation     string             `xml:"disambiguation"`
-	TextRepresentation TextRepresentation `xml:"text-representation"`
-	ArtistCredit       ArtistCredit       `xml:"artist-credit"`
-	ReleaseGroup       ReleaseGroup       `xml:"release-group"`
-	Date               BrainzTime         `xml:"date"`
+	TextRepresentation *TextRepresentation `xml:"text-representation"`
+	ArtistCredit       *ArtistCredit       `xml:"artist-credit"`
+	ReleaseGroup       *ReleaseGroup       `xml:"release-group"`
+	Date               *BrainzTime         `xml:"date"`
 	CountryCode        string             `xml:"country"`
 	Barcode            string             `xml:"barcode"`
 	Asin               string             `xml:"asin"`
@@ -46,6 +50,37 @@ type Release struct {
 	LabelInfos         []LabelInfo        `xml:"label-info-list>label-info"`
 	Mediums            []*Medium          `xml:"medium-list>medium"`
 	Relations          TargetRelationsMap `xml:"relation-list"`
+	Packaging          *Packaging          `xml:"packaging"`
+	ReleaseEvents      *ReleaseEventList  `xml:"release-event-list"`
+}
+
+type ReleaseEventList struct {
+	Count int `xml:"count,attr"`
+	Events []*ReleaseEvent `xml:"release-event"`
+}
+
+type ReleaseList struct {
+	Count int `xml:"count,attr"`
+	Releases []*Release `xml:"release"`
+}
+
+type ReleaseEvent struct {
+	Date string `xml:"date"`
+	Area *Area `xml:"area"`
+}
+
+type Status struct {
+	ID MBID `xml:"id,attr"`
+	Status string `xml:",chardata"`
+}
+
+type Packaging struct {
+	ID  MBID `xml:"id,attr"`
+	Name string `xml:",chardata"`
+}
+
+type DiscIdRelease struct {
+	Release
 }
 
 func (mbe *Release) lookupResult() interface{} {
@@ -55,6 +90,40 @@ func (mbe *Release) lookupResult() interface{} {
 	}
 	res.Ptr = mbe
 	return &res
+}
+
+type LookupDiscIdResponse struct {
+	XMLName  xml.Name `xml:"metadata"`
+	id       MBID
+	Releases []*Release `xml:"release-list>release"`
+}
+
+func (l LookupDiscIdResponse) Id() MBID {
+	return l.id
+}
+
+func (LookupDiscIdResponse) apiEndpoint() string {
+	return "discid"
+}
+
+func (d *LookupDiscIdResponse) lookupResult() interface{} {
+	var res struct {
+		XMLName xml.Name    `xml:"metadata"`
+		Ptr     *ReleaseList `xml:"release-list"`
+	}
+	res.Ptr = &ReleaseList{Count: len(d.Releases),Releases:d.Releases}
+	return &res
+}
+
+func (c *WS2Client) LookupDiscId(toc string, inc ...string) ([]*Release, error) {
+	result := &LookupDiscIdResponse{id: "-"}
+	err := c.getRequest(result.lookupResult(), url.Values{"toc": []string{toc}, "cdstubs": []string{"no"}},
+		path.Join(
+			result.apiEndpoint(),
+			string(result.Id()),
+		),
+	)
+	return result.Releases, err
 }
 
 func (mbe *Release) apiEndpoint() string {

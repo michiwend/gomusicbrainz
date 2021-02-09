@@ -40,6 +40,7 @@ type Label struct {
 	ID             MBID     `xml:"id,attr"`
 	Name           string   `xml:"name"`
 	Type           string   `xml:"type,attr"`
+	TypeId         string   `xml:"type-id,attr"`
 	SortName       string   `xml:"sort-name"`
 	Disambiguation string   `xml:"disambiguation"`
 	CountryCode    string   `xml:"country"`

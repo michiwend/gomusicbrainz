@@ -85,8 +85,10 @@ import (
 // NewWS2Client returns a new instance of WS2Client. Please provide meaningful
 // information about your application as described at
 // https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
-func NewWS2Client(wsurl, appname, version, contact string) (*WS2Client, error) {
-	c := WS2Client{}
+func NewWS2Client(wsurl, appname, version, contact string, client *http.Client) (*WS2Client, error) {
+	c := WS2Client{
+		client:client,
+	}
 	var err error
 
 	c.WS2RootURL, err = url.Parse(wsurl)
@@ -105,17 +107,16 @@ func NewWS2Client(wsurl, appname, version, contact string) (*WS2Client, error) {
 type WS2Client struct {
 	WS2RootURL      *url.URL // The API root URL
 	userAgentHeader string
+	client             *http.Client
 }
 
 func (c *WS2Client) getRequest(data interface{}, params url.Values, endpoint string) error {
-
-	client := &http.Client{}
 
 	defaultRedirectLimit := 30
 
 	// Preserve headers on redirect
 	// See: https://github.com/golang/go/issues/4800
-	client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
+	c.client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
 		if len(via) > defaultRedirectLimit {
 			return fmt.Errorf("%d consecutive requests(redirects)", len(via))
 		}
@@ -141,14 +142,13 @@ func (c *WS2Client) getRequest(data interface{}, params url.Values, endpoint str
 
 	req.Header.Set("User-Agent", c.userAgentHeader)
 
-	resp, err := client.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
 
 	decoder := xml.NewDecoder(resp.Body)
-
 	if err = decoder.Decode(data); err != nil {
 		return err
 	}

@@ -33,10 +33,12 @@ type Area struct {
 	Type          string         `xml:"type,attr"`
 	Name          string         `xml:"name"`
 	SortName      string         `xml:"sort-name"`
-	ISO31662Codes []ISO31662Code `xml:"iso-3166-2-code-list>iso-3166-2-code"`
+	ISO31661Codes []ISO31661Code `xml:"iso-3166-1-code-list>iso-3166-1-code"`
 	Lifespan      Lifespan       `xml:"life-span"`
 	Aliases       []Alias        `xml:"alias-list>alias"`
 }
+
+type ISO31661Code string
 
 func (mbe *Area) lookupResult() interface{} {
 	var res struct {

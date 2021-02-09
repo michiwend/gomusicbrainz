@@ -53,6 +53,7 @@ func setupHTTPTesting() {
 		"Application Name",
 		"Version",
 		"Contact",
+		&http.Client{},
 	)
 
 	// NOTE this fixes testing since the test server does not listen on /ws/2

@@ -33,7 +33,8 @@ type Recording struct {
 	Length         int          `xml:"length"`
 	Disambiguation string       `xml:"disambiguation"`
 	ArtistCredit   ArtistCredit `xml:"artist-credit"`
-
+	IsrcList       []Isrc       `xml:"isrc-list>isrc"`
+	ReleaseList    []Release    `xml:"release-list>release"`
 	// TODO add refs
 }
 
