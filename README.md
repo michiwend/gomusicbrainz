@@ -29,11 +29,15 @@ This example demonstrates a simple search requests to find the artist
 *Parov Stelar*. You can find it as a runnable go program in the samples folder.
 ```Go
 // create a new WS2Client.
-client := gomusicbrainz.NewWS2Client(
+client, err := gomusicbrainz.NewWS2Client(
     "https://musicbrainz.org/ws/2",
     "A GoMusicBrainz example",
     "0.0.1-beta",
     "http://github.com/michiwend/gomusicbrainz")
+
+if err != nil {
+    panic(err)
+}
 
 // Search for some artist(s)
 resp, _ := client.SearchArtist(`artist:"Parov Stelar"`, -1, -1)
